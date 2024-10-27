@@ -25,17 +25,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className={`${inter.className}`}>
-        <TRPCReactProvider>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>
             <ThemeToggle />
             {children}
-          </ThemeProvider>
-        </TRPCReactProvider>
+          </TRPCReactProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

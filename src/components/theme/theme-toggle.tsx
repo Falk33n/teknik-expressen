@@ -3,10 +3,19 @@
 import { Button } from '@/components/ui';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
+  const { systemTheme, theme, setTheme } = useTheme();
+  const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+    setTheme(systemTheme === 'dark' ? 'dark' : 'light');
+    setIsMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!isMounted) return null;
   return (
     <Button
       variant='outline'
@@ -15,8 +24,7 @@ export const ThemeToggle = () => {
       aria-live='polite'
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
-      <SunIcon className='w-[1.2rem] h-[1.2rem] transition-all rotate-0 scale-100 dark:-rotate-90 dark:scale-0' />
-      <MoonIcon className='absolute w-[1.2rem] h-[1.2rem] transition-all rotate-90 scale-0 dark:rotate-0 dark:scale-100' />
+      {theme === 'light' ? <SunIcon aria-hidden /> : <MoonIcon aria-hidden />}
     </Button>
   );
 };
