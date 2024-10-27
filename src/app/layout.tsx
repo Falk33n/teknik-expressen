@@ -1,4 +1,5 @@
-import { ThemeProvider, ThemeToggle } from '@/components/theme';
+import { Navbar } from '@/components/navbar';
+import { ThemeProvider } from '@/components/theme';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc/react';
 import { type Metadata } from 'next';
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           disableTransitionOnChange
         >
           <TRPCReactProvider>
-            <ThemeToggle />
+            <Navbar />
             {children}
           </TRPCReactProvider>
         </ThemeProvider>
