@@ -1,14 +1,14 @@
 'use client';
 
-import { api } from '@/trpc/react';
+import { api_client } from '@/trpc';
 import { useState } from 'react';
 
 export function LatestPost() {
-  const [latestPost] = api.post.getLatest.useSuspenseQuery();
+  const [latestPost] = api_client.post.getLatest.useSuspenseQuery();
 
-  const utils = api.useUtils();
+  const utils = api_client.useUtils();
   const [name, setName] = useState('');
-  const createPost = api.post.create.useMutation({
+  const createPost = api_client.post.create.useMutation({
     onSuccess: async () => {
       await utils.post.invalidate();
       setName('');

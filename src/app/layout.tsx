@@ -1,7 +1,9 @@
+import { ThemeProvider, ThemeToggle } from '@/components/theme';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc/react';
 import { type Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import type { ReactNode } from 'react';
 
 const inter = Inter({
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
@@ -16,16 +18,24 @@ export const metadata: Metadata = {
   description: 'TeknikExpressen är en e-handel inom teknik',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang='en'
-      className={`${inter.className}`}
+      lang='sv'
+      suppressHydrationWarning
     >
-      <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+      <body className={`${inter.className}`}>
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ThemeToggle />
+            {children}
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );
