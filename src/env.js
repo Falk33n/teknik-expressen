@@ -10,7 +10,7 @@ export const env = createEnv({
   },
   client: {},
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_URL: process.env.SECRET_DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
   },
   skipValidation: !!process.env.SKIP_ENV_VALIDATION,
