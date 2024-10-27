@@ -13,6 +13,7 @@ export const MenuTrigger = () => {
   const handleClick = () => {
     if (menuTrigger) {
       menuTrigger.click();
+      menuTrigger.focus();
     }
   };
 
