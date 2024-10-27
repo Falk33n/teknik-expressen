@@ -1,9 +1,5 @@
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuList,
-} from '@/components/ui';
-import { cn } from '@/lib';
+import { MenuItem, menuItemData } from '@/components/navbar/menu';
+import { NavigationMenu, NavigationMenuList } from '@/components/ui';
 import type { ReactNode } from 'react';
 
 export const Menu = ({ children }: { children: ReactNode }) => {
@@ -13,20 +9,18 @@ export const Menu = ({ children }: { children: ReactNode }) => {
         {children}
       </div>
       <NavigationMenu
-        className='justify-start items-start  w-full max-w-full [&>div]:w-full'
+        className='justify-start items-start w-full max-w-full [&>div]:w-full'
         aria-label='Navigering till flikar inom webbsidan'
       >
         <NavigationMenuList
           data-orientation='vertical'
           className='flex-col space-x-0 w-full'
         >
-          {Array.from({ length: 10 }).map((_, i) => (
-            <NavigationMenuItem
-              key={i}
-              className={cn(i % 2 !== 0 && 'bg-secondary', 'w-full px-6 py-3')}
-            >
-              hello
-            </NavigationMenuItem>
+          {menuItemData.map((data, i) => (
+            <MenuItem
+              key={`menuItem-key-${i}`}
+              {...data}
+            />
           ))}
         </NavigationMenuList>
       </NavigationMenu>

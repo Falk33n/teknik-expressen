@@ -22,6 +22,7 @@ export const ThemeToggle = () => {
       size='icon'
       aria-label={`Toggle the color theme, theme is currently ${theme}`}
       aria-live='polite'
+      className='mb-56'
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >
       {theme === 'light' ? <SunIcon aria-hidden /> : <MoonIcon aria-hidden />}

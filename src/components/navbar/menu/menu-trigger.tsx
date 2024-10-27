@@ -30,7 +30,6 @@ export const MenuTrigger = () => {
       aria-label='Stäng menyn'
       aria-controls={menuTriggerId}
       aria-expanded={true}
-      tabIndex={0}
       onClick={handleClick}
     >
       <FaX

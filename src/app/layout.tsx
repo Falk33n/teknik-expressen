@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/navbar';
-import { ThemeProvider } from '@/components/theme';
+import { ThemeProvider, ThemeToggle } from '@/components/theme';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc/react';
 import { type Metadata } from 'next';
@@ -35,6 +35,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <TRPCReactProvider>
             <Navbar />
             {children}
+            <ThemeToggle />
           </TRPCReactProvider>
         </ThemeProvider>
       </body>
