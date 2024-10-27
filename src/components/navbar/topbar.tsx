@@ -1,41 +1,49 @@
 import { cn } from '@/lib';
-import { ReloadIcon } from '@radix-ui/react-icons';
-import type { IconProps } from '@radix-ui/react-icons/dist/types';
-import type {
-  ForwardRefExoticComponent,
-  ReactNode,
-  RefAttributes,
-} from 'react';
+import type { ReactNode } from 'react';
+import type { IconType } from 'react-icons';
+import { FaAward } from 'react-icons/fa';
+import { FaTruckFast } from 'react-icons/fa6';
+import { IoReloadSharp } from 'react-icons/io5';
 
 type IconWithTextProps = {
-  Icon: 
+  icon: IconType;
   children: ReactNode;
   className?: string;
 };
 
 const IconWithTextData: IconWithTextProps[] = [
   {
-    Icon: ReloadIcon,
-    children: 'Fri retur',
-    className: 'rotate-180',
+    icon: FaAward,
+    children: 'Prismatch',
   },
   {
-    Icon: Truck,
-    children: 'Reload',
-    className: 'rotate-180',
+    icon: IoReloadSharp,
+    children: 'Fri retur',
+
+    className: 'scale-x-[-1]',
+  },
+  {
+    icon: FaTruckFast,
+    children: (
+      <span aria-label='Fri frakt över 500kr'>
+        Fri frakt <span className='sm:inline hidden'>över 500kr</span>
+      </span>
+    ),
   },
 ];
 
-const IconWithText = ({ Icon, children, className }: IconWithTextProps) => {
+const IconWithText = ({
+  icon: Icon,
+  children,
+  className,
+}: IconWithTextProps) => {
   return (
-    <div className='flex items-center gap-2 font-semibold uppercase'>
-      {
-        <Icon
-          aria-hidden
-          className={cn('size-4', className)}
-        />
-      }
-      <span>{children}</span>
+    <div className='flex flex-shrink-0 items-center gap-2'>
+      <Icon
+        aria-hidden
+        className={cn('size-4 sm:size-5', className)}
+      />
+      {children}
     </div>
   );
 };
@@ -44,7 +52,7 @@ IconWithText.displayName = 'TopbarIconWithText';
 
 export const Topbar = () => {
   return (
-    <div className='flex justify-center items-center gap-8 w-full'>
+    <div className='flex justify-evenly sm:justify-center items-center gap-4 sm:gap-12 bg-secondary px-4 py-2.5 w-full font-semibold text-secondary-foreground text-xs sm:text-sm uppercase tracking-wider sm:tracking-wide'>
       {IconWithTextData.map((data, i) => (
         <IconWithText
           key={`iconWithText-key-${i}`}
