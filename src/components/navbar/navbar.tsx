@@ -1,9 +1,26 @@
+import { NavbarListItem, navbarListItemData } from '@/components/navbar';
+import { Topbar } from '@/components/navbar/topbar';
 import { ThemeToggle } from '@/components/theme';
+import { NavigationMenu, NavigationMenuList } from '@/components/ui';
 
 export const Navbar = () => {
   return (
     <header>
-      <nav></nav>
+      <Topbar />
+      <div></div>
+      <NavigationMenu
+        aria-label='Huvudnavigering'
+        className='max-lg:bottom-0 max-lg:fixed flex justify-center items-center space-x-0 bg-primary [&>div]:w-full w-full max-w-full text-primary-foreground'
+      >
+        <NavigationMenuList className='space-x-0 lg:hidden w-full'>
+          {navbarListItemData.map((data, i) => (
+            <NavbarListItem
+              key={`listItem-key-${i}`}
+              {...data}
+            />
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
       <ThemeToggle />
     </header>
   );
