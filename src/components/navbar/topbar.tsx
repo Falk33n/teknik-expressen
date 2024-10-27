@@ -8,7 +8,7 @@ import type {
 } from 'react';
 
 type IconWithTextProps = {
-  Icon: ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
+  Icon: 
   children: ReactNode;
   className?: string;
 };
@@ -20,7 +20,7 @@ const IconWithTextData: IconWithTextProps[] = [
     className: 'rotate-180',
   },
   {
-    Icon: ReloadIcon,
+    Icon: Truck,
     children: 'Reload',
     className: 'rotate-180',
   },
