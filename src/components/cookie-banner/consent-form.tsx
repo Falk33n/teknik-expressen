@@ -1,17 +1,41 @@
 'use client';
 
 import { Button, Checkbox } from '@/components/ui';
+import { useToast } from '@/hooks';
+import { api } from '@/trpc/react';
 import { useState } from 'react';
 
 export const ConsentForm = () => {
   const [isChecked, setIsChecked] = useState(true);
+  const { toast } = useToast();
+  const createConsent = api.cookie.createConsent.useMutation({
+    onSuccess: async () => {
+      toast({
+        variant: 'success',
+        title: 'Kakan skapades!',
+        description: 'Kakan har skapats med din val av samtycke och lagrats.',
+      });
+    },
+    onError: () => {
+      toast({
+        variant: 'destructive',
+        title: 'Något gick fel!',
+        description: 'Var god försök igen senare.',
+      });
+    },
+  });
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    createConsent.mutate({ hasAccepted: isChecked });
+  };
 
   return (
     <form
       noValidate
-      onSubmit={handleSubmit}
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
       className='flex flex-col gap-6'
     >
       <div className='flex items-top space-x-2'>
@@ -38,14 +62,16 @@ export const ConsentForm = () => {
       <Button
         aria-label='Acceptera valt samtycke'
         type='submit'
-        disabled={!isChecked}
+        disabled={!isChecked || createConsent.isPending}
       >
         Acceptera vald
       </Button>
       <Button
         variant='outline'
         type='submit'
+        onClick={() => setIsChecked(false)}
         aria-label='Acceptera inte samtycke'
+        disabled={createConsent.isPending}
       >
         Acceptera inte
       </Button>
