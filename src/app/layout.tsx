@@ -1,3 +1,4 @@
+import { CookieBanner } from '@/components/cookie-banner';
 import { Navbar } from '@/components/navbar';
 import { ThemeProvider, ThemeToggle } from '@/components/theme';
 import '@/styles/globals.scss';
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           disableTransitionOnChange
         >
           <TRPCReactProvider>
+            <CookieBanner />
             <Navbar />
             {children}
             <ThemeToggle />
