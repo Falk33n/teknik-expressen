@@ -1,4 +1,6 @@
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { TRPCError } from '@trpc/server';
+import { serialize } from 'cookie';
 import { z } from 'zod';
 
 export const cookieRouter = createTRPCRouter({
@@ -6,15 +8,30 @@ export const cookieRouter = createTRPCRouter({
     .input(z.object({ hasAccepted: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
       if (!ctx.db) {
-        throw new Error('Database context not found');
+        throw new TRPCError({
+          message: 'Database context not found',
+          code: 'NOT_FOUND',
+        });
       } else if (!ctx.db.cookieConsent) {
-        throw new Error('CookieConsent model not found in database');
+        throw new TRPCError({
+          message: 'CookieConsent model not found in database',
+          code: 'NOT_FOUND',
+        });
       }
 
-      ctx.headers.set(
-        'Set-Cookie',
-        `accept=${input.hasAccepted}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=31536000;`
+      const consentCookie = serialize(
+        'accepted',
+        input.hasAccepted.toString(),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 24 * 60 * 60 * 365,
+          path: '/',
+        }
       );
+      ctx.resHeaders.set('Set-Cookie', consentCookie);
+
       return ctx.db.cookieConsent.create({
         data: {
           consentGiven: input.hasAccepted,
@@ -22,7 +39,15 @@ export const cookieRouter = createTRPCRouter({
       });
     }),
 
-  getConsent: publicProcedure.query(async ({ ctx }) => {
-    return ctx.db.cookieConsent.findMany();
+  getConsentCookie: publicProcedure.query(async ({ ctx }) => {
+    const consetCookie = ctx.req.cookies.get('accepted');
+    if (consetCookie) return true;
+    else if (consetCookie === false) return false;
+    else {
+      throw new TRPCError({
+        message: 'Consent cookie not found',
+        code: 'NOT_FOUND',
+      });
+    }
   }),
 });
