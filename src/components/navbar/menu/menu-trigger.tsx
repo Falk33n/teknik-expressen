@@ -13,6 +13,7 @@ export const MenuTrigger = () => {
   const handleClick = () => {
     if (menuTrigger) {
       menuTrigger.click();
+      menuTrigger.focus();
     }
   };
 
@@ -29,7 +30,6 @@ export const MenuTrigger = () => {
       aria-label='Stäng menyn'
       aria-controls={menuTriggerId}
       aria-expanded={true}
-      tabIndex={0}
       onClick={handleClick}
     >
       <FaX

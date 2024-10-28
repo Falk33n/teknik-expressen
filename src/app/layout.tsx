@@ -1,5 +1,7 @@
+import { CookieBanner } from '@/components/cookie-banner';
 import { Navbar } from '@/components/navbar';
 import { ThemeProvider } from '@/components/theme';
+import { Toaster } from '@/components/ui';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc/react';
 import { type Metadata } from 'next';
@@ -26,17 +28,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className={`${inter.className}`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TRPCReactProvider>
+        <TRPCReactProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <CookieBanner />
             <Navbar />
             {children}
-          </TRPCReactProvider>
-        </ThemeProvider>
+            <Toaster />
+          </ThemeProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

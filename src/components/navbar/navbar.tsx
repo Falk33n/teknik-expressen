@@ -1,6 +1,5 @@
 import { NavbarListItem, navbarListItemData } from '@/components/navbar';
 import { Topbar } from '@/components/navbar/topbar';
-import { ThemeToggle } from '@/components/theme';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui';
 
 export const Navbar = () => {
@@ -21,7 +20,6 @@ export const Navbar = () => {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
-      <ThemeToggle />
     </header>
   );
 };
