@@ -8,11 +8,11 @@ import { useEffect, useState } from 'react';
 export const ThemeToggle = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
   useEffect(() => {
-    setTheme(systemTheme === 'dark' ? 'dark' : 'light');
     setIsMounted(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isMounted) return null;
@@ -20,12 +20,16 @@ export const ThemeToggle = () => {
     <Button
       variant='outline'
       size='icon'
-      aria-label={`Toggle the color theme, theme is currently ${theme}`}
+      aria-label={`Toggle the color theme, theme is currently ${currentTheme}`}
       aria-live='polite'
       className='mb-56'
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(nextTheme)}
     >
-      {theme === 'light' ? <SunIcon aria-hidden /> : <MoonIcon aria-hidden />}
+      {currentTheme === 'light' ? (
+        <SunIcon aria-hidden />
+      ) : (
+        <MoonIcon aria-hidden />
+      )}
     </Button>
   );
 };

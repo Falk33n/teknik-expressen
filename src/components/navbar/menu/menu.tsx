@@ -1,4 +1,5 @@
 import { MenuItem, menuItemData } from '@/components/navbar/menu';
+import { ThemeToggle } from '@/components/theme';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui';
 import type { ReactNode } from 'react';
 
@@ -24,6 +25,7 @@ export const Menu = ({ children }: { children: ReactNode }) => {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
+      <ThemeToggle />
     </div>
   );
 };

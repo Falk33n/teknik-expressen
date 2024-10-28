@@ -5,16 +5,17 @@ import { useToast } from '@/hooks';
 import { api } from '@/trpc/react';
 import { useState } from 'react';
 
-export const ConsentForm = () => {
+type ConsentFormProps = {
+  onConsentSubmit: (consentSubmitted: boolean) => void;
+};
+
+export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
   const [isChecked, setIsChecked] = useState(true);
   const { toast } = useToast();
+
   const createConsent = api.cookie.createConsent.useMutation({
     onSuccess: async () => {
-      toast({
-        variant: 'success',
-        title: 'Kakan skapades!',
-        description: 'Kakan har skapats med din val av samtycke och lagrats.',
-      });
+      onConsentSubmit(true);
     },
     onError: () => {
       toast({

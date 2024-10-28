@@ -1,6 +1,6 @@
 import { CookieBanner } from '@/components/cookie-banner';
 import { Navbar } from '@/components/navbar';
-import { ThemeProvider, ThemeToggle } from '@/components/theme';
+import { ThemeProvider } from '@/components/theme';
 import { Toaster } from '@/components/ui';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc/react';
@@ -38,7 +38,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <CookieBanner />
             <Navbar />
             {children}
-            <ThemeToggle />
             <Toaster />
           </ThemeProvider>
         </TRPCReactProvider>
