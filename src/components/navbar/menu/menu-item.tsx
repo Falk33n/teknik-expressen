@@ -1,3 +1,4 @@
+import { MenuLink, type MenuLinkProps } from '@/components/navbar/menu';
 import {
   Accordion,
   AccordionContent,
@@ -8,33 +9,29 @@ import {
 import { cn } from '@/lib';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
-import { BsMouse2 } from 'react-icons/bs';
-import { HiOutlineDesktopComputer } from 'react-icons/hi';
-import { IoPhonePortraitOutline, IoTvOutline } from 'react-icons/io5';
-import { LuCable } from 'react-icons/lu';
-import { TbDeviceIpad } from 'react-icons/tb';
 
-type MenuItemProps = {
+export type MenuItemProps = {
   i: number;
   title: { icon: IconType; children?: ReactNode };
-  children?: ReactNode;
+  links: MenuLinkProps[];
 };
 
 export const MenuItem = ({
   i,
   title: { icon: Icon, children: title },
-  children,
+  links,
 }: MenuItemProps) => {
   return (
-    <NavigationMenuItem
-      className={cn(i % 2 !== 0 && 'bg-secondary', 'w-full px-6')}
-    >
+    <NavigationMenuItem className='w-full'>
       <Accordion
         type='single'
         collapsible
       >
         <AccordionItem value={`accordion-item-${i}`}>
-          <AccordionTrigger aria-label={`${title}, Visa eller dölj innehållet`}>
+          <AccordionTrigger
+            aria-label={`${title}, Visa eller dölj innehållet`}
+            className={cn('px-6', i % 2 !== 0 && 'bg-secondary')}
+          >
             <span
               aria-hidden
               className='flex items-center gap-3'
@@ -47,9 +44,23 @@ export const MenuItem = ({
             </span>
           </AccordionTrigger>
           <AccordionContent
-            className={i % 2 !== 0 ? 'dark:border-background/60' : ''}
+            className={cn(
+              'pt-0 pb-12 bg-accent/20',
+              i % 2 !== 0 && 'dark:border-background/60'
+            )}
           >
-            {children}
+            <ul
+              role='menu'
+              aria-label='Lista med länkar till innehåll inom ACCORDION_ITEM_TITLE'
+              className='flex flex-col'
+            >
+              {links.map((link) => (
+                <MenuLink
+                  key={`menuLink-key-${i}`}
+                  {...link}
+                />
+              ))}
+            </ul>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -58,36 +69,3 @@ export const MenuItem = ({
 };
 
 MenuItem.displayName = 'MenuItem';
-
-export const menuItemData: MenuItemProps[] = [
-  {
-    i: 0,
-    title: { icon: BsMouse2, children: 'Datorutrustning' },
-    children: 'Hej hej',
-  },
-  {
-    i: 1,
-    title: { icon: HiOutlineDesktopComputer, children: 'Datorer' },
-    children: 'Hej hej',
-  },
-  {
-    i: 2,
-    title: { icon: TbDeviceIpad, children: 'Surfplattor' },
-    children: 'Hej hej',
-  },
-  {
-    i: 3,
-    title: { icon: IoPhonePortraitOutline, children: 'Mobiltelefoner' },
-    children: 'Hej hej',
-  },
-  {
-    i: 4,
-    title: { icon: IoTvOutline, children: 'TV' },
-    children: 'Hej hej',
-  },
-  {
-    i: 5,
-    title: { icon: LuCable, children: 'Tillbehör' },
-    children: 'Hej hej',
-  },
-];

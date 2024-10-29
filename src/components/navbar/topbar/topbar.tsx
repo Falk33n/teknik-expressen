@@ -1,7 +1,5 @@
-import {
-  TopbarIconWithText,
-  topbarIconWithTextData,
-} from '@/components/navbar/topbar';
+import { TopbarIconWithText } from '@/components/navbar/topbar';
+import { topbarIconWithTextData } from '@/components/navbar/topbar/data';
 
 export const Topbar = () => {
   return (
