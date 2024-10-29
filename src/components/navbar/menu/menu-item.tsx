@@ -6,6 +6,7 @@ import {
   NavigationMenuItem,
 } from '@/components/ui';
 import { cn } from '@/lib';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
 import { BsMouse2 } from 'react-icons/bs';
@@ -49,7 +50,7 @@ export const MenuItem = ({
           <AccordionContent
             className={i % 2 !== 0 ? 'dark:border-background/60' : ''}
           >
-            {children}
+            <ul className='flex flex-col gap-3.5'>{children}</ul>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -63,7 +64,42 @@ export const menuItemData: MenuItemProps[] = [
   {
     i: 0,
     title: { icon: BsMouse2, children: 'Datorutrustning' },
-    children: 'Hej hej',
+    children: (
+      <>
+        <li>
+          <Link
+            href=''
+            className='py-2 visible:ring-0 text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline focus-visible:underline transition-colors focus- focus-visible:outline-none decoration-primary'
+          >
+            Tangentbord
+          </Link>
+        </li>
+        <li>
+          <Link
+            href=''
+            className='py-2 focus-visible:ring-0 text-foreground focus-visible:text-primary underline-offset-4 focus-visible:outline-none hover:text-primary focus-visible:underline transition-colors focus-visible:decoration-primary'
+          >
+            Tangentbord
+          </Link>
+        </li>
+        <li>
+          <Link
+            href=''
+            className='py-2 focus-visible:ring-0 text-foreground focus-visible:text-primary underline-offset-4 focus-visible:outline-none hover:text-primary focus-visible:underline transition-colors focus-visible:decoration-primary'
+          >
+            Tangentbord
+          </Link>
+        </li>
+        <li>
+          <Link
+            href=''
+            className='py-2 focus-visible:ring-0 text-foreground focus-visible:text-primary underline-offset-4 focus-visible:outline-none hover:text-primary focus-visible:underline transition-colors focus-visible:decoration-primary'
+          >
+            Tangentbord
+          </Link>
+        </li>
+      </>
+    ),
   },
   {
     i: 1,
