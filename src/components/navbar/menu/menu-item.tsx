@@ -10,6 +10,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
 import { BsMouse2 } from 'react-icons/bs';
+import { FaRegKeyboard } from 'react-icons/fa6';
 import { HiOutlineDesktopComputer } from 'react-icons/hi';
 import { IoPhonePortraitOutline, IoTvOutline } from 'react-icons/io5';
 import { LuCable } from 'react-icons/lu';
@@ -27,15 +28,16 @@ export const MenuItem = ({
   children,
 }: MenuItemProps) => {
   return (
-    <NavigationMenuItem
-      className={cn(i % 2 !== 0 && 'bg-secondary', 'w-full px-6')}
-    >
+    <NavigationMenuItem className={cn(i % 2 !== 0 && 'bg-secondary', 'w-full')}>
       <Accordion
         type='single'
         collapsible
       >
         <AccordionItem value={`accordion-item-${i}`}>
-          <AccordionTrigger aria-label={`${title}, Visa eller dölj innehållet`}>
+          <AccordionTrigger
+            aria-label={`${title}, Visa eller dölj innehållet`}
+            className='px-6'
+          >
             <span
               aria-hidden
               className='flex items-center gap-3'
@@ -48,9 +50,18 @@ export const MenuItem = ({
             </span>
           </AccordionTrigger>
           <AccordionContent
-            className={i % 2 !== 0 ? 'dark:border-background/60' : ''}
+            className={cn(
+              'py-0 bg-accent/10',
+              i % 2 !== 0 && 'dark:border-background/60'
+            )}
           >
-            <ul className='flex flex-col gap-3.5'>{children}</ul>
+            <ul
+              role='menu'
+              aria-label='Lista med länkar till innehåll inom ACCORDION_ITEM_TITLE'
+              className='flex flex-col'
+            >
+              {children}
+            </ul>
           </AccordionContent>
         </AccordionItem>
       </Accordion>
@@ -66,36 +77,88 @@ export const menuItemData: MenuItemProps[] = [
     title: { icon: BsMouse2, children: 'Datorutrustning' },
     children: (
       <>
-        <li>
+        <li
+          role='menuitem'
+          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
+        >
           <Link
             href=''
-            className='py-2 visible:ring-0 text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline focus-visible:underline transition-colors focus- focus-visible:outline-none decoration-primary'
+            aria-label='Gå till sidan tangentbord'
+            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
           >
-            Tangentbord
+            <span
+              className='flex items-center gap-2 px-6'
+              aria-hidden
+            >
+              <FaRegKeyboard
+                aria-hidden
+                className='size-4'
+              />
+              Tangentbord
+            </span>
           </Link>
         </li>
-        <li>
+        <li
+          role='menuitem'
+          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
+        >
           <Link
             href=''
-            className='py-2 focus-visible:ring-0 text-foreground focus-visible:text-primary underline-offset-4 focus-visible:outline-none hover:text-primary focus-visible:underline transition-colors focus-visible:decoration-primary'
+            aria-label='Gå till sidan tangentbord'
+            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
           >
-            Tangentbord
+            <span
+              className='flex items-center gap-2 px-6'
+              aria-hidden
+            >
+              <FaRegKeyboard
+                aria-hidden
+                className='size-4'
+              />
+              Tangentbord
+            </span>
           </Link>
         </li>
-        <li>
+        <li
+          role='menuitem'
+          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
+        >
           <Link
             href=''
-            className='py-2 focus-visible:ring-0 text-foreground focus-visible:text-primary underline-offset-4 focus-visible:outline-none hover:text-primary focus-visible:underline transition-colors focus-visible:decoration-primary'
+            aria-label='Gå till sidan tangentbord'
+            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
           >
-            Tangentbord
+            <span
+              className='flex items-center gap-2 px-6'
+              aria-hidden
+            >
+              <FaRegKeyboard
+                aria-hidden
+                className='size-4'
+              />
+              Tangentbord
+            </span>
           </Link>
         </li>
-        <li>
+        <li
+          role='menuitem'
+          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
+        >
           <Link
             href=''
-            className='py-2 focus-visible:ring-0 text-foreground focus-visible:text-primary underline-offset-4 focus-visible:outline-none hover:text-primary focus-visible:underline transition-colors focus-visible:decoration-primary'
+            aria-label='Gå till sidan tangentbord'
+            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
           >
-            Tangentbord
+            <span
+              className='flex items-center gap-2 px-6'
+              aria-hidden
+            >
+              <FaRegKeyboard
+                aria-hidden
+                className='size-4'
+              />
+              Tangentbord
+            </span>
           </Link>
         </li>
       </>
