@@ -31,7 +31,7 @@ export const Menu = ({ children }: { children: ReactNode }) => {
         <Link
           aria-label='Gå till kundtjänst sidan'
           href=''
-          className='mb-10 py-4 border-b focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset w-full text-sm hover:text-primary hover:underline transition-colors self-start hover:decoration-primary focus-visible:outline-none'
+          className='mb-10 py-4 border-b focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset w-full text-sm hover:text-primary hover:underline transition-colors self-start hover:decoration-primary focus-visible:outline-none hover:underline-offset-4'
         >
           <span
             aria-hidden
