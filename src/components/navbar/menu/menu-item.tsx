@@ -1,3 +1,4 @@
+import { MenuLink, type MenuLinkProps } from '@/components/navbar/menu';
 import {
   Accordion,
   AccordionContent,
@@ -6,29 +7,35 @@ import {
   NavigationMenuItem,
 } from '@/components/ui';
 import { cn } from '@/lib';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
-import { BsMouse2 } from 'react-icons/bs';
+import { BsHeadset, BsLightningCharge, BsMouse2 } from 'react-icons/bs';
 import { FaRegKeyboard } from 'react-icons/fa6';
 import { HiOutlineDesktopComputer } from 'react-icons/hi';
-import { IoPhonePortraitOutline, IoTvOutline } from 'react-icons/io5';
+import { IoMdTv } from 'react-icons/io';
+import {
+  IoLaptopOutline,
+  IoPhonePortraitOutline,
+  IoPhonePortraitSharp,
+  IoTvOutline,
+} from 'react-icons/io5';
 import { LuCable } from 'react-icons/lu';
+import { MdOutlineDevicesOther } from 'react-icons/md';
 import { TbDeviceIpad } from 'react-icons/tb';
 
 type MenuItemProps = {
   i: number;
   title: { icon: IconType; children?: ReactNode };
-  children?: ReactNode;
+  links: MenuLinkProps[];
 };
 
 export const MenuItem = ({
   i,
   title: { icon: Icon, children: title },
-  children,
+  links,
 }: MenuItemProps) => {
   return (
-    <NavigationMenuItem className={cn(i % 2 !== 0 && 'bg-secondary', 'w-full')}>
+    <NavigationMenuItem className='w-full'>
       <Accordion
         type='single'
         collapsible
@@ -36,7 +43,7 @@ export const MenuItem = ({
         <AccordionItem value={`accordion-item-${i}`}>
           <AccordionTrigger
             aria-label={`${title}, Visa eller dölj innehållet`}
-            className='px-6'
+            className={cn('px-6', i % 2 !== 0 && 'bg-secondary')}
           >
             <span
               aria-hidden
@@ -51,7 +58,7 @@ export const MenuItem = ({
           </AccordionTrigger>
           <AccordionContent
             className={cn(
-              'py-0 bg-accent/10',
+              'pt-0 pb-12 bg-accent/20',
               i % 2 !== 0 && 'dark:border-background/60'
             )}
           >
@@ -60,7 +67,12 @@ export const MenuItem = ({
               aria-label='Lista med länkar till innehåll inom ACCORDION_ITEM_TITLE'
               className='flex flex-col'
             >
-              {children}
+              {links.map((link) => (
+                <MenuLink
+                  key={`menuLink-key-${i}`}
+                  {...link}
+                />
+              ))}
             </ul>
           </AccordionContent>
         </AccordionItem>
@@ -75,118 +87,100 @@ export const menuItemData: MenuItemProps[] = [
   {
     i: 0,
     title: { icon: BsMouse2, children: 'Datorutrustning' },
-    children: (
-      <>
-        <li
-          role='menuitem'
-          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
-        >
-          <Link
-            href=''
-            aria-label='Gå till sidan tangentbord'
-            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
-          >
-            <span
-              className='flex items-center gap-2 px-6'
-              aria-hidden
-            >
-              <FaRegKeyboard
-                aria-hidden
-                className='size-4'
-              />
-              Tangentbord
-            </span>
-          </Link>
-        </li>
-        <li
-          role='menuitem'
-          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
-        >
-          <Link
-            href=''
-            aria-label='Gå till sidan tangentbord'
-            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
-          >
-            <span
-              className='flex items-center gap-2 px-6'
-              aria-hidden
-            >
-              <FaRegKeyboard
-                aria-hidden
-                className='size-4'
-              />
-              Tangentbord
-            </span>
-          </Link>
-        </li>
-        <li
-          role='menuitem'
-          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
-        >
-          <Link
-            href=''
-            aria-label='Gå till sidan tangentbord'
-            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
-          >
-            <span
-              className='flex items-center gap-2 px-6'
-              aria-hidden
-            >
-              <FaRegKeyboard
-                aria-hidden
-                className='size-4'
-              />
-              Tangentbord
-            </span>
-          </Link>
-        </li>
-        <li
-          role='menuitem'
-          className='focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset'
-        >
-          <Link
-            href=''
-            aria-label='Gå till sidan tangentbord'
-            className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
-          >
-            <span
-              className='flex items-center gap-2 px-6'
-              aria-hidden
-            >
-              <FaRegKeyboard
-                aria-hidden
-                className='size-4'
-              />
-              Tangentbord
-            </span>
-          </Link>
-        </li>
-      </>
-    ),
+    links: [
+      {
+        title: { icon: FaRegKeyboard, children: 'Tangentbord' },
+        href: '',
+      },
+      {
+        title: { icon: BsMouse2, children: 'Datormöss' },
+        href: '',
+      },
+      {
+        title: { icon: BsHeadset, children: 'Hörlurar' },
+        href: '',
+      },
+    ],
   },
   {
     i: 1,
     title: { icon: HiOutlineDesktopComputer, children: 'Datorer' },
-    children: 'Hej hej',
+    links: [
+      {
+        title: { icon: IoLaptopOutline, children: 'Bärbara datorer' },
+        href: '',
+      },
+      {
+        title: {
+          icon: HiOutlineDesktopComputer,
+          children: 'Stationära datorer',
+        },
+        href: '',
+      },
+    ],
   },
   {
     i: 2,
     title: { icon: TbDeviceIpad, children: 'Surfplattor' },
-    children: 'Hej hej',
+    links: [
+      {
+        title: { icon: TbDeviceIpad, children: 'Samsungs surfplattor' },
+        href: '',
+      },
+      {
+        title: { icon: TbDeviceIpad, children: 'Apples surfplattor' },
+        href: '',
+      },
+    ],
   },
   {
     i: 3,
     title: { icon: IoPhonePortraitOutline, children: 'Mobiltelefoner' },
-    children: 'Hej hej',
+    links: [
+      {
+        title: { icon: IoPhonePortraitSharp, children: 'Samsungs telefoner' },
+        href: '',
+      },
+      {
+        title: { icon: IoPhonePortraitOutline, children: 'Apples telefoner' },
+        href: '',
+      },
+    ],
   },
   {
     i: 4,
     title: { icon: IoTvOutline, children: 'TV' },
-    children: 'Hej hej',
+    links: [
+      {
+        title: { icon: IoMdTv, children: '48-60 Tum TV' },
+        href: '',
+      },
+      {
+        title: { icon: IoMdTv, children: '65-70 Tum TV' },
+        href: '',
+      },
+      {
+        title: { icon: IoMdTv, children: '75-85 Tum TV' },
+        href: '',
+      },
+    ],
   },
   {
     i: 5,
     title: { icon: LuCable, children: 'Tillbehör' },
-    children: 'Hej hej',
+    links: [
+      {
+        title: { icon: BsLightningCharge, children: 'Laddare' },
+        href: '',
+      },
+      {
+        title: { icon: LuCable, children: 'Datorkablar' },
+        href: '',
+      },
+      {
+        title: { icon: MdOutlineDevicesOther, children: 'Övriga tillbehör' },
+        href: '',
+      },
+    ],
   },
 ];
