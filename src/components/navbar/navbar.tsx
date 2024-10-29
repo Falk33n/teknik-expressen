@@ -1,4 +1,5 @@
-import { NavbarListItem, navbarListItemData } from '@/components/navbar';
+import { NavbarListItem } from '@/components/navbar';
+import { navbarListItemData } from '@/components/navbar/data';
 import { Topbar } from '@/components/navbar/topbar';
 import { NavigationMenu, NavigationMenuList } from '@/components/ui';
 

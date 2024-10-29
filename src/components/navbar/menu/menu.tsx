@@ -5,11 +5,11 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { MdSupportAgent } from 'react-icons/md';
 
-export const Menu = ({ children }: { children: ReactNode }) => {
+export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
   return (
     <div className='flex flex-col w-full h-[calc(100vh-4.5rem)] overflow-y-auto'>
       <div className='flex justify-end items-center bg-accent px-3.5 py-1 w-full'>
-        {children}
+        {menuTrigger}
       </div>
       <NavigationMenu
         className='justify-start items-start w-full max-w-full [&>div]:w-full'
