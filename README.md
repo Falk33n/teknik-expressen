@@ -85,7 +85,9 @@ This project demonstrates my skills in full-stack web development, focusing on c
 
 ## License
 
-This project is licensed under the MIT License.
+Distributed under the MIT License. This project is open source and free to use, modify, and distribute under the terms of the MIT License.
+
+You can find the full license text in the [LICENSE](LICENSE) file.
 
 ## Acknowledgments
 
