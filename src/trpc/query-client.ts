@@ -4,8 +4,8 @@ import {
 } from '@tanstack/react-query';
 import SuperJSON from 'superjson';
 
-export const createQueryClient = () =>
-  new QueryClient({
+export const createQueryClient = (): QueryClient => {
+  return new QueryClient({
     defaultOptions: {
       queries: {
         staleTime: 30 * 1000,
@@ -21,3 +21,4 @@ export const createQueryClient = () =>
       },
     },
   });
+};
