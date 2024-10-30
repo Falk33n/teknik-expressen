@@ -1,7 +1,7 @@
 'use client';
 
 import { ConsentForm } from '@/components/cookie-banner';
-import { api } from '@/trpc/react';
+import { api } from '@/trpc/React';
 import { useState } from 'react';
 
 export const CookieBanner = () => {

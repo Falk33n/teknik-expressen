@@ -3,7 +3,7 @@ import { Navbar } from '@/components/navbar';
 import { ThemeProvider } from '@/components/theme';
 import { Toaster } from '@/components/ui';
 import '@/styles/globals.scss';
-import { TRPCReactProvider } from '@/trpc/react';
+import { TRPCReactProvider } from '@/trpc/React';
 import { type Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
