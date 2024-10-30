@@ -79,7 +79,7 @@ export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
 
 TRPCReactProvider.displayName = 'TRPCReactProvider';
 
-export const getBaseUrl = () => {
+export const getBaseUrl = (): string => {
   if (typeof window !== 'undefined') {
     return window.location.origin;
   } else if (process.env.VERCEL_URL) {
