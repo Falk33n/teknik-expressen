@@ -11,7 +11,11 @@ import type { NextRequest } from 'next/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
-type CtxProps = { req: NextRequest; resHeaders: Headers; db: PrismaClientType };
+export type CtxProps = {
+  req: NextRequest;
+  resHeaders: Headers;
+  db: PrismaClientType;
+};
 
 type TRPCContextType = Promise<CtxProps>;
 
