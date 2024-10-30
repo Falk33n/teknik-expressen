@@ -1,8 +1,7 @@
-import { cookieRouter, postRouter } from '@/server/api/routers';
+import { cookieRouter } from '@/server/api/routers';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 export const appRouter = createTRPCRouter({
-  post: postRouter,
   cookie: cookieRouter,
 });
 
