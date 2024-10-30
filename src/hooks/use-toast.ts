@@ -1,6 +1,6 @@
 'use client';
 
-import type { ToastActionElement, ToastProps } from '@/components/ui';
+import type { ToastActionElement, ToastProps } from '@/components/shadCN';
 import { type ReactNode, useEffect, useState } from 'react';
 
 const TOAST_LIMIT = 1;

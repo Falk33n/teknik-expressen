@@ -1,6 +1,6 @@
 import { MenuItem, menuItemData } from '@/components/navbar/menu';
+import { NavigationMenu, NavigationMenuList } from '@/components/shadCN';
 import { ThemeToggle } from '@/components/theme';
-import { NavigationMenu, NavigationMenuList } from '@/components/ui';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { MdSupportAgent } from 'react-icons/md';

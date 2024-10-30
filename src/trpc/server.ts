@@ -1,34 +1,29 @@
 import { createCaller, type AppRouter } from '@/server/api/root';
 import { createTRPCContext } from '@/server/api/trpc';
+import { createQueryClient } from '@/trpc/query-client';
 import { getBaseUrl } from '@/trpc/React';
-import { PrismaClient } from '@prisma/client';
-import type { DefaultArgs } from '@prisma/client/runtime/library';
-import type { QueryClient } from '@tanstack/react-query';
 import { createHydrationHelpers } from '@trpc/react-query/rsc';
 import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 import { cache } from 'react';
 import 'server-only';
-import { createQueryClient } from './query-client';
 
-type ContextType = Promise<{
-  req: NextRequest;
-  resHeaders: Headers;
-  db: PrismaClient<
-    {
-      log: ('query' | 'warn' | 'error')[];
-    },
-    never,
-    DefaultArgs
-  >;
-}>;
-
-const createContext = cache((): ContextType => {
+/**
+ * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
+ * handling a tRPC call from a React Server Component.
+ */
+const createContext = cache(() => {
   const heads = new Headers(headers());
+  heads.set('x-trpc-source', 'rsc');
+
+  /**
+   * Made seperate header for request by combining the URL to the api with headers,
+   * to allow `resHeaders` to be added which will enable response headers to
+   * successfully make cookies being created in the browser.
+   */
   const req = new NextRequest(new URL(getBaseUrl() + '/api/trpc'), {
     headers: heads,
   });
-  heads.set('x-trpc-source', 'rsc');
 
   return createTRPCContext({
     req,
@@ -36,7 +31,7 @@ const createContext = cache((): ContextType => {
   });
 });
 
-const getQueryClient: () => QueryClient = cache(createQueryClient);
+const getQueryClient = cache(createQueryClient);
 const caller = createCaller(createContext);
 
 export const { trpc: api, HydrateClient } = createHydrationHelpers<AppRouter>(

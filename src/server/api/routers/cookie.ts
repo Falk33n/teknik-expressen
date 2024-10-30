@@ -5,9 +5,15 @@ import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { z } from 'zod';
 
 export const cookieRouter = createTRPCRouter({
+  /**
+   * Creates both a cookie and a row in the database table `CookieConsent`.
+   * Which enables the option to make specific changes to the application depending
+   * on what the user has consented to.
+   */
   createConsent: publicProcedure
-    .input(z.object({ hasAccepted: z.boolean() }))
+    .input(z.object({ isAccepted: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
+      // Throw errors if database or table is not found
       if (!ctx.db) {
         throw new TRPCError({
           message: 'Database context not found',
@@ -21,8 +27,8 @@ export const cookieRouter = createTRPCRouter({
       }
 
       const consentCookie: string = serialize(
-        'cc',
-        input.hasAccepted.toString(),
+        'cc', // 'cc' = cookie consent
+        input.isAccepted.toString(),
         {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
@@ -35,13 +41,17 @@ export const cookieRouter = createTRPCRouter({
 
       return ctx.db.cookieConsent.create({
         data: {
-          consentGiven: input.hasAccepted,
+          consentGiven: input.isAccepted,
         },
       });
     }),
 
+  /**
+   * Retrieves the consent cookie and returns the value as a
+   * boolean OR undefined
+   */
   getConsent: publicProcedure.query(async ({ ctx }) => {
-    const consetCookie: RequestCookie | undefined = ctx.req.cookies.get('cc');
+    const consetCookie: RequestCookie | undefined = ctx.req.cookies.get('cc'); // 'cc' = cookie consent
     if (!consetCookie) {
       throw new TRPCError({
         message: 'Consent cookie not found',

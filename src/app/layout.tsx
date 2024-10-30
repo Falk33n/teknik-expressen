@@ -1,7 +1,7 @@
 import { CookieBanner } from '@/components/cookie-banner';
 import { Navbar } from '@/components/navbar';
+import { Toaster } from '@/components/shadCN';
 import { ThemeProvider } from '@/components/theme';
-import { Toaster } from '@/components/ui';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc/React';
 import { type Metadata } from 'next';

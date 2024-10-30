@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Checkbox } from '@/components/ui';
+import { Button, Checkbox } from '@/components/shadCN';
 import { useToast } from '@/hooks';
 import { api } from '@/trpc/React';
 import { useState } from 'react';
@@ -27,7 +27,7 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
   });
 
   const handleSubmit = () => {
-    createConsent.mutate({ hasAccepted: isChecked });
+    createConsent.mutate({ isAccepted: isChecked });
   };
 
   return (
