@@ -1,11 +1,21 @@
 import { env } from '@/env';
 import { PrismaClient } from '@prisma/client';
+import type { DefaultArgs } from '@prisma/client/runtime/library';
 
-const createPrismaClient = () =>
-  new PrismaClient({
+type PrismaClientType = PrismaClient<
+  {
+    log: ('query' | 'warn' | 'error')[];
+  },
+  never,
+  DefaultArgs
+>;
+
+const createPrismaClient = (): PrismaClientType => {
+  return new PrismaClient({
     log:
       env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
+};
 
 const globalForPrisma = globalThis as unknown as {
   prisma: ReturnType<typeof createPrismaClient> | undefined;

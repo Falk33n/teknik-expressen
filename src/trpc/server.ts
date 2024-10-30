@@ -11,7 +11,7 @@ import { cache } from 'react';
 import 'server-only';
 import { createQueryClient } from './query-client';
 
-type ContextType = () => Promise<{
+type ContextType = Promise<{
   req: NextRequest;
   resHeaders: Headers;
   db: PrismaClient<
@@ -23,14 +23,11 @@ type ContextType = () => Promise<{
   >;
 }>;
 
-const createContext: ContextType = cache(() => {
-  const heads: Headers = new Headers(headers());
-  const req: NextRequest = new NextRequest(
-    new URL(getBaseUrl() + '/api/trpc'),
-    {
-      headers: heads,
-    }
-  );
+const createContext = cache((): ContextType => {
+  const heads = new Headers(headers());
+  const req = new NextRequest(new URL(getBaseUrl() + '/api/trpc'), {
+    headers: heads,
+  });
   heads.set('x-trpc-source', 'rsc');
 
   return createTRPCContext({
