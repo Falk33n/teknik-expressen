@@ -27,7 +27,7 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
   });
 
   const handleSubmit = () => {
-    createConsent.mutate({ hasAccepted: isChecked });
+    createConsent.mutate({ isAccepted: isChecked });
   };
 
   return (
