@@ -7,12 +7,11 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from '@/components/ui/toast';
-import { useToast } from '@/hooks/use-toast';
+} from '@/components/ui';
+import { useToast } from '@/hooks';
 
-export const Toaster =() => {
+export const Toaster = () => {
   const { toasts } = useToast();
-
   return (
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
@@ -35,6 +34,6 @@ export const Toaster =() => {
       <ToastViewport />
     </ToastProvider>
   );
-}
+};
 
-Toaster.displayName = 'Toaster'
+Toaster.displayName = 'Toaster';
