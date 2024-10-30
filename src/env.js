@@ -2,7 +2,10 @@ import { createEnv } from '@t3-oss/env-nextjs';
 import { z } from 'zod';
 
 /**
- * @type { Readonly<{ DATABASE_URL: string; NODE_ENV: "development" | "test" | "production" }> }
+ * @type {Readonly<{
+ *   DATABASE_URL: string;
+ *   NODE_ENV: "development" | "test" | "production"
+ * }>}
  */
 export const env = createEnv({
   server: {
