@@ -1,6 +1,7 @@
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
+import { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { z } from 'zod';
 
 export const cookieRouter = createTRPCRouter({
@@ -19,13 +20,17 @@ export const cookieRouter = createTRPCRouter({
         });
       }
 
-      const consentCookie = serialize('cc', input.hasAccepted.toString(), {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 365,
-        path: '/',
-      });
+      const consentCookie: string = serialize(
+        'cc',
+        input.hasAccepted.toString(),
+        {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 24 * 60 * 60 * 365,
+          path: '/',
+        }
+      );
       ctx.resHeaders.set('Set-Cookie', consentCookie);
 
       return ctx.db.cookieConsent.create({
@@ -36,7 +41,7 @@ export const cookieRouter = createTRPCRouter({
     }),
 
   getConsent: publicProcedure.query(async ({ ctx }) => {
-    const consetCookie = ctx.req.cookies.get('cc');
+    const consetCookie: RequestCookie | undefined = ctx.req.cookies.get('cc');
     if (!consetCookie) {
       throw new TRPCError({
         message: 'Consent cookie not found',
