@@ -11,25 +11,34 @@ import SuperJSON from 'superjson';
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 
-const getQueryClient = (): QueryClient => {
+const getQueryClient = () => {
   if (typeof window === 'undefined') {
+    // Server: always make a new query client
     return createQueryClient();
   } else {
+    // Browser: use singleton pattern to keep the same query client
     return (clientQueryClientSingleton ??= createQueryClient());
   }
 };
 
 export const api = createTRPCReact<AppRouter>();
 
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello']
+ */
 export type RouterInputs = inferRouterInputs<AppRouter>;
+
+/**
+ * Inference helper for outputs.
+ *
+ * @example type HelloOutput = RouterOutputs['example']['hello']
+ */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
 
-export const TRPCReactProvider = ({
-  children,
-}: {
-  children: ReactNode;
-}): JSX.Element => {
-  const queryClient: QueryClient = getQueryClient();
+export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
+  const queryClient = getQueryClient();
 
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -39,11 +48,15 @@ export const TRPCReactProvider = ({
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
+        /**
+         * - Use `httpBatchLink` if you are planning on setting cookies in your application.
+         * - Use `unstable_httpBatchLink` if you are not planning on setting cookies (this will hinder the ability to do so).
+         */
         httpBatchLink({
           transformer: SuperJSON,
           url: getBaseUrl() + '/api/trpc',
           headers: () => {
-            const headers: Headers = new Headers();
+            const headers = new Headers();
             headers.set('x-trpc-source', 'nextjs-react');
             return headers;
           },
@@ -66,7 +79,7 @@ export const TRPCReactProvider = ({
 
 TRPCReactProvider.displayName = 'TRPCReactProvider';
 
-export const getBaseUrl = (): string => {
+export const getBaseUrl = () => {
   if (typeof window !== 'undefined') {
     return window.location.origin;
   } else if (process.env.VERCEL_URL) {
