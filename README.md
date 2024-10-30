@@ -8,6 +8,17 @@ Welcome to **Teknik Expressen**, an e-commerce platform developed as part of my 
 
 This project demonstrates my skills in full-stack web development, focusing on creating an accessible, responsive, and efficient shopping experience for customers.
 
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Goals](#project-goals)
+- [Future Improvements](#future-improvements)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+
 ## Features
 
 - **Placeholder**: Lorem ipsum dolar amet.
