@@ -1,4 +1,4 @@
-import { cn } from '@/lib';
+import { cn } from '@/helpers';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { cva } from 'class-variance-authority';
 import {

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui';
+import { Button } from '@/components/shadCN';
 import { useEffect, useState } from 'react';
 import { FaX } from 'react-icons/fa6';
 

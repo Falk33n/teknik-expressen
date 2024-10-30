@@ -1,4 +1,4 @@
-import { cn } from '@/lib';
+import { cn } from '@/helpers';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
 

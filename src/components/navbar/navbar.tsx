@@ -1,7 +1,7 @@
 import { NavbarListItem } from '@/components/navbar';
 import { navbarListItemData } from '@/components/navbar/data';
 import { Topbar } from '@/components/navbar/topbar';
-import { NavigationMenu, NavigationMenuList } from '@/components/ui';
+import { NavigationMenu, NavigationMenuList } from '@/components/shadCN';
 
 export const Navbar = () => {
   return (

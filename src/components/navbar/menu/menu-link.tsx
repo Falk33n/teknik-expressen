@@ -1,4 +1,4 @@
-import { cn } from '@/lib';
+import { cn } from '@/helpers';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
@@ -17,7 +17,10 @@ export const MenuLink = ({
   return (
     <li
       role='menuitem'
-      className={cn('focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset', className)}
+      className={cn(
+        'focus-within:ring-2 focus-within:ring-primary focus-within:ring-inset',
+        className
+      )}
     >
       <Link
         href={href}
