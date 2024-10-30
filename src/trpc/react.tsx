@@ -24,7 +24,11 @@ export const api = createTRPCReact<AppRouter>();
 export type RouterInputs = inferRouterInputs<AppRouter>;
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
 
-export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
+export const TRPCReactProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}): JSX.Element => {
   const queryClient: QueryClient = getQueryClient();
 
   const [trpcClient] = useState(() =>
@@ -39,7 +43,7 @@ export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
           transformer: SuperJSON,
           url: getBaseUrl() + '/api/trpc',
           headers: () => {
-            const headers = new Headers();
+            const headers: Headers = new Headers();
             headers.set('x-trpc-source', 'nextjs-react');
             return headers;
           },
