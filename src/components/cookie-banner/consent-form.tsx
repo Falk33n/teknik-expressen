@@ -2,7 +2,7 @@
 
 import { Button, Checkbox } from '@/components/ui';
 import { useToast } from '@/hooks';
-import { api } from '@/trpc/react';
+import { api } from '@/trpc/React';
 import { useState } from 'react';
 
 type ConsentFormProps = {

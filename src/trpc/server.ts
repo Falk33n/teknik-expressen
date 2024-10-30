@@ -1,6 +1,6 @@
 import { createCaller, type AppRouter } from '@/server/api/root';
 import { createTRPCContext } from '@/server/api/trpc';
-import { getBaseUrl } from '@/trpc/react';
+import { getBaseUrl } from '@/trpc/React';
 import { PrismaClient } from '@prisma/client';
 import type { DefaultArgs } from '@prisma/client/runtime/library';
 import type { QueryClient } from '@tanstack/react-query';
