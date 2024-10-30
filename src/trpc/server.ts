@@ -1,6 +1,8 @@
 import { createCaller, type AppRouter } from '@/server/api/root';
 import { createTRPCContext } from '@/server/api/trpc';
 import { getBaseUrl } from '@/trpc/react';
+import { PrismaClient } from '@prisma/client';
+import type { DefaultArgs } from '@prisma/client/runtime/library';
 import type { QueryClient } from '@tanstack/react-query';
 import { createHydrationHelpers } from '@trpc/react-query/rsc';
 import { headers } from 'next/headers';
@@ -9,11 +11,26 @@ import { cache } from 'react';
 import 'server-only';
 import { createQueryClient } from './query-client';
 
-const createContext = cache(() => {
-  const heads = new Headers(headers());
-  const req = new NextRequest(new URL(getBaseUrl() + '/api/trpc'), {
-    headers: heads,
-  });
+type ContextType = () => Promise<{
+  req: NextRequest;
+  resHeaders: Headers;
+  db: PrismaClient<
+    {
+      log: ('query' | 'warn' | 'error')[];
+    },
+    never,
+    DefaultArgs
+  >;
+}>;
+
+const createContext: ContextType = cache(() => {
+  const heads: Headers = new Headers(headers());
+  const req: NextRequest = new NextRequest(
+    new URL(getBaseUrl() + '/api/trpc'),
+    {
+      headers: heads,
+    }
+  );
   heads.set('x-trpc-source', 'rsc');
 
   return createTRPCContext({
