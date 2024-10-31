@@ -1,3 +1,9 @@
+import type { NavbarListItemProps } from '@/components/navbar';
+import { Menu, MenuTrigger } from '@/components/navbar/menu';
+import Link from 'next/link';
+import { FaSearch, FaShoppingBag } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa6';
+import { IoMenu } from 'react-icons/io5';
 import type { MenuItemProps } from '@/components/navbar/menu';
 import { BsHeadset, BsLightningCharge, BsMouse2 } from 'react-icons/bs';
 import { FaRegKeyboard } from 'react-icons/fa6';
@@ -12,8 +18,57 @@ import {
 import { LuCable } from 'react-icons/lu';
 import { MdOutlineDevicesOther } from 'react-icons/md';
 import { TbDeviceIpad } from 'react-icons/tb';
+import type { TopbarIconWithTextProps } from '@/components/navbar/topbar';
+import { FaAward, FaTruckFast } from 'react-icons/fa6';
+import { IoReloadSharp } from 'react-icons/io5';
 
-export const menuItemData: MenuItemProps[] = [
+/**
+ * Data for the list items in the navbar
+ */
+export const NAVBAR_LIST_ITEMS_ARRAY: NavbarListItemProps[] = [
+  {
+    title: {
+      icon: IoMenu,
+      children: 'Meny',
+    },
+    ariaLabel: 'Visa eller dölj menyn',
+    children: (
+      <Menu>
+        <MenuTrigger />
+      </Menu>
+    ),
+    className: 'size-6 top-3',
+  },
+  {
+    title: {
+      icon: FaSearch,
+      children: 'Sök',
+    },
+    ariaLabel: 'Visa eller dölj sökrutan',
+    children: <Link href='/'>testing testing</Link>,
+  },
+  {
+    title: {
+      icon: FaUser,
+      children: 'Logga in',
+    },
+    ariaLabel: 'Visa eller dölj logga in rutan',
+    children: <Link href='/'>testing testing</Link>,
+  },
+  {
+    title: {
+      icon: FaShoppingBag,
+      children: 'Kundkorg',
+    },
+    ariaLabel: 'Visa eller dölj kundkorgen',
+    children: <Link href='/'>testing testing</Link>,
+  },
+];
+
+/**
+ * Data for the menu items
+ */
+export const MENU_ITEM_ARRAY: MenuItemProps[] = [
   {
     i: 0,
     title: { icon: BsMouse2, children: 'Datorutrustning' },
@@ -112,5 +167,39 @@ export const menuItemData: MenuItemProps[] = [
         href: '',
       },
     ],
+  },
+];
+
+/**
+ * Data for the content in the topbar (the bar that is over the navbar)
+ */
+export const TOPBAR_CONTENT_ARRAY: TopbarIconWithTextProps[] = [
+  {
+    icon: FaAward,
+    children: 'Prismatch',
+  },
+  {
+    icon: IoReloadSharp,
+    children: 'Fri retur',
+    className: 'scale-x-[-1]',
+  },
+  {
+    icon: FaTruckFast,
+    children: (
+      <span aria-label='Fri frakt över 500kr'>
+        <span
+          aria-hidden
+          className='sm:hidden'
+        >
+          Fri frakt*
+        </span>
+        <span
+          aria-hidden
+          className='sm:inline hidden'
+        >
+          Fri frakt över 500kr
+        </span>
+      </span>
+    ),
   },
 ];

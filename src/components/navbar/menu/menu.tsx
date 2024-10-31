@@ -1,7 +1,7 @@
 import { MenuItem } from '@/components/navbar/menu';
-import { menuItemData } from '@/components/navbar/menu/data';
 import { NavigationMenu, NavigationMenuList } from '@/components/shadcn';
 import { ThemeToggle } from '@/components/theme';
+import { MENU_ITEM_ARRAY } from '@/constants';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { MdSupportAgent } from 'react-icons/md';
@@ -20,10 +20,10 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
           data-orientation='vertical'
           className='flex-col space-x-0 w-full'
         >
-          {menuItemData.map((data, i) => (
+          {MENU_ITEM_ARRAY.map((item, i) => (
             <MenuItem
               key={`menuItem-key-${i}`}
-              {...data}
+              {...item}
             />
           ))}
         </NavigationMenuList>

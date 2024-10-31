@@ -1,15 +1,18 @@
 'use client';
 
 import { Button } from '@/components/shadcn';
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import type { IconType } from 'react-icons';
+import { RxMoon, RxSun } from 'react-icons/rx';
 
 export const ThemeToggle = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const currentTheme: string | undefined =
+    theme === 'system' ? systemTheme : theme;
   const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  const Icon: IconType = currentTheme === 'light' ? RxSun : RxMoon;
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,17 +28,10 @@ export const ThemeToggle = () => {
       className='size-12'
       onClick={() => setTheme(nextTheme)}
     >
-      {currentTheme === 'light' ? (
-        <SunIcon
-          className='scale-125'
-          aria-hidden
-        />
-      ) : (
-        <MoonIcon
-          className='scale-125'
-          aria-hidden
-        />
-      )}
+      <Icon
+        aria-hidden
+        className='scale-125'
+      />
     </Button>
   );
 };
