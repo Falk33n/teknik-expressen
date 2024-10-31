@@ -8,14 +8,14 @@ import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';
 
 export type NavbarListItemProps = {
-  title: { icon: IconType; children: ReactNode };
+  title: { icon: IconType; text: ReactNode };
   ariaLabel: string;
   children: ReactNode;
   className?: string;
 };
 
 export const NavbarListItem = ({
-  title: { icon: Icon, children: title },
+  title: { icon: Icon, text },
   ariaLabel,
   children,
   className,
@@ -26,7 +26,7 @@ export const NavbarListItem = ({
         aria-label={ariaLabel}
         className={cn(
           'relative flex flex-col rounded-none w-full whitespace-nowrap',
-          title === 'Meny' && 'menu-trigger'
+          text === 'Meny' && 'menu-trigger'
         )}
       >
         <Icon
@@ -40,7 +40,7 @@ export const NavbarListItem = ({
           aria-hidden
           className='mt-7'
         >
-          {title}
+          {text}
         </span>
       </NavigationMenuTrigger>
       <NavigationMenuContent>{children}</NavigationMenuContent>

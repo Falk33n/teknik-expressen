@@ -1,7 +1,7 @@
-import type { NavbarListItemProps } from '@/components/navbar';
 import type { MenuItemProps } from '@/components/navbar/menu';
 import { Menu, MenuTrigger } from '@/components/navbar/menu';
 import type { TopbarIconWithTextProps } from '@/components/navbar/topbar';
+import type { NavbarListItemProps } from '@/types';
 import Link from 'next/link';
 import { BsHeadset, BsLightningCharge, BsMouse2 } from 'react-icons/bs';
 import { FaSearch, FaShoppingBag } from 'react-icons/fa';
@@ -27,38 +27,38 @@ export const NAVBAR_LIST_ITEMS_ARRAY: NavbarListItemProps[] = [
   {
     title: {
       icon: IoMenu,
-      children: 'Meny',
+      text: 'Meny',
+      ariaLabel: 'Visa eller dölj menyn',
+      iconClassName: 'size-6 top-3',
     },
-    ariaLabel: 'Visa eller dölj menyn',
     children: (
       <Menu>
         <MenuTrigger />
       </Menu>
     ),
-    className: 'size-6 top-3',
   },
   {
     title: {
       icon: FaSearch,
-      children: 'Sök',
+      text: 'Sök',
+      ariaLabel: 'Visa eller dölj sökrutan',
     },
-    ariaLabel: 'Visa eller dölj sökrutan',
     children: <Link href='/'>testing testing</Link>,
   },
   {
     title: {
       icon: FaUser,
-      children: 'Logga in',
+      text: 'Logga in',
+      ariaLabel: 'Visa eller dölj logga in rutan',
     },
-    ariaLabel: 'Visa eller dölj logga in rutan',
     children: <Link href='/'>testing testing</Link>,
   },
   {
     title: {
       icon: FaShoppingBag,
-      children: 'Kundkorg',
+      text: 'Kundkorg',
+      ariaLabel: 'Visa eller dölj kundkorgen',
     },
-    ariaLabel: 'Visa eller dölj kundkorgen',
     children: <Link href='/'>testing testing</Link>,
   },
 ];
