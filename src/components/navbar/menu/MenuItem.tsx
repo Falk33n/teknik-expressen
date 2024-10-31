@@ -23,15 +23,15 @@ export const MenuItem = ({
         <AccordionItem value={`accordion-item-${i}`}>
           <AccordionTrigger
             aria-label={`${text}, Visa eller dölj innehållet`}
-            className={cn('px-6', i % 2 !== 0 && 'bg-secondary')}
+            className={cn('px-6', i % 2 !== 0 && 'bg-accent')}
           >
             <span
               aria-hidden
-              className='flex items-center gap-3'
+              className='flex items-center gap-3 sm:text-base'
             >
               <Icon
                 aria-hidden
-                className='size-4'
+                className='size-4 sm:size-5'
               />
 
               {text}

@@ -1,4 +1,4 @@
-import { Menu, MenuClose } from '@/components/navbar/menu';
+import { Menu } from '@/components/navbar/menu';
 import { Link } from '@/components/shared';
 import type {
   MenuItemProps,
@@ -31,13 +31,9 @@ export const NAVBAR_LIST_ITEMS_ARRAY: NavbarListItemProps[] = [
       icon: IoMenu,
       text: 'Meny',
       ariaLabel: 'Visa eller dölj menyn',
-      iconClassName: 'size-6 top-3',
+      iconClassName: 'size-6 sm:size-7 top-3',
     },
-    children: (
-      <Menu>
-        <MenuClose />
-      </Menu>
-    ),
+    children: <Menu />,
   },
   {
     title: {

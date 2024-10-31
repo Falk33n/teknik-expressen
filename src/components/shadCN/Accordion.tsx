@@ -42,7 +42,7 @@ export const AccordionTrigger = forwardRef<
         {...props}
       >
         {children}
-        <ChevronDownIcon className='text-muted-foreground transition-transform duration-200 shrink-0 size-4' />
+        <ChevronDownIcon className='text-muted-foreground transition-transform duration-200 shrink-0 sm:size-5 size-4' />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

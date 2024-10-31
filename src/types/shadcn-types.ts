@@ -6,9 +6,12 @@ import {
 } from '@/components/shadcn';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import type { DialogProps } from '@radix-ui/react-dialog';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import type { VariantProps } from 'class-variance-authority';
+import { Command as CommandPrimitive } from 'cmdk';
 import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
@@ -179,3 +182,68 @@ export type State = {
 };
 
 export type Toast = Omit<ToasterToast, 'id'>;
+
+/*
+ * shadcn command types
+ */
+export type CommandType = ElementRef<typeof CommandPrimitive>;
+export type CommandProps = ComponentPropsWithoutRef<typeof CommandPrimitive>;
+
+export type CommandDialogProps = DialogProps;
+
+export type CommandInputType = ElementRef<typeof CommandPrimitive.Input>;
+export type CommandInputProps = ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Input
+>;
+
+export type CommandListType = ElementRef<typeof CommandPrimitive.List>;
+export type CommandListProps = ComponentPropsWithoutRef<
+  typeof CommandPrimitive.List
+>;
+
+export type CommandEmptyType = ElementRef<typeof CommandPrimitive.Empty>;
+export type CommandEmptyProps = ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Empty
+>;
+
+export type CommandGroupType = ElementRef<typeof CommandPrimitive.Group>;
+export type CommandGroupProps = ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Group
+>;
+
+export type CommandSeparatorType = ElementRef<
+  typeof CommandPrimitive.Separator
+>;
+export type CommandSeparatorProps = ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Separator
+>;
+
+export type CommandItemType = ElementRef<typeof CommandPrimitive.Item>;
+export type CommandItemProps = ComponentPropsWithoutRef<
+  typeof CommandPrimitive.Item
+>;
+
+/*
+ * shadcn dialog types
+ */
+export type DialogOverlayType = ElementRef<typeof DialogPrimitive.Overlay>;
+export type DialogOverlayProps = ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Overlay
+>;
+
+export type DialogContentType = ElementRef<typeof DialogPrimitive.Content>;
+export type DialogContentProps = ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Content
+>;
+
+export type DialogTitleType = ElementRef<typeof DialogPrimitive.Title>;
+export type DialogTitleProps = ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Title
+>;
+
+export type DialogDescriptionType = ElementRef<
+  typeof DialogPrimitive.Description
+>;
+export type DialogDescriptionProps = ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Description
+>;
