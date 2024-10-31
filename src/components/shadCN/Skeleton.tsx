@@ -1,9 +1,10 @@
 import { cn } from '@/helpers';
+import type { HTMLAttributes } from 'react';
 
 export const Skeleton = ({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
+}: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       aria-hidden

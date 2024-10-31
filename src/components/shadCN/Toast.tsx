@@ -1,22 +1,26 @@
 'use client';
 
 import { cn } from '@/helpers';
+import type {
+  ToastActionProps,
+  ToastActionType,
+  ToastCloseProps,
+  ToastCloseType,
+  ToastComponentProps,
+  ToastDescriptionProps,
+  ToastDescriptionType,
+  ToastTitleProps,
+  ToastTitleType,
+  ToastType,
+  ToastViewportProps,
+  ToastViewportType,
+} from '@/types';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import * as ToastPrimitives from '@radix-ui/react-toast';
-import { cva, type VariantProps } from 'class-variance-authority';
-import {
-  type ComponentPropsWithoutRef,
-  type ElementRef,
-  forwardRef,
-  type ReactElement,
-} from 'react';
+import { cva } from 'class-variance-authority';
+import { forwardRef } from 'react';
 
 export const ToastProvider = ToastPrimitives.Provider;
-
-type ToastViewportType = ElementRef<typeof ToastPrimitives.Viewport>;
-type ToastViewportProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Viewport
->;
 
 export const ToastViewport = forwardRef<ToastViewportType, ToastViewportProps>(
   ({ className, ...props }, ref) => {
@@ -52,12 +56,6 @@ export const toastVariants = cva(
   }
 );
 
-type ToastType = ElementRef<typeof ToastPrimitives.Root>;
-type ToastComponentProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Root
-> &
-  VariantProps<typeof toastVariants>;
-
 export const Toast = forwardRef<ToastType, ToastComponentProps>(
   ({ className, variant = 'default', ...props }, ref) => {
     return (
@@ -71,9 +69,6 @@ export const Toast = forwardRef<ToastType, ToastComponentProps>(
 );
 
 Toast.displayName = ToastPrimitives.Root.displayName;
-
-type ToastActionType = ElementRef<typeof ToastPrimitives.Action>;
-type ToastActionProps = ComponentPropsWithoutRef<typeof ToastPrimitives.Action>;
 
 export const ToastAction = forwardRef<ToastActionType, ToastActionProps>(
   ({ className, ...props }, ref) => {
@@ -91,9 +86,6 @@ export const ToastAction = forwardRef<ToastActionType, ToastActionProps>(
 );
 
 ToastAction.displayName = ToastPrimitives.Action.displayName;
-
-type ToastCloseType = ElementRef<typeof ToastPrimitives.Close>;
-type ToastCloseProps = ComponentPropsWithoutRef<typeof ToastPrimitives.Close>;
 
 export const ToastClose = forwardRef<ToastCloseType, ToastCloseProps>(
   ({ className, ...props }, ref) => {
@@ -115,9 +107,6 @@ export const ToastClose = forwardRef<ToastCloseType, ToastCloseProps>(
 
 ToastClose.displayName = ToastPrimitives.Close.displayName;
 
-type ToastTitleType = ElementRef<typeof ToastPrimitives.Title>;
-type ToastTitleProps = ComponentPropsWithoutRef<typeof ToastPrimitives.Title>;
-
 export const ToastTitle = forwardRef<ToastTitleType, ToastTitleProps>(
   ({ className, ...props }, ref) => {
     return (
@@ -131,11 +120,6 @@ export const ToastTitle = forwardRef<ToastTitleType, ToastTitleProps>(
 );
 
 ToastTitle.displayName = ToastPrimitives.Title.displayName;
-
-type ToastDescriptionType = ElementRef<typeof ToastPrimitives.Description>;
-type ToastDescriptionProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Description
->;
 
 export const ToastDescription = forwardRef<
   ToastDescriptionType,
@@ -151,6 +135,3 @@ export const ToastDescription = forwardRef<
 });
 
 ToastDescription.displayName = ToastPrimitives.Description.displayName;
-
-export type ToastProps = ComponentPropsWithoutRef<typeof Toast>;
-export type ToastActionElement = ReactElement<typeof ToastAction>;

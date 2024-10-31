@@ -1,20 +1,17 @@
-'use client';
-
 import { cn } from '@/helpers';
+import type {
+  AccordionContentProps,
+  AccordionContentType,
+  AccordionItemProps,
+  AccordionItemType,
+  AccordionTriggerProps,
+  AccordionTriggerType,
+} from '@/types';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
-import {
-  type ComponentPropsWithoutRef,
-  type ElementRef,
-  forwardRef,
-} from 'react';
+import { forwardRef } from 'react';
 
 export const Accordion = AccordionPrimitive.Root;
-
-type AccordionItemType = ElementRef<typeof AccordionPrimitive.Item>;
-type AccordionItemProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Item
->;
 
 export const AccordionItem = forwardRef<AccordionItemType, AccordionItemProps>(
   ({ className, ...props }, ref) => {
@@ -29,11 +26,6 @@ export const AccordionItem = forwardRef<AccordionItemType, AccordionItemProps>(
 );
 
 AccordionItem.displayName = 'AccordionItem';
-
-type AccordionTriggerType = ElementRef<typeof AccordionPrimitive.Trigger>;
-type AccordionTriggerProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Trigger
->;
 
 export const AccordionTrigger = forwardRef<
   AccordionTriggerType,
@@ -57,11 +49,6 @@ export const AccordionTrigger = forwardRef<
 });
 
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
-
-type AccordionContentType = ElementRef<typeof AccordionPrimitive.Content>;
-type AccordionContentProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Content
->;
 
 export const AccordionContent = forwardRef<
   AccordionContentType,
