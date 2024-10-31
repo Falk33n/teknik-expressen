@@ -1,6 +1,9 @@
-import type { MenuItemProps } from '@/components/navbar/menu';
-import { Menu, MenuTrigger } from '@/components/navbar/menu';
-import type { NavbarListItemProps, TopbarItemProps } from '@/types';
+import { Menu, MenuClose } from '@/components/navbar/menu';
+import type {
+  MenuItemProps,
+  NavbarListItemProps,
+  TopbarItemProps,
+} from '@/types';
 import Link from 'next/link';
 import { BsHeadset, BsLightningCharge, BsMouse2 } from 'react-icons/bs';
 import { FaSearch, FaShoppingBag } from 'react-icons/fa';
@@ -32,7 +35,7 @@ export const NAVBAR_LIST_ITEMS_ARRAY: NavbarListItemProps[] = [
     },
     children: (
       <Menu>
-        <MenuTrigger />
+        <MenuClose />
       </Menu>
     ),
   },
@@ -68,34 +71,34 @@ export const NAVBAR_LIST_ITEMS_ARRAY: NavbarListItemProps[] = [
 export const MENU_ITEM_ARRAY: MenuItemProps[] = [
   {
     i: 0,
-    title: { icon: BsMouse2, children: 'Datorutrustning' },
+    title: { icon: BsMouse2, text: 'Datorutrustning' },
     links: [
       {
-        title: { icon: FaRegKeyboard, children: 'Tangentbord' },
+        title: { icon: FaRegKeyboard, text: 'Tangentbord' },
         href: '',
       },
       {
-        title: { icon: BsMouse2, children: 'Datormöss' },
+        title: { icon: BsMouse2, text: 'Datormöss' },
         href: '',
       },
       {
-        title: { icon: BsHeadset, children: 'Hörlurar' },
+        title: { icon: BsHeadset, text: 'Hörlurar' },
         href: '',
       },
     ],
   },
   {
     i: 1,
-    title: { icon: HiOutlineDesktopComputer, children: 'Datorer' },
+    title: { icon: HiOutlineDesktopComputer, text: 'Datorer' },
     links: [
       {
-        title: { icon: IoLaptopOutline, children: 'Bärbara datorer' },
+        title: { icon: IoLaptopOutline, text: 'Bärbara datorer' },
         href: '',
       },
       {
         title: {
           icon: HiOutlineDesktopComputer,
-          children: 'Stationära datorer',
+          text: 'Stationära datorer',
         },
         href: '',
       },
@@ -103,64 +106,64 @@ export const MENU_ITEM_ARRAY: MenuItemProps[] = [
   },
   {
     i: 2,
-    title: { icon: TbDeviceIpad, children: 'Surfplattor' },
+    title: { icon: TbDeviceIpad, text: 'Surfplattor' },
     links: [
       {
-        title: { icon: TbDeviceIpad, children: 'Samsungs surfplattor' },
+        title: { icon: TbDeviceIpad, text: 'Samsungs surfplattor' },
         href: '',
       },
       {
-        title: { icon: TbDeviceIpad, children: 'Apples surfplattor' },
+        title: { icon: TbDeviceIpad, text: 'Apples surfplattor' },
         href: '',
       },
     ],
   },
   {
     i: 3,
-    title: { icon: IoPhonePortraitOutline, children: 'Mobiltelefoner' },
+    title: { icon: IoPhonePortraitOutline, text: 'Mobiltelefoner' },
     links: [
       {
-        title: { icon: IoPhonePortraitSharp, children: 'Samsungs telefoner' },
+        title: { icon: IoPhonePortraitSharp, text: 'Samsungs telefoner' },
         href: '',
       },
       {
-        title: { icon: IoPhonePortraitOutline, children: 'Apples telefoner' },
+        title: { icon: IoPhonePortraitOutline, text: 'Apples telefoner' },
         href: '',
       },
     ],
   },
   {
     i: 4,
-    title: { icon: IoTvOutline, children: 'TV' },
+    title: { icon: IoTvOutline, text: 'TV' },
     links: [
       {
-        title: { icon: IoMdTv, children: '48-60 Tum TV' },
+        title: { icon: IoMdTv, text: '48-60 Tum TV' },
         href: '',
       },
       {
-        title: { icon: IoMdTv, children: '65-70 Tum TV' },
+        title: { icon: IoMdTv, text: '65-70 Tum TV' },
         href: '',
       },
       {
-        title: { icon: IoMdTv, children: '75-85 Tum TV' },
+        title: { icon: IoMdTv, text: '75-85 Tum TV' },
         href: '',
       },
     ],
   },
   {
     i: 5,
-    title: { icon: LuCable, children: 'Tillbehör' },
+    title: { icon: LuCable, text: 'Tillbehör' },
     links: [
       {
-        title: { icon: BsLightningCharge, children: 'Laddare' },
+        title: { icon: BsLightningCharge, text: 'Laddare' },
         href: '',
       },
       {
-        title: { icon: LuCable, children: 'Datorkablar' },
+        title: { icon: LuCable, text: 'Datorkablar' },
         href: '',
       },
       {
-        title: { icon: MdOutlineDevicesOther, children: 'Övriga tillbehör' },
+        title: { icon: MdOutlineDevicesOther, text: 'Övriga tillbehör' },
         href: '',
       },
     ],

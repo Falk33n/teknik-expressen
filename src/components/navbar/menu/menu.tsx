@@ -12,6 +12,7 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
       <div className='flex justify-end items-center bg-accent px-3.5 py-1 w-full'>
         {menuTrigger}
       </div>
+
       <NavigationMenu
         className='justify-start items-start w-full max-w-full [&>div]:w-full'
         aria-label='Navigering till flikar inom webbsidan'
@@ -28,6 +29,7 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
           ))}
         </NavigationMenuList>
       </NavigationMenu>
+
       <div className='flex flex-col justify-end items-center py-10'>
         <Link
           aria-label='Gå till kundtjänst sidan'
@@ -45,6 +47,7 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
             Kundtjänst
           </span>
         </Link>
+
         <ThemeToggle />
       </div>
     </div>

@@ -16,3 +16,15 @@ export type TopbarItemProps = {
   children: ReactNode;
   iconClassName?: string;
 };
+
+export type MenuListLinkProps = {
+  title: { icon: IconType; text: ReactNode };
+  href: string;
+  className?: string;
+};
+
+export type MenuItemProps = {
+  i: number;
+  title: { icon: IconType; text: ReactNode };
+  links: MenuListLinkProps[];
+};

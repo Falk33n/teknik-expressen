@@ -7,7 +7,9 @@ export const Navbar = () => {
   return (
     <header>
       <Topbar />
-      <div></div>
+
+      {/* TODO: place brand logo here */}
+
       <NavigationMenu
         aria-label='Huvudnavigering'
         className='max-lg:bottom-0 max-lg:fixed flex justify-center items-center space-x-0 bg-primary [&>div]:w-full w-full max-w-full text-primary-foreground'

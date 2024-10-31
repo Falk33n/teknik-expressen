@@ -26,6 +26,7 @@ export const NavbarListItem = ({
             iconClassName
           )}
         />
+
         <span
           aria-hidden
           className='mt-7'
@@ -33,6 +34,7 @@ export const NavbarListItem = ({
           {text}
         </span>
       </NavigationMenuTrigger>
+
       <NavigationMenuContent>{children}</NavigationMenuContent>
     </NavigationMenuItem>
   );

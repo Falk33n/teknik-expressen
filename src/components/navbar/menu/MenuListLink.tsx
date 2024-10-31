@@ -1,19 +1,12 @@
 import { cn } from '@/helpers';
+import type { MenuListLinkProps } from '@/types';
 import Link from 'next/link';
-import type { ReactNode } from 'react';
-import type { IconType } from 'react-icons';
 
-export type MenuLinkProps = {
-  title: { icon: IconType; children: ReactNode };
-  href: string;
-  className?: string;
-};
-
-export const MenuLink = ({
-  title: { icon: Icon, children: title },
+export const MenuListLink = ({
+  title: { icon: Icon, text },
   href,
   className,
-}: MenuLinkProps) => {
+}: MenuListLinkProps) => {
   return (
     <li
       role='menuitem'
@@ -24,7 +17,7 @@ export const MenuLink = ({
     >
       <Link
         href={href}
-        aria-label={`Gå till ${title} sidan`}
+        aria-label={`Gå till ${text} sidan`}
         className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
       >
         <span
@@ -35,11 +28,12 @@ export const MenuLink = ({
             aria-hidden
             className='size-4'
           />
-          {title}
+
+          {text}
         </span>
       </Link>
     </li>
   );
 };
 
-MenuLink.displayName = 'MenuLink';
+MenuListLink.displayName = 'MenuListLink';

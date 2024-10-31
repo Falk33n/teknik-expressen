@@ -36,8 +36,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             disableTransitionOnChange
           >
             <CookieBanner />
+
             <Navbar />
+
             {children}
+
             <Toaster />
           </ThemeProvider>
         </TRPCReactProvider>

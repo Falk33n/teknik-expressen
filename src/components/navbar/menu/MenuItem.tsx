@@ -1,4 +1,4 @@
-import { MenuLink, type MenuLinkProps } from '@/components/navbar/menu';
+import { MenuListLink } from '@/components/navbar/menu';
 import {
   Accordion,
   AccordionContent,
@@ -7,18 +7,11 @@ import {
   NavigationMenuItem,
 } from '@/components/shadcn';
 import { cn } from '@/helpers';
-import type { ReactNode } from 'react';
-import type { IconType } from 'react-icons';
-
-export type MenuItemProps = {
-  i: number;
-  title: { icon: IconType; children?: ReactNode };
-  links: MenuLinkProps[];
-};
+import type { MenuItemProps } from '@/types';
 
 export const MenuItem = ({
   i,
-  title: { icon: Icon, children: title },
+  title: { icon: Icon, text },
   links,
 }: MenuItemProps) => {
   return (
@@ -29,7 +22,7 @@ export const MenuItem = ({
       >
         <AccordionItem value={`accordion-item-${i}`}>
           <AccordionTrigger
-            aria-label={`${title}, Visa eller dölj innehållet`}
+            aria-label={`${text}, Visa eller dölj innehållet`}
             className={cn('px-6', i % 2 !== 0 && 'bg-secondary')}
           >
             <span
@@ -40,9 +33,11 @@ export const MenuItem = ({
                 aria-hidden
                 className='size-4'
               />
-              {title}
+
+              {text}
             </span>
           </AccordionTrigger>
+
           <AccordionContent
             className={cn(
               'pt-0 pb-12 bg-accent/20',
@@ -55,8 +50,8 @@ export const MenuItem = ({
               className='flex flex-col'
             >
               {links.map((link) => (
-                <MenuLink
-                  key={`menuLink-key-${i}`}
+                <MenuListLink
+                  key={`menuListLink-key-${i}`}
                   {...link}
                 />
               ))}
