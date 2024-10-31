@@ -1,17 +1,23 @@
 'use client';
 
-import { Button } from '@/components/shadCN';
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/shadcn';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { RxMoon, RxSun } from 'react-icons/rx';
 
+// Button component
 export const ThemeToggle = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  const currentTheme: string | undefined =
+    theme === 'system' ? systemTheme : theme;
   const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
+  const Icon = currentTheme === 'light' ? RxSun : RxMoon;
+
   useEffect(() => {
+    // only run on client to prevent mismatches of data between server and client
     setIsMounted(true);
   }, []);
 
@@ -25,17 +31,10 @@ export const ThemeToggle = () => {
       className='size-12'
       onClick={() => setTheme(nextTheme)}
     >
-      {currentTheme === 'light' ? (
-        <SunIcon
-          className='scale-125'
-          aria-hidden
-        />
-      ) : (
-        <MoonIcon
-          className='scale-125'
-          aria-hidden
-        />
-      )}
+      <Icon
+        aria-hidden
+        className='scale-125'
+      />
     </Button>
   );
 };

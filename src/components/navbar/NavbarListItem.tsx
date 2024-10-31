@@ -2,23 +2,13 @@ import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuTrigger,
-} from '@/components/shadCN';
+} from '@/components/shadcn';
 import { cn } from '@/helpers';
-import type { ReactNode } from 'react';
-import type { IconType } from 'react-icons';
-
-export type NavbarListItemProps = {
-  title: { icon: IconType; children: ReactNode };
-  ariaLabel: string;
-  children: ReactNode;
-  className?: string;
-};
+import type { NavbarListItemProps } from '@/types';
 
 export const NavbarListItem = ({
-  title: { icon: Icon, children: title },
-  ariaLabel,
+  title: { icon: Icon, text, ariaLabel, iconClassName },
   children,
-  className,
 }: NavbarListItemProps) => {
   return (
     <NavigationMenuItem className='w-[25%] [&>button]:h-[4.5rem]'>
@@ -26,23 +16,25 @@ export const NavbarListItem = ({
         aria-label={ariaLabel}
         className={cn(
           'relative flex flex-col rounded-none w-full whitespace-nowrap',
-          title === 'Meny' && 'menu-trigger'
+          text === 'Meny' && 'menu-trigger'
         )}
       >
         <Icon
           aria-hidden
           className={cn(
             'size-4 absolute top-3.5 left-1/2 -translate-x-1/2',
-            className
+            iconClassName
           )}
         />
+
         <span
           aria-hidden
           className='mt-7'
         >
-          {title}
+          {text}
         </span>
       </NavigationMenuTrigger>
+
       <NavigationMenuContent>{children}</NavigationMenuContent>
     </NavigationMenuItem>
   );

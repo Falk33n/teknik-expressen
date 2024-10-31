@@ -1,6 +1,7 @@
-import { MenuItem, menuItemData } from '@/components/navbar/menu';
-import { NavigationMenu, NavigationMenuList } from '@/components/shadCN';
+import { MenuItem } from '@/components/navbar/menu';
+import { NavigationMenu, NavigationMenuList } from '@/components/shadcn';
 import { ThemeToggle } from '@/components/theme';
+import { MENU_ITEM_ARRAY } from '@/constants';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { MdSupportAgent } from 'react-icons/md';
@@ -11,6 +12,7 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
       <div className='flex justify-end items-center bg-accent px-3.5 py-1 w-full'>
         {menuTrigger}
       </div>
+
       <NavigationMenu
         className='justify-start items-start w-full max-w-full [&>div]:w-full'
         aria-label='Navigering till flikar inom webbsidan'
@@ -19,14 +21,15 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
           data-orientation='vertical'
           className='flex-col space-x-0 w-full'
         >
-          {menuItemData.map((data, i) => (
+          {MENU_ITEM_ARRAY.map((item, i) => (
             <MenuItem
               key={`menuItem-key-${i}`}
-              {...data}
+              {...item}
             />
           ))}
         </NavigationMenuList>
       </NavigationMenu>
+
       <div className='flex flex-col justify-end items-center py-10'>
         <Link
           aria-label='Gå till kundtjänst sidan'
@@ -44,6 +47,7 @@ export const Menu = ({ children: menuTrigger }: { children: ReactNode }) => {
             Kundtjänst
           </span>
         </Link>
+
         <ThemeToggle />
       </div>
     </div>

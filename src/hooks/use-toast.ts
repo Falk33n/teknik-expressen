@@ -1,52 +1,14 @@
 'use client';
 
-import type { ToastActionElement, ToastProps } from '@/components/shadCN';
-import { type ReactNode, useEffect, useState } from 'react';
-
-const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
-
-type ToasterToast = ToastProps & {
-  id: string;
-  title?: ReactNode;
-  description?: ReactNode;
-  action?: ToastActionElement;
-};
+import { TOAST_LIMIT, TOAST_REMOVE_DELAY } from '@/constants';
+import type { Action, State, Toast, ToasterToast } from '@/types';
+import { useEffect, useState } from 'react';
 
 let count: number = 0;
 
 const genId = (): string => {
   count = (count + 1) % Number.MAX_SAFE_INTEGER;
   return count.toString();
-};
-
-type ActionType = Readonly<{
-  ADD_TOAST: 'ADD_TOAST';
-  UPDATE_TOAST: 'UPDATE_TOAST';
-  DISMISS_TOAST: 'DISMISS_TOAST';
-  REMOVE_TOAST: 'REMOVE_TOAST';
-}>;
-
-type Action =
-  | {
-      type: ActionType['ADD_TOAST'];
-      toast: ToasterToast;
-    }
-  | {
-      type: ActionType['UPDATE_TOAST'];
-      toast: Partial<ToasterToast>;
-    }
-  | {
-      type: ActionType['DISMISS_TOAST'];
-      toastId?: ToasterToast['id'];
-    }
-  | {
-      type: ActionType['REMOVE_TOAST'];
-      toastId?: ToasterToast['id'];
-    };
-
-type State = {
-  toasts: ToasterToast[];
 };
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
@@ -67,6 +29,9 @@ const addToRemoveQueue = (toastId: string): void => {
   }
 };
 
+/**
+ * Reducer to handle the state of the toasts depending on what action has taken place.
+ */
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'ADD_TOAST':
@@ -124,6 +89,10 @@ const listeners: Array<(state: State) => void> = [];
 
 let memoryState: State = { toasts: [] };
 
+/**
+ * Sends the current action to the reducer function,
+ * and then sends the new state to the listeners.
+ */
 const dispatch = (action: Action): void => {
   memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
@@ -131,15 +100,10 @@ const dispatch = (action: Action): void => {
   });
 };
 
-type Toast = Omit<ToasterToast, 'id'>;
-
-type ToastReturnType = {
-  id: string;
-  dismiss: () => void;
-  update: (props: ToasterToast) => void;
-};
-
-export const toast = ({ ...props }: Toast): ToastReturnType => {
+/**
+ * Main function to create the toast.
+ */
+export const toast = ({ ...props }: Toast) => {
   const id: string = genId();
 
   const update = (props: ToasterToast): void =>
@@ -169,21 +133,18 @@ export const toast = ({ ...props }: Toast): ToastReturnType => {
   };
 };
 
-type UseToastReturnType = {
-  toast: ({ ...props }: Toast) => ToastReturnType;
-  dismiss: (toastId?: string) => void;
-  toasts: ToasterToast[];
-};
-
-export const useToast = (): UseToastReturnType => {
+/**
+ * Handles the states for the toasts.
+ */
+export const useToast = () => {
   const [state, setState] = useState<State>(memoryState);
 
   useEffect(() => {
     listeners.push(setState);
     return () => {
-      const index: number = listeners.indexOf(setState);
-      if (index > -1) {
-        listeners.splice(index, 1);
+      const i: number = listeners.indexOf(setState);
+      if (i > -1) {
+        listeners.splice(i, 1);
       }
     };
   }, [state]);

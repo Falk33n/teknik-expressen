@@ -1,16 +1,21 @@
 import { cn } from '@/helpers';
+import type {
+  NavigationMenuContentProps,
+  NavigationMenuContentType,
+  NavigationMenuIndicatorProps,
+  NavigationMenuIndicatorType,
+  NavigationMenuListProps,
+  NavigationMenuListType,
+  NavigationMenuProps,
+  NavigationMenuTriggerProps,
+  NavigationMenuTriggerType,
+  NavigationMenuType,
+  NavigationMenuViewportProps,
+  NavigationMenuViewportType,
+} from '@/types';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { cva } from 'class-variance-authority';
-import {
-  type ComponentPropsWithoutRef,
-  type ElementRef,
-  forwardRef,
-} from 'react';
-
-type NavigationMenuType = ElementRef<typeof NavigationMenuPrimitive.Root>;
-type NavigationMenuProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Root
->;
+import { forwardRef } from 'react';
 
 export const NavigationMenu = forwardRef<
   NavigationMenuType,
@@ -32,11 +37,6 @@ export const NavigationMenu = forwardRef<
 });
 
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName;
-
-type NavigationMenuListType = ElementRef<typeof NavigationMenuPrimitive.List>;
-type NavigationMenuListProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.List
->;
 
 export const NavigationMenuList = forwardRef<
   NavigationMenuListType,
@@ -62,13 +62,6 @@ export const navigationMenuTriggerStyle = cva(
   'inline-flex justify-center items-center bg-primary dark:hover:bg-accent/40 data-[state=open]:bg-accent/15 hover:bg-accent/15 dark:focus:bg-accent/40 focus:bg-accent/15 dark:data-[state=open]:bg-accent/40 disabled:opacity-50 px-4 py-2 focus:ring-2 dark:focus:ring-accent/65 focus:ring-accent/35 focus:ring-inset w-max h-9 font-medium text-sm text-white transition-colors disabled:pointer-events-none group focus:outline-none'
 );
 
-type NavigationMenuTriggerType = ElementRef<
-  typeof NavigationMenuPrimitive.Trigger
->;
-type NavigationMenuTriggerProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Trigger
->;
-
 export const NavigationMenuTrigger = forwardRef<
   NavigationMenuTriggerType,
   NavigationMenuTriggerProps
@@ -85,13 +78,6 @@ export const NavigationMenuTrigger = forwardRef<
 });
 
 NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName;
-
-type NavigationMenuContentType = ElementRef<
-  typeof NavigationMenuPrimitive.Content
->;
-type NavigationMenuContentProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Content
->;
 
 export const NavigationMenuContent = forwardRef<
   NavigationMenuContentType,
@@ -113,13 +99,6 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
 export const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
-type NavigationMenuViewportType = ElementRef<
-  typeof NavigationMenuPrimitive.Viewport
->;
-type NavigationMenuViewportProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Viewport
->;
-
 export const NavigationMenuViewport = forwardRef<
   NavigationMenuViewportType,
   NavigationMenuViewportProps
@@ -140,13 +119,6 @@ export const NavigationMenuViewport = forwardRef<
 
 NavigationMenuViewport.displayName =
   NavigationMenuPrimitive.Viewport.displayName;
-
-type NavigationMenuIndicatorType = ElementRef<
-  typeof NavigationMenuPrimitive.Indicator
->;
-type NavigationMenuIndicatorProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Indicator
->;
 
 export const NavigationMenuIndicator = forwardRef<
   NavigationMenuIndicatorType,

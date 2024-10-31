@@ -1,20 +1,21 @@
 'use client';
 
-import { Button, Checkbox } from '@/components/shadCN';
+import { Button, Checkbox } from '@/components/shadcn';
 import { useToast } from '@/hooks';
-import { api } from '@/trpc/React';
+import { api } from '@/trpc';
+import type { CookieConsentFormProps } from '@/types';
 import { useState } from 'react';
 
-type ConsentFormProps = {
-  onConsentSubmit: (consentSubmitted: boolean) => void;
-};
-
-export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
-  const [isChecked, setIsChecked] = useState(true);
+export const CookieConsentForm = ({
+  onConsentSubmit,
+}: CookieConsentFormProps) => {
+  const [isAccepted, setIsAccepted] = useState(true);
   const { toast } = useToast();
 
   const createConsent = api.cookie.createConsent.useMutation({
     onSuccess: async () => {
+      // set the event to true which will
+      // make the cookie-banner disappear
       onConsentSubmit(true);
     },
     onError: () => {
@@ -27,7 +28,7 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
   });
 
   const handleSubmit = () => {
-    createConsent.mutate({ isAccepted: isChecked });
+    createConsent.mutate({ isAccepted });
   };
 
   return (
@@ -42,10 +43,11 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
       <div className='flex items-top space-x-2'>
         <Checkbox
           id='necessary-cookies'
-          checked={isChecked}
+          checked={isAccepted}
           defaultChecked
-          onCheckedChange={() => setIsChecked((prev) => !prev)}
+          onCheckedChange={() => setIsAccepted((prev) => !prev)}
         />
+
         <div className='gap-1.5 grid leading-none'>
           <label
             htmlFor='necessary-cookies'
@@ -53,6 +55,7 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
           >
             Nödvändiga
           </label>
+
           <p className='text-muted-foreground text-sm'>
             Cookies som är nödvändiga för att våran tjänst ska fungera. Till
             exempel att vi håller dig inloggad, tar hand om varorna i din
@@ -60,17 +63,19 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
           </p>
         </div>
       </div>
+
       <Button
         aria-label='Acceptera valt samtycke'
         type='submit'
-        disabled={!isChecked || createConsent.isPending}
+        disabled={!isAccepted || createConsent.isPending}
       >
         Acceptera vald
       </Button>
+
       <Button
         variant='outline'
         type='submit'
-        onClick={() => setIsChecked(false)}
+        onClick={() => setIsAccepted(false)}
         aria-label='Acceptera inte samtycke'
         disabled={createConsent.isPending}
       >
@@ -80,4 +85,4 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
   );
 };
 
-ConsentForm.displayName = 'ConsentForm';
+CookieConsentForm.displayName = 'CookieConsentForm';
