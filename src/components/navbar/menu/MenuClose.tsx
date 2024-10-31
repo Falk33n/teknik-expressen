@@ -33,19 +33,21 @@ export const MenuClose = () => {
   };
 
   return (
-    <Button
-      size='icon'
-      variant='ghost'
-      aria-label='Stäng menyn'
-      aria-controls={menuTriggerId}
-      aria-expanded={true}
-      onClick={handleClick}
-    >
-      <FaX
-        aria-hidden
-        className='text-accent-foreground size-4'
-      />
-    </Button>
+    <div className='flex justify-end items-center bg-accent px-3.5 py-1 sm:py-2 w-full'>
+      <Button
+        size='icon'
+        variant='ghost'
+        aria-label='Stäng menyn'
+        aria-controls={menuTriggerId}
+        aria-expanded={true}
+        onClick={handleClick}
+      >
+        <FaX
+          aria-hidden
+          className='text-accent-foreground sm:scale-125'
+        />
+      </Button>
+    </div>
   );
 };
 

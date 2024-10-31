@@ -22,14 +22,14 @@ export const NavbarListItem = ({
         <Icon
           aria-hidden
           className={cn(
-            'size-4 absolute top-3.5 left-1/2 -translate-x-1/2',
+            'size-4 sm:size-5 absolute top-3.5 left-1/2 -translate-x-1/2',
             iconClassName
           )}
         />
 
         <span
           aria-hidden
-          className='mt-7'
+          className='mt-7 sm:text-base'
         >
           {text}
         </span>

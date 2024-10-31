@@ -21,12 +21,12 @@ export const MenuListLink = ({
         className='flex items-center py-4 border-b w-full text-foreground hover:text-primary focus-visible:text-primary underline-offset-4 hover:underline transition-colors hover:decoration-primary focus-visible:outline-none'
       >
         <span
-          className='flex items-center gap-2 px-6 capitalize'
+          className='flex items-center gap-2 px-6 sm:text-base capitalize'
           aria-hidden
         >
           <Icon
             aria-hidden
-            className='size-4'
+            className='size-4 sm:size-5'
           />
 
           {text}
