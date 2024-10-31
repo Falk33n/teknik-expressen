@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@/components/shadCN';
+import { Button } from '@/components/shadcn';
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';

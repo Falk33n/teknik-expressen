@@ -1,14 +1,17 @@
 'use client';
 
 import { ConsentForm } from '@/components/cookie-banner';
-import { api } from '@/trpc/React';
+import { trpcReact } from '@/trpc';
 import { useState } from 'react';
 
 export const CookieBanner = () => {
   const [isConsentSubmitted, setIsConsentSubmitted] = useState(false);
-  const { data, isLoading } = api.cookie.getConsent.useQuery(undefined, {
-    retry: false,
-  });
+  const { data, isLoading } = trpcReact.api.cookie.getConsent.useQuery(
+    undefined,
+    {
+      retry: false,
+    }
+  );
 
   if (isConsentSubmitted) return null;
   else if (data === undefined && !isLoading)

@@ -5,7 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   NavigationMenuItem,
-} from '@/components/shadCN';
+} from '@/components/shadcn';
 import { cn } from '@/helpers';
 import type { ReactNode } from 'react';
 import type { IconType } from 'react-icons';

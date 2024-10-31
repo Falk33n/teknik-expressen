@@ -1,5 +1,5 @@
 import { MenuItem, menuItemData } from '@/components/navbar/menu';
-import { NavigationMenu, NavigationMenuList } from '@/components/shadCN';
+import { NavigationMenu, NavigationMenuList } from '@/components/shadcn';
 import { ThemeToggle } from '@/components/theme';
 import Link from 'next/link';
 import type { ReactNode } from 'react';

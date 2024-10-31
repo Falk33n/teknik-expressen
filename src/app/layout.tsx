@@ -1,10 +1,10 @@
 import { CookieBanner } from '@/components/cookie-banner';
 import { Navbar } from '@/components/navbar';
-import { Toaster } from '@/components/shadCN';
+import { Toaster } from '@/components/shadcn';
 import { ThemeProvider } from '@/components/theme';
 import '@/styles/globals.scss';
-import { TRPCReactProvider } from '@/trpc/React';
-import { type Metadata } from 'next';
+import { trpcReact } from '@/trpc';
+import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className={`${inter.className}`}>
-        <TRPCReactProvider>
+        <trpcReact.TRPCReactProvider>
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
             <Toaster />
           </ThemeProvider>
-        </TRPCReactProvider>
+        </trpcReact.TRPCReactProvider>
       </body>
     </html>
   );
