@@ -1,6 +1,6 @@
+import { Link } from '@/components/shared';
 import { cn } from '@/helpers';
 import type { MenuListLinkProps } from '@/types';
-import Link from 'next/link';
 
 export const MenuListLink = ({
   title: { icon: Icon, text },

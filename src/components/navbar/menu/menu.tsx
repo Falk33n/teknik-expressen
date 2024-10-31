@@ -1,8 +1,8 @@
 import { MenuItem } from '@/components/navbar/menu';
 import { NavigationMenu, NavigationMenuList } from '@/components/shadcn';
+import { Link } from '@/components/shared';
 import { ThemeToggle } from '@/components/theme';
 import { MENU_ITEM_ARRAY } from '@/constants';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { MdSupportAgent } from 'react-icons/md';
 
