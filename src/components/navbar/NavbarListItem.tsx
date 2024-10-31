@@ -35,13 +35,7 @@ export const NavbarListItem = ({
         </span>
       </NavigationMenuTrigger>
 
-      <NavigationMenuContent
-        className={
-          text === 'Sök' ? 'mx-auto w-full sm:w-[85vw] md:w-[75vw]' : ''
-        }
-      >
-        {children}
-      </NavigationMenuContent>
+      <NavigationMenuContent>{children}</NavigationMenuContent>
     </NavigationMenuItem>
   );
 };

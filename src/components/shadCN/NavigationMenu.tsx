@@ -19,8 +19,8 @@ import { forwardRef } from 'react';
 
 export const NavigationMenu = forwardRef<
   NavigationMenuType,
-  NavigationMenuProps
->(({ className, children, ...props }, ref) => {
+  NavigationMenuProps & { isSearchbar?: boolean }
+>(({ className, isSearchbar, children, ...props }, ref) => {
   return (
     <NavigationMenuPrimitive.Root
       ref={ref}
@@ -28,6 +28,7 @@ export const NavigationMenu = forwardRef<
         'relative z-10 flex max-w-max flex-1 items-center justify-center',
         className
       )}
+      data-isSearchbar={isSearchbar}
       {...props}
     >
       {children}
