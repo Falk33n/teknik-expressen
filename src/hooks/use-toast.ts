@@ -1,10 +1,8 @@
 'use client';
 
+import { TOAST_LIMIT, TOAST_REMOVE_DELAY } from '@/constants';
 import type { Action, State, Toast, ToasterToast } from '@/types';
 import { useEffect, useState } from 'react';
-
-const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
 
 let count: number = 0;
 
@@ -31,6 +29,9 @@ const addToRemoveQueue = (toastId: string): void => {
   }
 };
 
+/**
+ * Reducer to handle the state of the toasts depending on what action has taken place.
+ */
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'ADD_TOAST':
@@ -88,6 +89,10 @@ const listeners: Array<(state: State) => void> = [];
 
 let memoryState: State = { toasts: [] };
 
+/**
+ * Sends the current action to the reducer function,
+ * and then sends the new state to the listeners.
+ */
 const dispatch = (action: Action): void => {
   memoryState = reducer(memoryState, action);
   listeners.forEach((listener) => {
@@ -95,6 +100,9 @@ const dispatch = (action: Action): void => {
   });
 };
 
+/**
+ * Main function to create the toast.
+ */
 export const toast = ({ ...props }: Toast) => {
   const id: string = genId();
 
@@ -125,15 +133,18 @@ export const toast = ({ ...props }: Toast) => {
   };
 };
 
+/**
+ * Handles the states for the toasts.
+ */
 export const useToast = () => {
   const [state, setState] = useState<State>(memoryState);
 
   useEffect(() => {
     listeners.push(setState);
     return () => {
-      const index: number = listeners.indexOf(setState);
-      if (index > -1) {
-        listeners.splice(index, 1);
+      const i: number = listeners.indexOf(setState);
+      if (i > -1) {
+        listeners.splice(i, 1);
       }
     };
   }, [state]);
