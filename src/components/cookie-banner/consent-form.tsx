@@ -2,7 +2,7 @@
 
 import { Button, Checkbox } from '@/components/shadcn';
 import { useToast } from '@/hooks';
-import { trpcReact } from '@/trpc';
+import { api } from '@/trpc';
 import { useState } from 'react';
 
 type ConsentFormProps = {
@@ -13,7 +13,7 @@ export const ConsentForm = ({ onConsentSubmit }: ConsentFormProps) => {
   const [isChecked, setIsChecked] = useState(true);
   const { toast } = useToast();
 
-  const createConsent = trpcReact.api.cookie.createConsent.useMutation({
+  const createConsent = api.cookie.createConsent.useMutation({
     onSuccess: async () => {
       onConsentSubmit(true);
     },

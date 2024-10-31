@@ -3,7 +3,7 @@ import { Navbar } from '@/components/navbar';
 import { Toaster } from '@/components/shadcn';
 import { ThemeProvider } from '@/components/theme';
 import '@/styles/globals.scss';
-import { trpcReact } from '@/trpc';
+import { TRPCReactProvider } from '@/trpc';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className={`${inter.className}`}>
-        <trpcReact.TRPCReactProvider>
+        <TRPCReactProvider>
           <ThemeProvider
             attribute='class'
             defaultTheme='system'
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
             <Toaster />
           </ThemeProvider>
-        </trpcReact.TRPCReactProvider>
+        </TRPCReactProvider>
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 import { createCaller, createTRPCContext, type AppRouter } from '@/server/api';
-import { createQueryClient, trpcReact } from '@/trpc';
+import { createQueryClient, getBaseUrl } from '@/trpc';
 import { createHydrationHelpers } from '@trpc/react-query/rsc';
 import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
@@ -19,7 +19,7 @@ const createContext = cache(() => {
    * to allow `resHeaders` to be added which will enable response headers to
    * successfully make cookies being created in the browser.
    */
-  const req = new NextRequest(new URL(trpcReact.getBaseUrl() + '/api/trpc'), {
+  const req = new NextRequest(new URL(getBaseUrl() + '/api/trpc'), {
     headers: heads,
   });
 
