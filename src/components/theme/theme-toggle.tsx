@@ -3,18 +3,21 @@
 import { Button } from '@/components/shadcn';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import type { IconType } from 'react-icons';
 import { RxMoon, RxSun } from 'react-icons/rx';
 
+// Button component
 export const ThemeToggle = () => {
   const { systemTheme, theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
+
   const currentTheme: string | undefined =
     theme === 'system' ? systemTheme : theme;
   const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  const Icon: IconType = currentTheme === 'light' ? RxSun : RxMoon;
+
+  const Icon = currentTheme === 'light' ? RxSun : RxMoon;
 
   useEffect(() => {
+    // only run on client to prevent mismatches of data between server and client
     setIsMounted(true);
   }, []);
 
