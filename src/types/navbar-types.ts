@@ -10,3 +10,9 @@ export type NavbarListItemProps = {
   };
   children: ReactNode;
 };
+
+export type TopbarItemProps = {
+  icon: IconType;
+  children: ReactNode;
+  iconClassName?: string;
+};

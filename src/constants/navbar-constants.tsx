@@ -1,7 +1,6 @@
 import type { MenuItemProps } from '@/components/navbar/menu';
 import { Menu, MenuTrigger } from '@/components/navbar/menu';
-import type { TopbarIconWithTextProps } from '@/components/navbar/topbar';
-import type { NavbarListItemProps } from '@/types';
+import type { NavbarListItemProps, TopbarItemProps } from '@/types';
 import Link from 'next/link';
 import { BsHeadset, BsLightningCharge, BsMouse2 } from 'react-icons/bs';
 import { FaSearch, FaShoppingBag } from 'react-icons/fa';
@@ -169,9 +168,9 @@ export const MENU_ITEM_ARRAY: MenuItemProps[] = [
 ];
 
 /**
- * Data for the content in the topbar (the bar that is over the navbar)
+ * Data for the items in the topbar (the bar that is over the navbar)
  */
-export const TOPBAR_CONTENT_ARRAY: TopbarIconWithTextProps[] = [
+export const TOPBAR_ITEMS_ARRAY: TopbarItemProps[] = [
   {
     icon: FaAward,
     children: 'Prismatch',
@@ -179,7 +178,7 @@ export const TOPBAR_CONTENT_ARRAY: TopbarIconWithTextProps[] = [
   {
     icon: IoReloadSharp,
     children: 'Fri retur',
-    className: 'scale-x-[-1]',
+    iconClassName: 'scale-x-[-1]',
   },
   {
     icon: FaTruckFast,
