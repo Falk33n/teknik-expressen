@@ -1,6 +1,9 @@
 import { cn } from '@/helpers';
 import type { HTMLAttributes } from 'react';
 
+/**
+ * Loading placeholder component.
+ */
 export const Skeleton = ({
   className,
   ...props

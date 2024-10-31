@@ -1,5 +1,3 @@
-'use client';
-
 import { cn } from '@/helpers';
 import type {
   ToastActionProps,
@@ -22,6 +20,9 @@ import { forwardRef } from 'react';
 
 export const ToastProvider = ToastPrimitives.Provider;
 
+/**
+ * Container for the toast.
+ */
 export const ToastViewport = forwardRef<ToastViewportType, ToastViewportProps>(
   ({ className, ...props }, ref) => {
     return (

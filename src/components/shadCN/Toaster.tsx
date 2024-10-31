@@ -10,6 +10,9 @@ import {
 } from '@/components/shadcn';
 import { useToast } from '@/hooks';
 
+/**
+ * The composed component of the toast.
+ */
 export const Toaster = () => {
   const { toasts } = useToast();
   return (

@@ -45,6 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    // 'Slot' = takes all the props and styles and apply it to the nearest child
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
