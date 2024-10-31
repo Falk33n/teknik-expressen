@@ -5,7 +5,7 @@ export type NavbarListItemProps = {
   title: {
     icon: IconType;
     iconClassName?: string;
-    text: ReactNode;
+    text: 'Meny' | 'Sök' | 'Logga in' | 'Kundkorg';
     ariaLabel: string;
   };
   children: ReactNode;

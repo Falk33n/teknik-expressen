@@ -62,7 +62,7 @@ export const CommandInput = forwardRef<CommandInputType, CommandInputProps>(
         className='flex items-center px-3 border-b'
         cmdk-input-wrapper=''
       >
-        <MagnifyingGlassIcon className='opacity-50 mr-2 shrink-0 size-4' />
+        <MagnifyingGlassIcon className='opacity-50 mr-2 shrink-0 size-4 sm:size-5 sm:mr-3' />
         <CommandPrimitive.Input
           ref={ref}
           className={cn(
@@ -115,7 +115,7 @@ export const CommandGroup = forwardRef<CommandGroupType, CommandGroupProps>(
       <CommandPrimitive.Group
         ref={ref}
         className={cn(
-          'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
+          'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:sm:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-item]]:text-sm [&_[cmdk-item]]:sm:text-base [&_[cmdk-item]]:my-3',
           className
         )}
         {...props}

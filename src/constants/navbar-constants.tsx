@@ -1,4 +1,5 @@
 import { Menu } from '@/components/navbar/menu';
+import { Searchbar } from '@/components/navbar/searchbar';
 import { Link } from '@/components/shared';
 import type {
   MenuItemProps,
@@ -41,7 +42,7 @@ export const NAVBAR_LIST_ITEMS_ARRAY: NavbarListItemProps[] = [
       text: 'Sök',
       ariaLabel: 'Visa eller dölj sökrutan',
     },
-    children: <Link href='/'>testing testing</Link>,
+    children: <Searchbar />,
   },
   {
     title: {
