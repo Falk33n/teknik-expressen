@@ -1,26 +1,24 @@
 import type { NavbarListItemProps } from '@/components/navbar';
-import { Menu, MenuTrigger } from '@/components/navbar/menu';
-import Link from 'next/link';
-import { FaSearch, FaShoppingBag } from 'react-icons/fa';
-import { FaUser } from 'react-icons/fa6';
-import { IoMenu } from 'react-icons/io5';
 import type { MenuItemProps } from '@/components/navbar/menu';
+import { Menu, MenuTrigger } from '@/components/navbar/menu';
+import type { TopbarIconWithTextProps } from '@/components/navbar/topbar';
+import Link from 'next/link';
 import { BsHeadset, BsLightningCharge, BsMouse2 } from 'react-icons/bs';
-import { FaRegKeyboard } from 'react-icons/fa6';
+import { FaSearch, FaShoppingBag } from 'react-icons/fa';
+import { FaAward, FaRegKeyboard, FaTruckFast, FaUser } from 'react-icons/fa6';
 import { HiOutlineDesktopComputer } from 'react-icons/hi';
 import { IoMdTv } from 'react-icons/io';
 import {
   IoLaptopOutline,
+  IoMenu,
   IoPhonePortraitOutline,
   IoPhonePortraitSharp,
+  IoReloadSharp,
   IoTvOutline,
 } from 'react-icons/io5';
 import { LuCable } from 'react-icons/lu';
 import { MdOutlineDevicesOther } from 'react-icons/md';
 import { TbDeviceIpad } from 'react-icons/tb';
-import type { TopbarIconWithTextProps } from '@/components/navbar/topbar';
-import { FaAward, FaTruckFast } from 'react-icons/fa6';
-import { IoReloadSharp } from 'react-icons/io5';
 
 /**
  * Data for the list items in the navbar
