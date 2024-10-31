@@ -1,5 +1,5 @@
-import { createCallerFactory, createTRPCRouter } from '@/server/api';
 import { cookieRouter } from '@/server/api/routers';
+import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 /**
  * This is the primary router for your server.

@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from '@/server/api';
+import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
 import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';

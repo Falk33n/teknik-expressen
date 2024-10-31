@@ -1,4 +1,5 @@
-import { MenuItem, menuItemData } from '@/components/navbar/menu';
+import { MenuItem } from '@/components/navbar/menu';
+import { menuItemData } from '@/components/navbar/menu/data';
 import { NavigationMenu, NavigationMenuList } from '@/components/shadcn';
 import { ThemeToggle } from '@/components/theme';
 import Link from 'next/link';

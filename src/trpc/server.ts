@@ -1,4 +1,5 @@
-import { createCaller, createTRPCContext, type AppRouter } from '@/server/api';
+import { createCaller, type AppRouter } from '@/server/api';
+import { createTRPCContext } from '@/server/api/trpc';
 import { createQueryClient, getBaseUrl } from '@/trpc';
 import { createHydrationHelpers } from '@trpc/react-query/rsc';
 import { headers } from 'next/headers';

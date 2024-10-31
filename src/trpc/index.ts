@@ -1,4 +1,4 @@
 // index.ts allows a more clean way to import packages
 export * from './query-client';
 export * from './React';
-// can't import server.ts since it is strict server-only
+// can't import server.ts since it is strict server-only (will give error if you try to)
