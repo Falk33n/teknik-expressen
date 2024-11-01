@@ -1,4 +1,4 @@
-import { cn } from '@/helpers';
+import { cn, toastVariants } from '@/helpers';
 import type {
   ToastActionProps,
   ToastActionType,
@@ -15,7 +15,6 @@ import type {
 } from '@/types';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import * as ToastPrimitives from '@radix-ui/react-toast';
-import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 
 export const ToastProvider = ToastPrimitives.Provider;
@@ -39,23 +38,6 @@ export const ToastViewport = forwardRef<ToastViewportType, ToastViewportProps>(
 );
 
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
-
-export const toastVariants = cva(
-  'relative data-[state=closed]:slide-out-to-right-full data-[state=open]:sm:slide-in-from-bottom-full flex justify-between items-center space-x-2 data-[state=open]:slide-in-from-top-full shadow-lg p-4 pr-6 border rounded-md w-full transition-all data-[swipe=move]:transition-none data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[state=closed]:animate-out data-[state=open]:animate-in data-[swipe=end]:animate-out overflow-hidden pointer-events-auto group data-[state=closed]:fade-out-80',
-  {
-    variants: {
-      variant: {
-        default: 'border bg-background text-foreground',
-        destructive:
-          'destructive group border-destructive bg-destructive text-destructive-foreground',
-        success: 'bg-green-500 border-green-600 text-white',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  }
-);
 
 export const Toast = forwardRef<ToastType, ToastComponentProps>(
   ({ className, variant = 'default', ...props }, ref) => {

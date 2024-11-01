@@ -11,88 +11,26 @@ import {
   FormMessage,
   Input,
 } from '@/components/shadcn';
-import type { AuthenticationProps } from '@/types';
+import {
+  LOGIN_FIELDS,
+  LOGIN_SCHEMA,
+  REGISTER_FIELD,
+  REGISTER_SCHEMA,
+} from '@/constants';
+import type { AuthenticationFieldProps, AuthenticationProps } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-const loginSchema = z.object({
-  email: z
-    .string({
-      required_error: 'Obligatorisk.',
-    })
-    .email({
-      message: 'Var vänlig och ange en giltig e-postadress.',
-    }),
-  password: z
-    .string({
-      required_error: 'Obligatorisk.',
-    })
-    .min(8, {
-      message: 'Lösenordet måste vara minst 8 tecken långt.',
-    }),
-});
-
-const registerSchema = loginSchema
-  .extend({
-    confirmPassword: z
-      .string({
-        required_error: 'Obligatorisk.',
-      })
-      .min(8, {
-        message: 'Bekräfta lösenordet måste vara minst 8 tecken långt.',
-      }),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.confirmPassword) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['confirmPassword'],
-        message: 'Lösenorden matchar inte. Vänligen försök igen.',
-      });
-    }
-  });
-
-type AuthenticationFieldProps = {
-  name: 'email' | 'password' | 'confirmPassword';
-  label: string;
-  placeholder: string;
-  description: string;
-};
-
-const loginFields: AuthenticationFieldProps[] = [
-  {
-    name: 'email',
-    label: 'E-post',
-    placeholder: 'din-epost@exempel.com',
-    description: 'Ange din e-postadress.',
-  },
-  {
-    name: 'password',
-    label: 'Lösenord',
-    placeholder: '******',
-    description: 'Ange ditt lösenord.',
-  },
-];
-
-const registerField: AuthenticationFieldProps[] = [
-  {
-    name: 'confirmPassword',
-    label: 'Bekräfta lösenord',
-    placeholder: '******',
-    description: 'Bekräfta ditt lösenord.',
-  },
-];
 
 export const AuthenticationForm = ({
   component: activeComponent,
 }: AuthenticationProps) => {
   const submitText =
     activeComponent === 'login' ? 'Logga in' : 'Registrera dig';
-  const schema = activeComponent === 'login' ? loginSchema : registerSchema;
+  const schema = activeComponent === 'login' ? LOGIN_SCHEMA : REGISTER_SCHEMA;
   const fields: AuthenticationFieldProps[] = [
-    ...loginFields,
-    ...(activeComponent === 'register' ? registerField : []),
+    ...LOGIN_FIELDS,
+    ...(activeComponent === 'register' ? REGISTER_FIELD : []),
   ];
 
   const form = useForm<z.infer<typeof schema>>({
