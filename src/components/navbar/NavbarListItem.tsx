@@ -16,7 +16,9 @@ export const NavbarListItem = ({
         aria-label={ariaLabel}
         className={cn(
           'relative flex flex-col rounded-none w-full whitespace-nowrap',
-          text === 'Meny' && 'menu-trigger'
+          text === 'Meny' && 'menu-trigger',
+          text === 'Sök' && 'searchbar-trigger',
+          text === 'Logga in' && 'authentication-trigger'
         )}
       >
         <Icon
@@ -35,7 +37,15 @@ export const NavbarListItem = ({
         </span>
       </NavigationMenuTrigger>
 
-      <NavigationMenuContent>{children}</NavigationMenuContent>
+      <NavigationMenuContent
+        className={
+          text === 'Sök'
+            ? 'mx-auto max-sm:w-screen sm:w-[85vw] md:w-[70vw]'
+            : 'w-screen'
+        }
+      >
+        {children}
+      </NavigationMenuContent>
     </NavigationMenuItem>
   );
 };

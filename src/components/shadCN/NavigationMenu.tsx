@@ -19,8 +19,8 @@ import { forwardRef } from 'react';
 
 export const NavigationMenu = forwardRef<
   NavigationMenuType,
-  NavigationMenuProps
->(({ className, children, ...props }, ref) => {
+  NavigationMenuProps & { isSearchbar?: boolean }
+>(({ className, isSearchbar, children, ...props }, ref) => {
   return (
     <NavigationMenuPrimitive.Root
       ref={ref}
@@ -28,6 +28,7 @@ export const NavigationMenu = forwardRef<
         'relative z-10 flex max-w-max flex-1 items-center justify-center',
         className
       )}
+      data-isSearchbar={isSearchbar}
       {...props}
     >
       {children}
@@ -104,11 +105,11 @@ export const NavigationMenuViewport = forwardRef<
   NavigationMenuViewportProps
 >(({ className, ...props }, ref) => {
   return (
-    <div className={cn('absolute left-0 bottom-full flex justify-center')}>
+    <div className={cn('fixed left-0 w-fit mx-auto top-0 flex justify-center')}>
       <NavigationMenuPrimitive.Viewport
         ref={ref}
         className={cn(
-          'origin-bottom-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border bg-popover text-popover-foreground shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left-52 data-[state=open]:slide-in-from-left-52',
+          'origin-top w-fit relative h-[var(--radix-navigation-menu-viewport-height)] rounded-md overflow-hidden border bg-popover text-popover-foreground shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left-52 data-[state=open]:slide-in-from-left-52',
           className
         )}
         {...props}

@@ -5,7 +5,7 @@ export type NavbarListItemProps = {
   title: {
     icon: IconType;
     iconClassName?: string;
-    text: ReactNode;
+    text: 'Meny' | 'Sök' | 'Logga in' | 'Kundkorg';
     ariaLabel: string;
   };
   children: ReactNode;
@@ -27,4 +27,12 @@ export type MenuItemProps = {
   i: number;
   title: { icon: IconType; text: ReactNode };
   links: MenuListLinkProps[];
+};
+
+export type AuthenticationProps = {
+  component: 'login' | 'register';
+};
+
+export type NavigationMenuCloseProps = {
+  trigger: '.menu-trigger' | '.authentication-trigger' | '.searchbar-trigger';
 };
