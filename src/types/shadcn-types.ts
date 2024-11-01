@@ -1,5 +1,6 @@
 import {
   buttonVariants,
+  labelVariants,
   Toast,
   ToastAction,
   toastVariants,
@@ -8,7 +9,9 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import type { DialogProps } from '@radix-ui/react-dialog';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import * as LabelPrimitive from '@radix-ui/react-label';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
+import { Slot } from '@radix-ui/react-slot';
 import * as ToastPrimitives from '@radix-ui/react-toast';
 import type { VariantProps } from 'class-variance-authority';
 import { Command as CommandPrimitive } from 'cmdk';
@@ -19,6 +22,7 @@ import type {
   ReactElement,
   ReactNode,
 } from 'react';
+import type { FieldPath, FieldValues } from 'react-hook-form';
 
 /*
  * shadcn accordion types
@@ -247,3 +251,34 @@ export type DialogDescriptionType = ElementRef<
 export type DialogDescriptionProps = ComponentPropsWithoutRef<
   typeof DialogPrimitive.Description
 >;
+
+/*
+ * shadcn form types
+ */
+export type FormFieldContextValue<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = {
+  name: TName;
+};
+
+export type FormItemContextValue = {
+  id: string;
+};
+
+export type FormLabelType = ElementRef<typeof LabelPrimitive.Root>;
+export type FormLabelProps = ComponentPropsWithoutRef<
+  typeof LabelPrimitive.Root
+>;
+
+export type FormControlType = ElementRef<typeof Slot>;
+export type FormControlProps = ComponentPropsWithoutRef<typeof Slot>;
+
+/*
+ * shadcn label types
+ */
+export type LabelType = React.ElementRef<typeof LabelPrimitive.Root>;
+export type LabelProps = React.ComponentPropsWithoutRef<
+  typeof LabelPrimitive.Root
+> &
+  VariantProps<typeof labelVariants>;

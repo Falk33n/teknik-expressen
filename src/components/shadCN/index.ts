@@ -4,6 +4,8 @@ export * from './Button';
 export * from './Checkbox';
 export * from './Command';
 export * from './Dialog';
+export * from './Form';
+export * from './Label';
 export * from './NavigationMenu';
 export * from './Skeleton';
 export * from './Toast';
