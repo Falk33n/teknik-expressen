@@ -19,6 +19,7 @@ import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
   ElementRef,
+  InputHTMLAttributes,
   ReactElement,
   ReactNode,
 } from 'react';
@@ -282,3 +283,8 @@ export type LabelProps = React.ComponentPropsWithoutRef<
   typeof LabelPrimitive.Root
 > &
   VariantProps<typeof labelVariants>;
+
+/*
+ * shadcn input types
+ */
+export type InputProps = InputHTMLAttributes<HTMLInputElement>;
