@@ -1,4 +1,4 @@
-import { cn } from '@/helpers';
+import { cn, navigationMenuTriggerStyle } from '@/helpers';
 import type {
   NavigationMenuContentProps,
   NavigationMenuContentType,
@@ -14,7 +14,6 @@ import type {
   NavigationMenuViewportType,
 } from '@/types';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
-import { cva } from 'class-variance-authority';
 import { forwardRef } from 'react';
 
 export const NavigationMenu = forwardRef<
@@ -58,10 +57,6 @@ export const NavigationMenuList = forwardRef<
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
 export const NavigationMenuItem = NavigationMenuPrimitive.Item;
-
-export const navigationMenuTriggerStyle = cva(
-  'inline-flex justify-center items-center bg-primary dark:hover:bg-accent/40 data-[state=open]:bg-accent/15 hover:bg-accent/15 dark:focus:bg-accent/40 focus:bg-accent/15 dark:data-[state=open]:bg-accent/40 disabled:opacity-50 px-4 py-2 focus:ring-2 dark:focus:ring-accent/65 focus:ring-accent/35 focus:ring-inset w-max h-9 font-medium text-sm text-white transition-colors disabled:pointer-events-none group focus:outline-none'
-);
 
 export const NavigationMenuTrigger = forwardRef<
   NavigationMenuTriggerType,

@@ -36,3 +36,10 @@ export type AuthenticationProps = {
 export type NavigationMenuCloseProps = {
   trigger: '.menu-trigger' | '.authentication-trigger' | '.searchbar-trigger';
 };
+
+export type AuthenticationFieldProps = {
+  name: 'email' | 'password' | 'confirmPassword';
+  label: string;
+  placeholder: string;
+  description: string;
+};

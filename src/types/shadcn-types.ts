@@ -1,10 +1,5 @@
-import {
-  buttonVariants,
-  labelVariants,
-  Toast,
-  ToastAction,
-  toastVariants,
-} from '@/components/shadcn';
+import { Toast, ToastAction } from '@/components/shadcn';
+import { buttonVariants, labelVariants, toastVariants } from '@/helpers';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 import type { DialogProps } from '@radix-ui/react-dialog';
