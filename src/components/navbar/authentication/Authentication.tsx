@@ -1,5 +1,6 @@
 'use client';
 
+import { AuthenticationForm } from '@/components/navbar/authentication';
 import { NavigationMenuClose } from '@/components/navbar/shared';
 import { Button } from '@/components/shadcn';
 import type { AuthenticationProps } from '@/types';
@@ -33,6 +34,8 @@ export const Authentication = ({ component }: AuthenticationProps) => {
           Välkommen{activeComponent === 'login' && ' tillbaka'}, fyll i dina
           uppgifter nedan och klicka på &apos;{actionText}&apos;.
         </h4>
+
+        <AuthenticationForm component={activeComponent} />
 
         <div className='flex justify-center items-center'>
           <span

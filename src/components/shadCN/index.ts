@@ -5,6 +5,7 @@ export * from './Checkbox';
 export * from './Command';
 export * from './Dialog';
 export * from './Form';
+export * from './Input';
 export * from './Label';
 export * from './NavigationMenu';
 export * from './Skeleton';
