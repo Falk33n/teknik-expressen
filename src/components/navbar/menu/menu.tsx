@@ -1,4 +1,5 @@
-import { MenuClose, MenuItem } from '@/components/navbar/menu';
+import { MenuItem } from '@/components/navbar/menu';
+import { NavigationMenuClose } from '@/components/navbar/shared';
 import { NavigationMenu, NavigationMenuList } from '@/components/shadcn';
 import { Link } from '@/components/shared';
 import { ThemeToggle } from '@/components/theme';
@@ -8,7 +9,7 @@ import { MdSupportAgent } from 'react-icons/md';
 export const Menu = () => {
   return (
     <div className='flex flex-col w-full h-[calc(100vh-4.5rem)] overflow-y-auto'>
-      <MenuClose />
+      <NavigationMenuClose trigger='.menu-trigger' />
 
       <NavigationMenu
         className='justify-start items-start w-full max-w-full [&>div]:w-full'

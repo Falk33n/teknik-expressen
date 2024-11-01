@@ -105,11 +105,11 @@ export const NavigationMenuViewport = forwardRef<
   NavigationMenuViewportProps
 >(({ className, ...props }, ref) => {
   return (
-    <div className={cn('fixed left-0 top-0 flex justify-center')}>
+    <div className={cn('fixed left-0 w-fit mx-auto top-0 flex justify-center')}>
       <NavigationMenuPrimitive.Viewport
         ref={ref}
         className={cn(
-          'origin-top-center relative h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border bg-popover text-popover-foreground shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left-52 data-[state=open]:slide-in-from-left-52',
+          'origin-top-center w-fit relative h-[var(--radix-navigation-menu-viewport-height)] rounded-md overflow-hidden border bg-popover text-popover-foreground shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left-52 data-[state=open]:slide-in-from-left-52',
           className
         )}
         {...props}

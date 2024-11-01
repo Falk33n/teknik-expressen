@@ -1,5 +1,6 @@
 'use client';
 
+import { NavigationMenuClose } from '@/components/navbar/shared';
 import {
   Command,
   CommandEmpty,
@@ -21,30 +22,33 @@ export const Searchbar = () => {
   };
 
   return (
-    <Command className='max-sm:px-4 pt-3 sm:pt-6 pb-7 sm:pb-10'>
-      <CommandInput
-        className='text-sm sm:text-base'
-        onValueChange={(val) => handleValueChange(val)}
-        placeholder='Sök efter en produkt...'
-      />
+    <>
+      <NavigationMenuClose trigger='.searchbar-trigger' />
 
-      <CommandList>
-        <CommandEmpty className='pt-6 pb-0 text-center text-sm'>
-          Inga produkter hittades.
-        </CommandEmpty>
+      <Command className='px-4 sm:px-8 pt-3 sm:pt-6 pb-7 sm:pb-10 w-full'>
+        <CommandInput
+          className='text-sm sm:text-base'
+          onValueChange={(val) => handleValueChange(val)}
+          placeholder='Sök efter en produkt...'
+        />
 
-        <CommandGroup
-          className=''
-          heading={inputHasValue ? 'Sökresultat' : 'Populära produkter'}
-        >
-          <CommandItem>Testing</CommandItem>
-          <CommandItem>Rokomoko</CommandItem>
-          <CommandItem>Testing</CommandItem>
-        </CommandGroup>
+        <CommandList>
+          <CommandEmpty className='pt-6 pb-0 text-center text-sm'>
+            Inga produkter hittades.
+          </CommandEmpty>
 
-        <CommandSeparator />
-      </CommandList>
-    </Command>
+          <CommandGroup
+            heading={inputHasValue ? 'Sökresultat' : 'Populära produkter'}
+          >
+            <CommandItem>Testing</CommandItem>
+            <CommandItem>Rokomoko</CommandItem>
+            <CommandItem>Testing</CommandItem>
+          </CommandGroup>
+
+          <CommandSeparator />
+        </CommandList>
+      </Command>
+    </>
   );
 };
 
