@@ -36,7 +36,7 @@ export const Menu = () => {
         >
           <span
             aria-hidden
-            className='flex items-center gap-3 px-6'
+            className='flex items-center gap-3 px-6 font-medium'
           >
             <MdSupportAgent
               aria-hidden
