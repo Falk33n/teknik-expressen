@@ -40,11 +40,9 @@ export const NavbarListItem = ({
       <NavigationMenuContent
         className={cn(
           'bg-popover',
-          text === 'Sök'
-            ? 'mx-auto max-sm:w-screen sm:w-[85vw] md:w-[70vw]'
-            : text === 'Logga in'
-              ? 'mx-auto max-sm:w-screen sm:w-[92.5vw] md:w-[85vw]'
-              : 'w-screen'
+          text === 'Sök' || text === 'Logga in'
+            ? 'mx-auto max-sm:w-screen sm:w-[92.5vw] md:w-[85vw]'
+            : 'w-screen'
         )}
       >
         {children}

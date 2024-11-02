@@ -10,13 +10,46 @@ datasource db {
   url      = env("SECRET_DATABASE_URL")
 }
 
-model CookieConsent {
-  id            Int         @id @default(autoincrement())
-  userId        Int?
-  consentGiven  Boolean     @default(false) 
-  consentDate   DateTime    @default(now())
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+model User {
+  id                String          @id @default(uuid())
+  passwordId        String?         @unique
+  cookieConsentId   String?         @unique
 
-  @@index([userId])  
+  password          Password?       @relation("UserPassword", fields: [passwordId], references: [id], onDelete: Cascade)
+  cookieConsent     CookieConsent?  @relation("UserCookieConsent", fields: [cookieConsentId], references: [id], onDelete: Cascade)
+
+  email             String          @unique
+
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([id])
+}
+
+model Password {
+  id              String     @id @default(uuid())
+
+  user            User?      @relation("UserPassword")
+
+  salt            String
+  hashedPassword  String
+
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@index([id])
+}
+
+model CookieConsent {
+  id            String    @id @default(uuid())
+
+  user          User?     @relation("UserCookieConsent")
+
+  consentGiven  Boolean   @default(false)
+  consentDate   DateTime  @default(now())
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+
+  @@index([id])
 }
