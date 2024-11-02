@@ -28,18 +28,3 @@ export type MenuItemProps = {
   title: { icon: IconType; text: ReactNode };
   links: MenuListLinkProps[];
 };
-
-export type AuthenticationProps = {
-  component: 'login' | 'register';
-};
-
-export type NavigationMenuCloseProps = {
-  trigger: '.menu-trigger' | '.authentication-trigger' | '.searchbar-trigger';
-};
-
-export type AuthenticationFieldProps = {
-  name: 'email' | 'password' | 'confirmPassword';
-  label: string;
-  placeholder: string;
-  description: string;
-};

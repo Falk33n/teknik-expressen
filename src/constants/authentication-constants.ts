@@ -38,12 +38,14 @@ export const REGISTER_SCHEMA = LOGIN_SCHEMA.extend({
 
 export const LOGIN_FIELDS: AuthenticationFieldProps[] = [
   {
+    type: 'email',
     name: 'email',
     label: 'E-post',
     placeholder: 'din-epost@exempel.com',
     description: 'Ange din e-postadress.',
   },
   {
+    type: 'password',
     name: 'password',
     label: 'Lösenord',
     placeholder: '******',
@@ -53,6 +55,7 @@ export const LOGIN_FIELDS: AuthenticationFieldProps[] = [
 
 export const REGISTER_FIELD: AuthenticationFieldProps[] = [
   {
+    type: 'password',
     name: 'confirmPassword',
     label: 'Bekräfta lösenord',
     placeholder: '******',
