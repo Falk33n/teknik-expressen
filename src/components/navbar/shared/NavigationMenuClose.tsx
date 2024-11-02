@@ -38,7 +38,7 @@ export const NavigationMenuClose = ({ trigger }: NavigationMenuCloseProps) => {
   };
 
   return (
-    <div className='flex justify-end items-center bg-accent px-3.5 py-1 sm:py-2 w-full'>
+    <div className='top-0 z-[100] sticky flex justify-end items-center bg-accent px-3.5 py-1 sm:py-2 w-full'>
       <Button
         size='icon'
         variant='ghost'

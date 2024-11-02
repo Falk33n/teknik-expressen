@@ -19,25 +19,28 @@ export const Authentication = ({ component }: AuthenticationProps) => {
       : 'Har du redan ett konto? ';
 
   return (
-    <div className='flex flex-col w-full h-[calc(100vh-4.5rem)]'>
+    <div className='flex flex-col w-full h-[calc(100vh-4.5rem)] md:h-[80vh] overflow-y-auto'>
       <NavigationMenuClose trigger='.authentication-trigger' />
 
-      <div
-        className='space-y-3.5 p-6'
-        aria-live='polite'
-      >
-        <h3 className='font-semibold text-2xl sm:text-3xl capitalize'>
+      <div className='relative flex flex-col gap-3.5 sm:px-14 p-6 sm:pt-9 pb-0 h-full'>
+        <h3
+          className='font-semibold text-2xl sm:text-3xl'
+          aria-live='polite'
+        >
           {actionText}
         </h3>
 
-        <h4 className='font-medium text-sm sm:text-base'>
-          Välkommen{activeComponent === 'login' && ' tillbaka'}, fyll i dina
-          uppgifter nedan och klicka på &apos;{actionText}&apos;.
+        <h4
+          className='mb-6 max-w-[85%] sm:max-w-[75%] font-medium text-balance text-sm sm:text-base'
+          aria-live='polite'
+        >
+          Välkommen{activeComponent === 'login' ? ' tillbaka!' : '!'} Fyll i
+          dina uppgifter nedan och klicka på {actionText} knappen.
         </h4>
 
         <AuthenticationForm component={activeComponent} />
 
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-end pb-6 sm:pb-9'>
           <span
             aria-hidden
             className='py-2 text-sm'
@@ -48,6 +51,7 @@ export const Authentication = ({ component }: AuthenticationProps) => {
           <Button
             variant='link'
             className='px-1.5'
+            aria-live='polite'
             aria-label={`${promptText}, klicka här för att ${actionText}`}
             onClick={() =>
               setActiveComponent((prev) =>

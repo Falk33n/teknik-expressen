@@ -11,6 +11,7 @@ import {
   FormMessage,
   Input,
 } from '@/components/shadcn';
+import { PasswordInput } from '@/components/shared';
 import {
   LOGIN_FIELDS,
   LOGIN_SCHEMA,
@@ -19,6 +20,7 @@ import {
 } from '@/constants';
 import type { AuthenticationFieldProps, AuthenticationProps } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -27,9 +29,13 @@ export const AuthenticationForm = ({
 }: AuthenticationProps) => {
   const submitText =
     activeComponent === 'login' ? 'Logga in' : 'Registrera dig';
+  const passwordAutoComplete =
+    activeComponent === 'register' ? 'new-password' : 'current-password';
+
   const schema = activeComponent === 'login' ? LOGIN_SCHEMA : REGISTER_SCHEMA;
   const fields: AuthenticationFieldProps[] = [
     ...LOGIN_FIELDS,
+    // adds the confirm password field to the array if used as register component
     ...(activeComponent === 'register' ? REGISTER_FIELD : []),
   ];
 
@@ -46,41 +52,57 @@ export const AuthenticationForm = ({
     console.log(values);
   };
 
+  useEffect(() => {
+    // reset the form if the active component changes
+    form.reset();
+    // disabled the independency 'form', since it will cause unneccesary rerenders
+    // eslint-disable-next-line
+  }, [activeComponent]);
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className='space-y-8'
+        className='flex-1 space-y-8 max-w-[90%] sm:max-w-[75%]'
       >
-        {fields.map((field, i) => (
-          <FormField
-            key={`authenticationFormField-key-${i}`}
-            control={form.control}
-            name={field.name}
-            render={({ field: renderField }) => (
-              <FormItem>
-                <FormLabel>{field.label}</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder={field.placeholder}
-                    {...renderField}
-                  />
-                </FormControl>
-                <FormDescription className='sr-only'>
-                  {field.description}
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
+        {fields.map((field, i) => {
+          const FormInput = field.name === 'email' ? Input : PasswordInput;
+          const ariaControls = field.name !== 'email' ? field.name : undefined;
+          const autoComplete =
+            field.name === 'email' ? field.name : passwordAutoComplete;
 
-        <Button
-          type='submit'
-          className='capitalize'
-        >
-          {submitText}
-        </Button>
+          return (
+            <FormField
+              key={`authenticationFormField-key-${i}`}
+              control={form.control}
+              name={field.name}
+              render={({ field: renderField }) => (
+                <FormItem>
+                  <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
+
+                  <FormControl>
+                    <FormInput
+                      id={field.name}
+                      type={field.type}
+                      buttonAriaControls={ariaControls}
+                      placeholder={field.placeholder}
+                      autoComplete={autoComplete}
+                      {...renderField}
+                    />
+                  </FormControl>
+
+                  <FormDescription className='sr-only'>
+                    {field.description}
+                  </FormDescription>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          );
+        })}
+
+        <Button type='submit'>{submitText}</Button>
       </form>
     </Form>
   );
