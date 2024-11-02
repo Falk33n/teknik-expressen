@@ -77,7 +77,7 @@ export const AuthenticationForm = ({
               control={form.control}
               name={field.name}
               render={({ field: renderField }) => (
-                <FormItem>
+                <FormItem className='relative'>
                   <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
 
                   <FormControl>

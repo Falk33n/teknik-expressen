@@ -6,7 +6,7 @@ import type { PasswordInputProps } from '@/types';
 import { forwardRef, useState } from 'react';
 
 /**
- * Component that comes with a integrated fully accessible button to toggle the visibility of the password
+ * Component that comes with a integrated fully accessible button to toggle the visibility of the password field
  */
 export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
   (
@@ -18,14 +18,13 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
     const inputType = isPasswordVisible ? 'text' : type;
 
     return (
-      <div className='relative'>
+      <>
         <Input
           ref={ref}
           id={id}
           type={inputType}
           placeholder={placeholder}
           autoComplete={autoComplete}
-          className='pr-12'
           {...props}
         />
 
@@ -33,9 +32,9 @@ export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
           isPasswordVisible={isPasswordVisible}
           onClick={() => setIsPasswordVisible((prev) => !prev)}
           ariaControls={buttonAriaControls}
-          className='top-1/2 right-2 absolute -translate-y-1/2'
+          className='-top-2 right-0 absolute'
         />
-      </div>
+      </>
     );
   }
 );
