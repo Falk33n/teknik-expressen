@@ -49,6 +49,9 @@ export const AuthenticationForm = ({
   });
 
   const handleSubmit = (values: z.infer<typeof schema>) => {
+    if (activeComponent === 'login') {
+    } else {
+    }
     console.log(values);
   };
 
