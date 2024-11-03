@@ -12,11 +12,9 @@ datasource db {
 
 model User {
   id                String          @id @default(uuid())
-  passwordId        String?         @unique
-  cookieConsentId   String?         @unique
 
-  password          Password?       @relation("UserPassword", fields: [passwordId], references: [id], onDelete: Cascade)
-  cookieConsent     CookieConsent?  @relation("UserCookieConsent", fields: [cookieConsentId], references: [id], onDelete: Cascade)
+  password          Password?       @relation("UserPassword")
+  cookieConsent     CookieConsent?  @relation("UserCookieConsent")
 
   email             String          @unique
 
@@ -28,8 +26,9 @@ model User {
 
 model Password {
   id              String     @id @default(uuid())
+  userId          String?    @unique
 
-  user            User?      @relation("UserPassword")
+  user            User?      @relation("UserPassword", fields: [userId], references: [id], onDelete: Cascade)
 
   salt            String
   hashedPassword  String
@@ -42,8 +41,9 @@ model Password {
 
 model CookieConsent {
   id            String    @id @default(uuid())
+  userId        String?   @unique
 
-  user          User?     @relation("UserCookieConsent")
+  user          User?     @relation("UserCookieConsent", fields: [userId], references: [id], onDelete: Cascade)
 
   consentGiven  Boolean   @default(false)
   consentDate   DateTime  @default(now())
