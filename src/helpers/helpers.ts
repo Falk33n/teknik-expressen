@@ -1,8 +1,8 @@
 import type { CtxProps } from '@/types';
 import { TRPCError } from '@trpc/server';
-import * as bcrypt from 'bcrypt';
+import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
-import * as jwt from 'jsonwebtoken';
+import { verify, type JwtPayload } from 'jsonwebtoken';
 import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies';
 import { twMerge } from 'tailwind-merge';
 
@@ -36,8 +36,8 @@ export const getCookieConsent = async (ctx: CtxProps) => {
  * generates a secure and encrypted password through bcrypt
  */
 export const generateSaltHash = async (password: string) => {
-  const salt: string = await bcrypt.genSalt(10);
-  const hashedPassword: string = await bcrypt.hash(password, salt);
+  const salt: string = await genSalt(10);
+  const hashedPassword: string = await hash(password, salt);
   return { salt, hashedPassword };
 };
 
@@ -50,7 +50,7 @@ export const verifyPassword = async (
   storedSalt: string,
   storedHashedPassword: string
 ) => {
-  const hashedPassword: string = await bcrypt.hash(password, storedSalt);
+  const hashedPassword: string = await hash(password, storedSalt);
   if (hashedPassword === storedHashedPassword) {
     return true;
   } else {
@@ -79,7 +79,7 @@ export const getAuth = async (ctx: CtxProps) => {
   }
 
   // attempt to verify the JWT token
-  const decoded: string | jwt.JwtPayload = jwt.verify(authCookie.value, key);
+  const decoded: string | JwtPayload = verify(authCookie.value, key);
   if (typeof decoded === 'object' && decoded !== null && 'userId' in decoded) {
     return true;
   } else {
