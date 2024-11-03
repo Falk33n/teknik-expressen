@@ -2,7 +2,7 @@ import { getAuth, verifyPassword } from '@/helpers';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
-import * as jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { z } from 'zod';
 
 export const authRouter = createTRPCRouter({
@@ -90,7 +90,7 @@ export const authRouter = createTRPCRouter({
 
       // Signs a secure token for the user
       const tokenExpiration: string = allowRememberMe ? '30d' : '2h';
-      const token: string = jwt.sign({ userId: user.id }, key, {
+      const token: string = sign({ userId: user.id }, key, {
         expiresIn: tokenExpiration,
       });
 
