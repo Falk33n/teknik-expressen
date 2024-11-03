@@ -18,7 +18,11 @@ import {
   REGISTER_FIELD,
   REGISTER_SCHEMA,
 } from '@/constants';
-import type { AuthenticationFieldProps, AuthenticationProps } from '@/types';
+import { useAuth } from '@/hooks';
+import type {
+  AuthenticationFieldProps,
+  AuthenticationFormProps,
+} from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -26,7 +30,8 @@ import { z } from 'zod';
 
 export const AuthenticationForm = ({
   component: activeComponent,
-}: AuthenticationProps) => {
+  onAccountSubmit,
+}: AuthenticationFormProps) => {
   const submitText =
     activeComponent === 'login' ? 'Logga in' : 'Registrera dig';
   const passwordAutoComplete =
@@ -48,11 +53,15 @@ export const AuthenticationForm = ({
     },
   });
 
+  // custom hook to fetch authentication api calls
+  const { createAuth, createUser } = useAuth(onAccountSubmit);
+
   const handleSubmit = (values: z.infer<typeof schema>) => {
     if (activeComponent === 'login') {
+      createAuth.mutate(values);
     } else {
+      createUser.mutate(values);
     }
-    console.log(values);
   };
 
   useEffect(() => {
