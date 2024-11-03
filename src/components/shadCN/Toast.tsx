@@ -4,9 +4,9 @@ import type {
   ToastActionType,
   ToastCloseProps,
   ToastCloseType,
-  ToastComponentProps,
   ToastDescriptionProps,
   ToastDescriptionType,
+  ToastProps,
   ToastTitleProps,
   ToastTitleType,
   ToastType,
@@ -14,10 +14,18 @@ import type {
   ToastViewportType,
 } from '@/types';
 import { Cross2Icon } from '@radix-ui/react-icons';
-import * as ToastPrimitives from '@radix-ui/react-toast';
+import {
+  Toast as RadixToast,
+  ToastAction as RadixToastAction,
+  ToastClose as RadixToastClose,
+  ToastDescription as RadixToastDescription,
+  ToastProvider as RadixToastProvider,
+  ToastTitle as RadixToastTitle,
+  ToastViewport as RadixToastViewport,
+} from '@radix-ui/react-toast';
 import { forwardRef } from 'react';
 
-export const ToastProvider = ToastPrimitives.Provider;
+export const ToastProvider = RadixToastProvider;
 
 /**
  * Container for the toast.
@@ -25,7 +33,7 @@ export const ToastProvider = ToastPrimitives.Provider;
 export const ToastViewport = forwardRef<ToastViewportType, ToastViewportProps>(
   ({ className, ...props }, ref) => {
     return (
-      <ToastPrimitives.Viewport
+      <RadixToastViewport
         ref={ref}
         className={cn(
           'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
@@ -37,12 +45,12 @@ export const ToastViewport = forwardRef<ToastViewportType, ToastViewportProps>(
   }
 );
 
-ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
+ToastViewport.displayName = RadixToastViewport.displayName;
 
-export const Toast = forwardRef<ToastType, ToastComponentProps>(
+export const Toast = forwardRef<ToastType, ToastProps>(
   ({ className, variant = 'default', ...props }, ref) => {
     return (
-      <ToastPrimitives.Root
+      <RadixToast
         ref={ref}
         className={cn(toastVariants({ variant }), className)}
         {...props}
@@ -51,12 +59,12 @@ export const Toast = forwardRef<ToastType, ToastComponentProps>(
   }
 );
 
-Toast.displayName = ToastPrimitives.Root.displayName;
+Toast.displayName = RadixToast.displayName;
 
 export const ToastAction = forwardRef<ToastActionType, ToastActionProps>(
   ({ className, ...props }, ref) => {
     return (
-      <ToastPrimitives.Action
+      <RadixToastAction
         ref={ref}
         className={cn(
           'inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive',
@@ -68,12 +76,12 @@ export const ToastAction = forwardRef<ToastActionType, ToastActionProps>(
   }
 );
 
-ToastAction.displayName = ToastPrimitives.Action.displayName;
+ToastAction.displayName = RadixToastAction.displayName;
 
 export const ToastClose = forwardRef<ToastCloseType, ToastCloseProps>(
   ({ className, ...props }, ref) => {
     return (
-      <ToastPrimitives.Close
+      <RadixToastClose
         ref={ref}
         className={cn(
           'absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600',
@@ -83,17 +91,17 @@ export const ToastClose = forwardRef<ToastCloseType, ToastCloseProps>(
         {...props}
       >
         <Cross2Icon className='size-4' />
-      </ToastPrimitives.Close>
+      </RadixToastClose>
     );
   }
 );
 
-ToastClose.displayName = ToastPrimitives.Close.displayName;
+ToastClose.displayName = RadixToastClose.displayName;
 
 export const ToastTitle = forwardRef<ToastTitleType, ToastTitleProps>(
   ({ className, ...props }, ref) => {
     return (
-      <ToastPrimitives.Title
+      <RadixToastTitle
         ref={ref}
         className={cn('text-sm font-semibold [&+div]:text-xs', className)}
         {...props}
@@ -102,14 +110,14 @@ export const ToastTitle = forwardRef<ToastTitleType, ToastTitleProps>(
   }
 );
 
-ToastTitle.displayName = ToastPrimitives.Title.displayName;
+ToastTitle.displayName = RadixToastTitle.displayName;
 
 export const ToastDescription = forwardRef<
   ToastDescriptionType,
   ToastDescriptionProps
 >(({ className, ...props }, ref) => {
   return (
-    <ToastPrimitives.Description
+    <RadixToastDescription
       ref={ref}
       className={cn('text-sm opacity-90', className)}
       {...props}
@@ -117,4 +125,4 @@ export const ToastDescription = forwardRef<
   );
 });
 
-ToastDescription.displayName = ToastPrimitives.Description.displayName;
+ToastDescription.displayName = RadixToastDescription.displayName;

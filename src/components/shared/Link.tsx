@@ -1,11 +1,11 @@
 import { cn } from '@/helpers';
-import * as NextLink from 'next/link';
+import NextLink from 'next/link';
 import { forwardRef, type LinkHTMLAttributes } from 'react';
 
 /**
  * Basic Next Link component, but with secure rel value
  */
-export const Link = forwardRef<
+const SecureLink = forwardRef<
   HTMLAnchorElement,
   Omit<LinkHTMLAttributes<HTMLAnchorElement>, 'href'> & {
     href: string;
@@ -13,7 +13,7 @@ export const Link = forwardRef<
   }
 >(({ href, target, children, className, ...props }, ref) => {
   return (
-    <NextLink.default
+    <NextLink
       ref={ref}
       href={href}
       target={target}
@@ -22,8 +22,10 @@ export const Link = forwardRef<
       {...props}
     >
       {children}
-    </NextLink.default>
+    </NextLink>
   );
 });
 
-Link.displayName = 'Link';
+SecureLink.displayName = 'SecureLink';
+
+export { SecureLink as Link };
