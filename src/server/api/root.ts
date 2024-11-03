@@ -1,6 +1,6 @@
 import {
-  authenticationRouter,
-  cookieRouter,
+  authRouter,
+  cookieConsentRouter,
   userRouter,
 } from '@/server/api/routers';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
@@ -11,9 +11,9 @@ import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  cookie: cookieRouter,
+  cookieConsent: cookieConsentRouter,
   user: userRouter,
-  authentication: authenticationRouter,
+  auth: authRouter,
 });
 
 // export type definition of API

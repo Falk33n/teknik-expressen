@@ -4,7 +4,7 @@ import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
 import { z } from 'zod';
 
-export const cookieRouter = createTRPCRouter({
+export const cookieConsentRouter = createTRPCRouter({
   /**
    * Creates a cookie consent,
    * which enables the option to make specific changes to the application depending

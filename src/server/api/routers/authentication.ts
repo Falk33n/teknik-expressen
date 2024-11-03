@@ -1,12 +1,12 @@
-import { verifyPassword } from '@/helpers';
+import { getAuth, verifyPassword } from '@/helpers';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
 import * as jwt from 'jsonwebtoken';
 import { z } from 'zod';
 
-export const authenticationRouter = createTRPCRouter({
-  createAuthentication: publicProcedure
+export const authRouter = createTRPCRouter({
+  createAuth: publicProcedure
     .input(
       z.object({
         email: z.string().email(),
@@ -24,7 +24,7 @@ export const authenticationRouter = createTRPCRouter({
       ) {
         throw new TRPCError({
           message: 'Database not found',
-          code: 'NOT_FOUND',
+          code: 'INTERNAL_SERVER_ERROR',
         });
       }
 
@@ -84,18 +84,21 @@ export const authenticationRouter = createTRPCRouter({
         });
       }
 
+      // only allow it if the user has consented to use cookies
+      const allowRememberMe: boolean =
+        cookieConsent.consentGiven && input.rememberMe;
+
       // Signs a secure token for the user
-      const tokenExpiration: string = input.rememberMe ? '30d' : '2h';
+      const tokenExpiration: string = allowRememberMe ? '30d' : '2h';
       const token: string = jwt.sign({ userId: user.id }, key, {
         expiresIn: tokenExpiration,
       });
 
       // 30 days or 2 hours
-      const cookieExpiration: number = input.rememberMe
+      const cookieExpiration: number = allowRememberMe
         ? 30 * 24 * 60 * 60
         : 2 * 60 * 60;
-      // creates the authentication cookie with the value of the token,
-      // which expires in 30 days or 2 hours.
+      // creates the authentication cookie with the value of the token
       // 'ac' = authentication cookie
       const authCookie: string = serialize('ac', token, {
         httpOnly: true,
@@ -106,6 +109,11 @@ export const authenticationRouter = createTRPCRouter({
       });
       ctx.resHeaders.set('Set-Cookie', authCookie);
 
-      return 'User is authenticated';
+      return 'User is now authenticated';
     }),
+
+  getAuth: publicProcedure.query(async ({ ctx }) => {
+    const isAuthenticated: boolean | undefined = await getAuth(ctx);
+    return isAuthenticated;
+  }),
 });
