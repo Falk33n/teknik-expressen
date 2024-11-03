@@ -5,6 +5,10 @@ export type AuthenticationProps = {
   component: 'login' | 'register';
 };
 
+export type AuthenticationFormProps = AuthenticationProps & {
+  onAccountSubmit: (isAccountSubmitted: boolean) => void;
+};
+
 export type NavigationMenuCloseProps = {
   trigger: '.menu-trigger' | '.authentication-trigger' | '.searchbar-trigger';
 };

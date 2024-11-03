@@ -2,11 +2,14 @@
 
 import { Button } from '@/components/shadcn';
 import type { NavigationMenuCloseProps } from '@/types';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { FaX } from 'react-icons/fa6';
 
 // Button component
-export const NavigationMenuClose = ({ trigger }: NavigationMenuCloseProps) => {
+export const NavigationMenuClose = forwardRef<
+  HTMLButtonElement,
+  NavigationMenuCloseProps
+>(({ trigger }, ref) => {
   const [triggerButtonId, setTriggerButtonId] = useState<string | undefined>(
     undefined
   );
@@ -38,10 +41,12 @@ export const NavigationMenuClose = ({ trigger }: NavigationMenuCloseProps) => {
   };
 
   return (
-    <div className='top-0 z-[100] sticky flex justify-end items-center bg-accent px-3.5 py-1 sm:py-2 w-full'>
+    <div className='top-0 z-[50] sticky flex justify-end items-center bg-accent px-3 py-1 sm:py-1.5 w-full'>
       <Button
+        ref={ref}
         size='icon'
         variant='ghost'
+        className='size-10'
         aria-label={ariaLabel}
         aria-controls={triggerButtonId}
         aria-expanded={true}
@@ -54,6 +59,6 @@ export const NavigationMenuClose = ({ trigger }: NavigationMenuCloseProps) => {
       </Button>
     </div>
   );
-};
+});
 
 NavigationMenuClose.displayName = 'NavigationMenuClose';

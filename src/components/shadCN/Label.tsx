@@ -1,12 +1,12 @@
 import { cn, labelVariants } from '@/helpers';
 import type { LabelProps, LabelType } from '@/types';
-import * as LabelPrimitive from '@radix-ui/react-label';
+import { Label as RadixLabel } from '@radix-ui/react-label';
 import { forwardRef } from 'react';
 
 export const Label = forwardRef<LabelType, LabelProps>(
   ({ className, ...props }, ref) => {
     return (
-      <LabelPrimitive.Root
+      <RadixLabel
         ref={ref}
         className={cn(labelVariants(), className)}
         {...props}
@@ -15,4 +15,4 @@ export const Label = forwardRef<LabelType, LabelProps>(
   }
 );
 
-Label.displayName = LabelPrimitive.Root.displayName;
+Label.displayName = RadixLabel.displayName;

@@ -5,19 +5,19 @@ import { forwardRef, type LinkHTMLAttributes } from 'react';
 /**
  * Basic Next Link component, but with secure rel value
  */
-const SecureLink = forwardRef<
+export const Link = forwardRef<
   HTMLAnchorElement,
   Omit<LinkHTMLAttributes<HTMLAnchorElement>, 'href'> & {
     href: string;
     target?: '_blank' | '_self' | '_parent' | '_top';
   }
->(({ href, target, children, className, ...props }, ref) => {
+>(({ href, target, rel, children, className, ...props }, ref) => {
   return (
     <NextLink
       ref={ref}
       href={href}
       target={target}
-      rel={target === '_blank' ? 'noopener' : undefined}
+      rel={(rel ?? target === '_blank') ? 'noopener' : undefined}
       className={cn(className)}
       {...props}
     >
@@ -26,6 +26,4 @@ const SecureLink = forwardRef<
   );
 });
 
-SecureLink.displayName = 'SecureLink';
-
-export { SecureLink as Link };
+Link.displayName = 'Link';
