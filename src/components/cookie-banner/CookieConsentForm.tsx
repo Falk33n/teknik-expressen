@@ -12,7 +12,7 @@ export const CookieConsentForm = ({
   const [isAccepted, setIsAccepted] = useState(true);
   const { toast } = useToast();
 
-  const createConsent = api.cookie.createConsent.useMutation({
+  const createConsent = api.cookieConsent.createConsent.useMutation({
     onSuccess: async () => {
       // set the event to true which will
       // make the cookie-banner disappear
