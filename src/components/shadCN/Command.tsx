@@ -20,14 +20,22 @@ import type {
   CommandType,
 } from '@/types';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-import { Command as CommandPrimitive } from 'cmdk';
+import {
+  Command as CMDKCommand,
+  CommandEmpty as CMDKCommandEmpty,
+  CommandGroup as CMDKCommandGroup,
+  CommandInput as CMDKCommandInput,
+  CommandItem as CMDKCommandItem,
+  CommandList as CMDKCommandList,
+  CommandSeparator as CMDKCommandSeparator,
+} from 'cmdk';
 import { forwardRef, type HTMLAttributes } from 'react';
 
 /** `Command` works like a searchbar that shows the results of the `CommandInput` value */
 export const Command = forwardRef<CommandType, CommandProps>(
   ({ className, ...props }, ref) => {
     return (
-      <CommandPrimitive
+      <CMDKCommand
         ref={ref}
         className={cn(
           'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
@@ -39,7 +47,7 @@ export const Command = forwardRef<CommandType, CommandProps>(
   }
 );
 
-Command.displayName = CommandPrimitive.displayName;
+Command.displayName = CMDKCommand.displayName;
 
 export const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
   return (
@@ -63,7 +71,7 @@ export const CommandInput = forwardRef<CommandInputType, CommandInputProps>(
         cmdk-input-wrapper=''
       >
         <MagnifyingGlassIcon className='opacity-50 mr-2 shrink-0 size-4 sm:size-5 sm:mr-3' />
-        <CommandPrimitive.Input
+        <CMDKCommandInput
           ref={ref}
           className={cn(
             'flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
@@ -76,12 +84,12 @@ export const CommandInput = forwardRef<CommandInputType, CommandInputProps>(
   }
 );
 
-CommandInput.displayName = CommandPrimitive.Input.displayName;
+CommandInput.displayName = CMDKCommandInput.displayName;
 
 export const CommandList = forwardRef<CommandListType, CommandListProps>(
   ({ className, ...props }, ref) => {
     return (
-      <CommandPrimitive.List
+      <CMDKCommandList
         ref={ref}
         className={cn(
           'max-h-[300px] overflow-y-auto overflow-x-hidden',
@@ -93,12 +101,12 @@ export const CommandList = forwardRef<CommandListType, CommandListProps>(
   }
 );
 
-CommandList.displayName = CommandPrimitive.List.displayName;
+CommandList.displayName = CMDKCommandList.displayName;
 
 export const CommandEmpty = forwardRef<CommandEmptyType, CommandEmptyProps>(
   (props, ref) => {
     return (
-      <CommandPrimitive.Empty
+      <CMDKCommandEmpty
         ref={ref}
         className='py-6 text-center text-sm'
         {...props}
@@ -107,12 +115,12 @@ export const CommandEmpty = forwardRef<CommandEmptyType, CommandEmptyProps>(
   }
 );
 
-CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
+CommandEmpty.displayName = CMDKCommandEmpty.displayName;
 
 export const CommandGroup = forwardRef<CommandGroupType, CommandGroupProps>(
   ({ className, ...props }, ref) => {
     return (
-      <CommandPrimitive.Group
+      <CMDKCommandGroup
         ref={ref}
         className={cn(
           'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:pb-1.5 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:sm:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-item]]:text-sm [&_[cmdk-item]]:sm:text-base [&_[cmdk-item]]:my-3',
@@ -124,14 +132,14 @@ export const CommandGroup = forwardRef<CommandGroupType, CommandGroupProps>(
   }
 );
 
-CommandGroup.displayName = CommandPrimitive.Group.displayName;
+CommandGroup.displayName = CMDKCommandGroup.displayName;
 
 export const CommandSeparator = forwardRef<
   CommandSeparatorType,
   CommandSeparatorProps
 >(({ className, ...props }, ref) => {
   return (
-    <CommandPrimitive.Separator
+    <CMDKCommandSeparator
       ref={ref}
       className={cn('-mx-1 h-px bg-border', className)}
       {...props}
@@ -139,12 +147,12 @@ export const CommandSeparator = forwardRef<
   );
 });
 
-CommandSeparator.displayName = CommandPrimitive.Separator.displayName;
+CommandSeparator.displayName = CMDKCommandSeparator.displayName;
 
 export const CommandItem = forwardRef<CommandItemType, CommandItemProps>(
   ({ className, ...props }, ref) => {
     return (
-      <CommandPrimitive.Item
+      <CMDKCommandItem
         ref={ref}
         className={cn(
           'relative flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled=true]:pointer-events-none data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
@@ -156,7 +164,7 @@ export const CommandItem = forwardRef<CommandItemType, CommandItemProps>(
   }
 );
 
-CommandItem.displayName = CommandPrimitive.Item.displayName;
+CommandItem.displayName = CMDKCommandItem.displayName;
 
 export const CommandShortcut = ({
   className,

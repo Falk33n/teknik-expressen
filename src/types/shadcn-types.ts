@@ -1,15 +1,46 @@
-import { Toast, ToastAction } from '@/components/shadcn';
-import { buttonVariants, labelVariants, toastVariants } from '@/helpers';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
-import type { DialogProps } from '@radix-ui/react-dialog';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
-import * as LabelPrimitive from '@radix-ui/react-label';
-import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
-import { Slot } from '@radix-ui/react-slot';
-import * as ToastPrimitives from '@radix-ui/react-toast';
+import type { Toast, ToastAction } from '@/components/shadcn';
+import type { buttonVariants, labelVariants, toastVariants } from '@/helpers';
+import type {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@radix-ui/react-accordion';
+import type { Checkbox } from '@radix-ui/react-checkbox';
+import type {
+  DialogContent,
+  DialogDescription,
+  DialogOverlay,
+  DialogProps,
+  DialogTitle,
+} from '@radix-ui/react-dialog';
+import type { Label } from '@radix-ui/react-label';
+import type {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from '@radix-ui/react-navigation-menu';
+import type { Slot } from '@radix-ui/react-slot';
+import type {
+  Toast as RadixToast,
+  ToastAction as RadixToastAction,
+  ToastClose,
+  ToastDescription,
+  ToastTitle,
+  ToastViewport,
+} from '@radix-ui/react-toast';
 import type { VariantProps } from 'class-variance-authority';
-import { Command as CommandPrimitive } from 'cmdk';
+import type {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from 'cmdk';
 import type {
   ButtonHTMLAttributes,
   ComponentPropsWithoutRef,
@@ -23,23 +54,17 @@ import type { FieldPath, FieldValues } from 'react-hook-form';
 /*
  * shadcn accordion types
  */
-export type AccordionItemType = ElementRef<typeof AccordionPrimitive.Item>;
-export type AccordionItemProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Item
->;
+export type AccordionItemType = ElementRef<typeof AccordionItem>;
+export type AccordionItemProps = ComponentPropsWithoutRef<typeof AccordionItem>;
 
-export type AccordionTriggerType = ElementRef<
-  typeof AccordionPrimitive.Trigger
->;
+export type AccordionTriggerType = ElementRef<typeof AccordionTrigger>;
 export type AccordionTriggerProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Trigger
+  typeof AccordionTrigger
 >;
 
-export type AccordionContentType = ElementRef<
-  typeof AccordionPrimitive.Content
->;
+export type AccordionContentType = ElementRef<typeof AccordionContent>;
 export type AccordionContentProps = ComponentPropsWithoutRef<
-  typeof AccordionPrimitive.Content
+  typeof AccordionContent
 >;
 
 /*
@@ -53,99 +78,83 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
 /*
  * shadcn checkbox types
  */
-export type CheckboxType = ElementRef<typeof CheckboxPrimitive.Root>;
-export type CheckboxProps = ComponentPropsWithoutRef<
-  typeof CheckboxPrimitive.Root
->;
+export type CheckboxType = ElementRef<typeof Checkbox>;
+export type CheckboxProps = ComponentPropsWithoutRef<typeof Checkbox>;
 
 /*
  * shadcn navigation menu types
  */
-export type NavigationMenuType = ElementRef<
-  typeof NavigationMenuPrimitive.Root
->;
+export type NavigationMenuType = ElementRef<typeof NavigationMenu>;
 export type NavigationMenuProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Root
+  typeof NavigationMenu
 >;
 
-export type NavigationMenuListType = ElementRef<
-  typeof NavigationMenuPrimitive.List
->;
+export type NavigationMenuListType = ElementRef<typeof NavigationMenuList>;
 export type NavigationMenuListProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.List
+  typeof NavigationMenuList
 >;
 
 export type NavigationMenuTriggerType = ElementRef<
-  typeof NavigationMenuPrimitive.Trigger
+  typeof NavigationMenuTrigger
 >;
 export type NavigationMenuTriggerProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Trigger
+  typeof NavigationMenuTrigger
 >;
 
 export type NavigationMenuContentType = ElementRef<
-  typeof NavigationMenuPrimitive.Content
+  typeof NavigationMenuContent
 >;
 export type NavigationMenuContentProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Content
+  typeof NavigationMenuContent
 >;
 
 export type NavigationMenuViewportType = ElementRef<
-  typeof NavigationMenuPrimitive.Viewport
+  typeof NavigationMenuViewport
 >;
 export type NavigationMenuViewportProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Viewport
+  typeof NavigationMenuViewport
 >;
 
 export type NavigationMenuIndicatorType = ElementRef<
-  typeof NavigationMenuPrimitive.Indicator
+  typeof NavigationMenuIndicator
 >;
 export type NavigationMenuIndicatorProps = ComponentPropsWithoutRef<
-  typeof NavigationMenuPrimitive.Indicator
+  typeof NavigationMenuIndicator
 >;
 
 /*
  * shadcn toast types
  */
-export type ToastViewportType = ElementRef<typeof ToastPrimitives.Viewport>;
-export type ToastViewportProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Viewport
->;
+export type ToastViewportType = ElementRef<typeof ToastViewport>;
+export type ToastViewportProps = ComponentPropsWithoutRef<typeof ToastViewport>;
 
-export type ToastType = ElementRef<typeof ToastPrimitives.Root>;
-export type ToastComponentProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Root
-> &
+export type ToastType = ElementRef<typeof RadixToast>;
+export type ToastProps = ComponentPropsWithoutRef<typeof RadixToast> &
   VariantProps<typeof toastVariants>;
 
-export type ToastActionType = ElementRef<typeof ToastPrimitives.Action>;
+export type ToastActionType = ElementRef<typeof RadixToastAction>;
 export type ToastActionProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Action
+  typeof RadixToastAction
 >;
 
-export type ToastCloseType = ElementRef<typeof ToastPrimitives.Close>;
-export type ToastCloseProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Close
->;
+export type ToastCloseType = ElementRef<typeof ToastClose>;
+export type ToastCloseProps = ComponentPropsWithoutRef<typeof ToastClose>;
 
-export type ToastTitleType = ElementRef<typeof ToastPrimitives.Title>;
-export type ToastTitleProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Title
->;
+export type ToastTitleType = ElementRef<typeof ToastTitle>;
+export type ToastTitleProps = ComponentPropsWithoutRef<typeof ToastTitle>;
 
-export type ToastDescriptionType = ElementRef<
-  typeof ToastPrimitives.Description
->;
+export type ToastDescriptionType = ElementRef<typeof ToastDescription>;
 export type ToastDescriptionProps = ComponentPropsWithoutRef<
-  typeof ToastPrimitives.Description
+  typeof ToastDescription
 >;
 
-export type ToastProps = ComponentPropsWithoutRef<typeof Toast>;
+export type ToastShadCNProps = ComponentPropsWithoutRef<typeof Toast>;
 export type ToastActionElement = ReactElement<typeof ToastAction>;
 
 /*
  * shadcn use-toast types
  */
-export type ToasterToast = ToastProps & {
+export type ToasterToast = ToastShadCNProps & {
   id: string;
   title?: ReactNode;
   description?: ReactNode;
@@ -186,66 +195,46 @@ export type Toast = Omit<ToasterToast, 'id'>;
 /*
  * shadcn command types
  */
-export type CommandType = ElementRef<typeof CommandPrimitive>;
-export type CommandProps = ComponentPropsWithoutRef<typeof CommandPrimitive>;
+export type CommandType = ElementRef<typeof Command>;
+export type CommandProps = ComponentPropsWithoutRef<typeof Command>;
 
 export type CommandDialogProps = DialogProps;
 
-export type CommandInputType = ElementRef<typeof CommandPrimitive.Input>;
-export type CommandInputProps = ComponentPropsWithoutRef<
-  typeof CommandPrimitive.Input
->;
+export type CommandInputType = ElementRef<typeof CommandInput>;
+export type CommandInputProps = ComponentPropsWithoutRef<typeof CommandInput>;
 
-export type CommandListType = ElementRef<typeof CommandPrimitive.List>;
-export type CommandListProps = ComponentPropsWithoutRef<
-  typeof CommandPrimitive.List
->;
+export type CommandListType = ElementRef<typeof CommandList>;
+export type CommandListProps = ComponentPropsWithoutRef<typeof CommandList>;
 
-export type CommandEmptyType = ElementRef<typeof CommandPrimitive.Empty>;
-export type CommandEmptyProps = ComponentPropsWithoutRef<
-  typeof CommandPrimitive.Empty
->;
+export type CommandEmptyType = ElementRef<typeof CommandEmpty>;
+export type CommandEmptyProps = ComponentPropsWithoutRef<typeof CommandEmpty>;
 
-export type CommandGroupType = ElementRef<typeof CommandPrimitive.Group>;
-export type CommandGroupProps = ComponentPropsWithoutRef<
-  typeof CommandPrimitive.Group
->;
+export type CommandGroupType = ElementRef<typeof CommandGroup>;
+export type CommandGroupProps = ComponentPropsWithoutRef<typeof CommandGroup>;
 
-export type CommandSeparatorType = ElementRef<
-  typeof CommandPrimitive.Separator
->;
+export type CommandSeparatorType = ElementRef<typeof CommandSeparator>;
 export type CommandSeparatorProps = ComponentPropsWithoutRef<
-  typeof CommandPrimitive.Separator
+  typeof CommandSeparator
 >;
 
-export type CommandItemType = ElementRef<typeof CommandPrimitive.Item>;
-export type CommandItemProps = ComponentPropsWithoutRef<
-  typeof CommandPrimitive.Item
->;
+export type CommandItemType = ElementRef<typeof CommandItem>;
+export type CommandItemProps = ComponentPropsWithoutRef<typeof CommandItem>;
 
 /*
  * shadcn dialog types
  */
-export type DialogOverlayType = ElementRef<typeof DialogPrimitive.Overlay>;
-export type DialogOverlayProps = ComponentPropsWithoutRef<
-  typeof DialogPrimitive.Overlay
->;
+export type DialogOverlayType = ElementRef<typeof DialogOverlay>;
+export type DialogOverlayProps = ComponentPropsWithoutRef<typeof DialogOverlay>;
 
-export type DialogContentType = ElementRef<typeof DialogPrimitive.Content>;
-export type DialogContentProps = ComponentPropsWithoutRef<
-  typeof DialogPrimitive.Content
->;
+export type DialogContentType = ElementRef<typeof DialogContent>;
+export type DialogContentProps = ComponentPropsWithoutRef<typeof DialogContent>;
 
-export type DialogTitleType = ElementRef<typeof DialogPrimitive.Title>;
-export type DialogTitleProps = ComponentPropsWithoutRef<
-  typeof DialogPrimitive.Title
->;
+export type DialogTitleType = ElementRef<typeof DialogTitle>;
+export type DialogTitleProps = ComponentPropsWithoutRef<typeof DialogTitle>;
 
-export type DialogDescriptionType = ElementRef<
-  typeof DialogPrimitive.Description
->;
+export type DialogDescriptionType = ElementRef<typeof DialogDescription>;
 export type DialogDescriptionProps = ComponentPropsWithoutRef<
-  typeof DialogPrimitive.Description
+  typeof DialogDescription
 >;
 
 /*
@@ -262,10 +251,8 @@ export type FormItemContextValue = {
   id: string;
 };
 
-export type FormLabelType = ElementRef<typeof LabelPrimitive.Root>;
-export type FormLabelProps = ComponentPropsWithoutRef<
-  typeof LabelPrimitive.Root
->;
+export type FormLabelType = ElementRef<typeof Label>;
+export type FormLabelProps = ComponentPropsWithoutRef<typeof Label>;
 
 export type FormControlType = ElementRef<typeof Slot>;
 export type FormControlProps = ComponentPropsWithoutRef<typeof Slot>;
@@ -273,10 +260,8 @@ export type FormControlProps = ComponentPropsWithoutRef<typeof Slot>;
 /*
  * shadcn label types
  */
-export type LabelType = React.ElementRef<typeof LabelPrimitive.Root>;
-export type LabelProps = React.ComponentPropsWithoutRef<
-  typeof LabelPrimitive.Root
-> &
+export type LabelType = React.ElementRef<typeof Label>;
+export type LabelProps = React.ComponentPropsWithoutRef<typeof Label> &
   VariantProps<typeof labelVariants>;
 
 /*

@@ -1,3 +1,6 @@
+/*
+ * Used in Authentication folder in components
+ */
 export type AuthenticationProps = {
   component: 'login' | 'register';
 };
