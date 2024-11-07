@@ -7,10 +7,24 @@
  * need to use are documented accordingly near the end.
  */
 import { db } from '@/server';
+import type { PrismaClient } from '@prisma/client';
+import { DefaultArgs } from '@prisma/client/runtime/library';
 import { initTRPC } from '@trpc/server';
 import type { NextRequest } from 'next/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
+
+export type CtxProps = {
+  req: NextRequest;
+  resHeaders: Headers;
+  db: PrismaClient<
+    {
+      log: ('query' | 'warn' | 'error')[];
+    },
+    never,
+    DefaultArgs
+  >;
+};
 
 /**
  * 1. CONTEXT
@@ -31,12 +45,7 @@ export const createTRPCContext = async (opts: {
    * allows for creating and setting cookies in the browser.
    */
   resHeaders: Headers;
-}) => {
-  return {
-    db,
-    ...opts,
-  };
-};
+}) => ({ db, ...opts });
 
 /**
  * 2. INITIALIZATION
@@ -87,7 +96,7 @@ export const createTRPCRouter = t.router;
  * network latency that would occur in production but not in local development.
  */
 const timingMiddleware = t.middleware(async ({ next, path }) => {
-  const start: number = Date.now();
+  const start = Date.now();
 
   if (t._config.isDev) {
     // artificial delay in dev
@@ -96,7 +105,7 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
   }
 
   const result = await next();
-  const end: number = Date.now();
+  const end = Date.now();
 
   console.log(`[TRPC] ${path} took ${end - start}ms to execute`);
   return result;

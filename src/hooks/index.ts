@@ -1,3 +1,4 @@
-// index.ts allows a more clean way to import packages
-export * from './authentication-hooks';
-export * from './use-toast';
+export { useCreateAuth } from './auth-hooks';
+export { useCreateCookieConsent } from './cookie-hooks';
+export { reducer, toast, useToast } from './toast-hooks';
+export { useCreateUser } from './user-hooks';
