@@ -22,6 +22,7 @@ const getQueryClient = () => {
 };
 
 export const api = createTRPCReact<AppRouter>();
+const Api = api;
 
 /**
  * Inference helper for inputs.
@@ -48,10 +49,6 @@ export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
             process.env.NODE_ENV === 'development' ||
             (op.direction === 'down' && op.result instanceof Error),
         }),
-        /**
-         * - Use `httpBatchLink` if you are planning on setting cookies in your application.
-         * - Use `unstable_httpBatchLink` if you are not planning on setting cookies (this will hinder the ability to do so).
-         */
         httpBatchLink({
           transformer: SuperJSON,
           url: getBaseUrl() + '/api/trpc',
@@ -62,24 +59,20 @@ export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
           },
         }),
       ],
-    })
+    }),
   );
 
   return (
     <QueryClientProvider client={queryClient}>
-      <api.Provider
-        client={trpcClient}
-        queryClient={queryClient}
-      >
+      <Api.Provider client={trpcClient} queryClient={queryClient}>
         {children}
-      </api.Provider>
+      </Api.Provider>
     </QueryClientProvider>
   );
 };
-
 TRPCReactProvider.displayName = 'TRPCReactProvider';
 
-export const getBaseUrl = (): string => {
+export const getBaseUrl = () => {
   if (typeof window !== 'undefined') {
     return window.location.origin;
   } else if (process.env.VERCEL_URL) {

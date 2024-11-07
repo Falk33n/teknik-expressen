@@ -1,4 +1,9 @@
-// index.ts allows a more clean way to import packages
-export * from './query-client';
-export * from './react';
-// can't import server.ts since it is strict server-only (will give error if you try to)
+export { createQueryClient } from './query-client';
+export {
+  TRPCReactProvider,
+  api,
+  getBaseUrl,
+  type RouterInputs,
+  type RouterOutputs,
+} from './react';
+// can't import from server.ts since it is strict server-only (will give error if you try to)

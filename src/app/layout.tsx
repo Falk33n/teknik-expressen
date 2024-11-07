@@ -1,7 +1,5 @@
-import { CookieBanner } from '@/components/cookie-banner';
-import { Navbar } from '@/components/navbar';
-import { Toaster } from '@/components/shadcn';
-import { ThemeProvider } from '@/components/theme';
+import { CookieBanner, Navbar, ThemeProvider, Topbar } from '@/app/_components';
+import { Toaster } from '@/components';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc';
 import type { Metadata } from 'next';
@@ -23,11 +21,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang='sv'
-      suppressHydrationWarning
-    >
-      <body className={`${inter.className}`}>
+    <html lang='sv' suppressHydrationWarning>
+      <body className={`${inter.className} w-full`}>
         <TRPCReactProvider>
           <ThemeProvider
             attribute='class'
@@ -37,9 +32,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           >
             <CookieBanner />
 
+            <Topbar />
             <Navbar />
 
-            {children}
+            <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
+              {children}
+            </main>
 
             <Toaster />
           </ThemeProvider>

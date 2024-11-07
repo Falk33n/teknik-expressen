@@ -1,4 +1,3 @@
-// index.ts allows a more clean way to import packages
-export * from './authentication';
-export * from './cookie-consent';
-export * from './user';
+export { authRouter } from './auth-router';
+export { cookieConsentRouter } from './cookie-consent-router';
+export { userRouter } from './user-router';
