@@ -85,9 +85,9 @@ export const SheetContent = forwardRef<SheetContentType, SheetContentProps>(
         <div className='sticky top-0 flex w-full items-center justify-end bg-accent px-4 py-3'>
           <Radix_DialogClose
             aria-label='Stäng'
-            className='rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary'
+            className='rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:p-2'
           >
-            <RxCross2 aria-hidden className='size-4 scale-125' />
+            <RxCross2 aria-hidden className='size-4 scale-125 sm:scale-150' />
           </Radix_DialogClose>
         </div>
 

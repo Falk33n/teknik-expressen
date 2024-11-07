@@ -152,10 +152,10 @@ export const Menu = () => {
           aria-label='Öppna eller dölj menyn'
           variant='outline'
           size='icon'
-          className='p-2'
+          className='p-2 sm:size-10'
           onClick={() => setIsOpen(true)}
         >
-          <FaBars aria-hidden />
+          <FaBars aria-hidden className='sm:scale-110' />
         </Button>
       </SheetTrigger>
 
