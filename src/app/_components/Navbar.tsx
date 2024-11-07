@@ -1,4 +1,4 @@
-import { Menu, Searchbar } from '@/app/_components';
+import { MenuWrapper, Searchbar } from '@/app/_components';
 
 export const Navbar = () => (
   <nav
@@ -6,11 +6,12 @@ export const Navbar = () => (
     aria-label='Huvudnavigation'
   >
     {/* TODO: place brand logo here */}
+
     <p>logo</p>
 
     <Searchbar />
 
-    <Menu />
+    <MenuWrapper />
   </nav>
 );
 Navbar.displayName = 'Navbar';

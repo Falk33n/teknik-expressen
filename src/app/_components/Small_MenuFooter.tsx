@@ -1,12 +1,12 @@
 'use client';
 
-import { MenuContent, ThemeToggle } from '@/app/_components';
+import { Small_MenuContent, ThemeToggle } from '@/app/_components';
 import { Skeleton } from '@/components';
 import { api } from '@/trpc';
 import { FaUser } from 'react-icons/fa6';
 import { MdSupportAgent } from 'react-icons/md';
 
-export const MenuFooter = () => {
+export const Small_MenuFooter = () => {
   const { data, isLoading } = api.auth.getAuth.useQuery(undefined, {
     retry: false,
   });
@@ -19,7 +19,7 @@ export const MenuFooter = () => {
         {isLoading ? (
           <Skeleton className='h-8 w-full' />
         ) : (
-          <MenuContent
+          <Small_MenuContent
             className='h-fit w-full border-b'
             href={isAuthenticated ? '/account' : '/login'}
             Icon={FaUser}
@@ -27,7 +27,7 @@ export const MenuFooter = () => {
           />
         )}
 
-        <MenuContent
+        <Small_MenuContent
           className='h-fit w-full border-b'
           href='/support'
           Icon={MdSupportAgent}
@@ -39,4 +39,4 @@ export const MenuFooter = () => {
     </div>
   );
 };
-MenuFooter.displayName = 'MenuFooter';
+Small_MenuFooter.displayName = 'Small_MenuFooter';
