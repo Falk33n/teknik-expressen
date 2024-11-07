@@ -8,7 +8,11 @@ export const MenuWrapper = () => {
 
   if (!mediaQuery) {
     return null;
-  } else if (mediaQuery === 'phone') {
+  } else if (
+    mediaQuery === 'xs' ||
+    mediaQuery === 'sm' ||
+    mediaQuery === 'md'
+  ) {
     return <Small_Menu />;
   } else {
     return <Large_Menu />;

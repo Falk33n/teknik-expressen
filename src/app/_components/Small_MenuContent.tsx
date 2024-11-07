@@ -1,7 +1,7 @@
 import { LinkIconWithText, type LinkIconWithTextProps } from '@/components';
 import { cn } from '@/lib';
 
-type Small_MenuContentProps = LinkIconWithTextProps & {
+export type Small_MenuContentProps = LinkIconWithTextProps & {
   className?: string;
 };
 
