@@ -1,5 +1,6 @@
 'use client';
 
+import { Large_MenuProducts, ThemeToggle } from '@/app/_components';
 import { Link, Skeleton } from '@/components';
 import { api } from '@/trpc';
 
@@ -11,24 +12,34 @@ export const Large_Menu = () => {
   const isAuthenticated = data && data.isAuthenticated;
 
   return (
-    <ul className='flex items-center gap-10'>
+    <ul className='flex items-center gap-6 xl:gap-12'>
       <li>
-        <Link href='/products'>Produkter</Link>
+        <Large_MenuProducts />
       </li>
       <li>
-        <Link href='/support'>Kundtjänst</Link>
+        <Link className='rounded-sm px-4 py-2' href='/support'>
+          Kundtjänst
+        </Link>
       </li>
       {isLoading ? (
-        <Skeleton className='h-8 w-full' />
+        <Skeleton className='h-8 w-28' />
       ) : (
         <li>
-          <Link href={isAuthenticated ? '/account' : '/login'}>
+          <Link
+            className='rounded-sm px-4 py-2'
+            href={isAuthenticated ? '/account' : '/login'}
+          >
             {isAuthenticated ? 'Mitt konto' : 'Logga in'}
           </Link>
         </li>
       )}
       <li>
-        <Link href='/cart'>Kundkorg</Link>
+        <Link className='rounded-sm px-4 py-2' href='/cart'>
+          Kundkorg
+        </Link>
+      </li>
+      <li>
+        <ThemeToggle />
       </li>
     </ul>
   );

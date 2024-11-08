@@ -8,19 +8,19 @@ import {
 import { Skeleton } from '@/components';
 import { api } from '@/trpc';
 import { Fragment } from 'react';
-import { FaBagShopping, FaUser } from 'react-icons/fa6';
-import { MdSupportAgent } from 'react-icons/md';
+import { FaRegUser } from 'react-icons/fa6';
+import { MdOutlineShoppingCart, MdSupportAgent } from 'react-icons/md';
 
 const SMALL_MENU_CONTENTS: Small_MenuContentProps[] = [
   {
     href: '/cart',
-    Icon: FaBagShopping,
+    Icon: MdOutlineShoppingCart,
     text: 'Kundkorg',
     className: 'border-y',
   },
   {
     href: '/login',
-    Icon: FaUser,
+    Icon: FaRegUser,
     text: 'Logga in',
     className: 'border-b',
   },

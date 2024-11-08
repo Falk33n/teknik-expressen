@@ -2,16 +2,19 @@ import { MenuWrapper, Searchbar } from '@/app/_components';
 
 export const Navbar = () => (
   <nav
-    className='sticky top-0 z-[20] flex w-full items-center justify-between gap-6 bg-accent/20 p-4 shadow-md backdrop-blur-lg sm:gap-12 sm:px-12 sm:py-5'
+    className='sticky top-0 z-[20] bg-accent/20 shadow-md backdrop-blur-lg'
     aria-label='Huvudnavigation'
   >
-    {/* TODO: place brand logo here */}
+    <div className='mx-auto flex w-full items-center justify-between gap-6 p-4 sm:gap-8 sm:px-12 sm:py-5 md:gap-10 lg:w-[90vw] lg:gap-12 xl:w-[75vw]'>
+      {/* TODO: place brand logo here */}
+      <p>logo</p>
 
-    <p>logo</p>
+      <div className='flex items-center justify-end gap-6 sm:gap-8 md:gap-10 lg:gap-12'>
+        <Searchbar />
 
-    <Searchbar />
-
-    <MenuWrapper />
+        <MenuWrapper />
+      </div>
+    </div>
   </nav>
 );
 Navbar.displayName = 'Navbar';

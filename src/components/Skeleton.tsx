@@ -6,7 +6,10 @@ type SkeletonProps = HTMLAttributes<HTMLDivElement>;
 export const Skeleton = ({ className, ...props }: SkeletonProps) => (
   <div
     aria-hidden
-    className={cn('animate-pulse rounded-md bg-primary/10', className)}
+    className={cn(
+      'animate-pulse rounded-md bg-accent dark:bg-primary/20',
+      className,
+    )}
     {...props}
   />
 );

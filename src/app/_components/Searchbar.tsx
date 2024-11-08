@@ -37,13 +37,13 @@ export const Searchbar = () => {
   return (
     <Command
       className={cn(
-        'relative min-w-[100px] flex-1 focus-within:ring-1 focus-within:ring-primary',
+        'relative min-w-[100px] flex-1 border focus-within:ring-1 focus-within:ring-primary sm:max-w-[500px] lg:max-w-[400px]',
         searchbar.hasFocus && searchbar.hasValue && 'rounded-b-none',
       )}
       onBlur={(e) => handleBlur(e)}
     >
       <CommandInput
-        className='text-sm sm:py-4'
+        className='py-4 text-sm sm:py-5'
         onValueChange={(val) => handleValueChange(val)}
         placeholder='Sök efter en produkt...'
         onFocus={() =>

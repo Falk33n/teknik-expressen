@@ -2,7 +2,7 @@ import { getAuth, verifyPassword } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
-import { sign } from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 import { z } from 'zod';
 
 export const authRouter = createTRPCRouter({
@@ -64,24 +64,31 @@ export const authRouter = createTRPCRouter({
         ? 30 * 24 * 60 * 60
         : 2 * 60 * 60;
 
-      const key = process.env.SECRET_JWT_KEY as string;
+      const key = new TextEncoder().encode(process.env.SECRET_JWT_KEY);
 
-      const token = sign({ userId: user.id }, key, {
-        expiresIn: tokenExpiration,
-      });
+      (async () => {
+        const token = await new SignJWT({
+          userId: user.id,
+        })
+          .setProtectedHeader({
+            alg: 'HS256',
+          })
+          .setExpirationTime(tokenExpiration)
+          .sign(key);
 
-      const authCookie = serialize('ac', token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: cookieExpiration,
-        path: '/',
-      });
+        const authCookie = serialize('ac', token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'strict',
+          maxAge: cookieExpiration,
+          path: '/',
+        });
 
-      ctx.resHeaders.set('Set-Cookie', authCookie);
+        ctx.resHeaders.set('Set-Cookie', authCookie);
+      })();
 
       return { message: 'Successfully created user authentication session' };
     }),
 
-  getAuth: publicProcedure.query(({ ctx }) => getAuth(ctx)),
+  getAuth: publicProcedure.query(({ ctx }) => getAuth(ctx.req)),
 });

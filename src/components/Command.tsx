@@ -55,7 +55,7 @@ type CommandInputProps = ComponentPropsWithoutRef<typeof CMDK_CommandInput>;
 
 export const CommandInput = forwardRef<CommandInputType, CommandInputProps>(
   ({ className, ...props }, ref) => (
-    <div className='flex items-center px-4' cmdk-input-wrapper=''>
+    <div className='flex items-center justify-end px-4' cmdk-input-wrapper=''>
       <RxMagnifyingGlass
         aria-hidden
         className='mr-2 size-4 shrink-0 opacity-50 sm:size-5'

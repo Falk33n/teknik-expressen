@@ -1,7 +1,8 @@
 import type { CtxProps } from '@/server/api/trpc';
 import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
-import { verify } from 'jsonwebtoken';
+import { jwtVerify } from 'jose';
+import type { NextRequest } from 'next/server';
 import { twMerge } from 'tailwind-merge';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
@@ -47,8 +48,8 @@ export const verifyPassword = async (
   }
 };
 
-export const getAuth = (ctx: CtxProps) => {
-  const authCookie = ctx.req.cookies.get('ac');
+export const getAuth = async (req: NextRequest) => {
+  const authCookie = req.cookies.get('ac');
 
   if (!authCookie || !authCookie.value) {
     return {
@@ -57,23 +58,26 @@ export const getAuth = (ctx: CtxProps) => {
     };
   }
 
-  const key = process.env.SECRET_JWT_KEY as string;
+  const key = new TextEncoder().encode(process.env.SECRET_JWT_KEY);
 
-  const decoded = verify(authCookie.value, key);
+  try {
+    const { payload } = await jwtVerify(authCookie.value, key);
 
-  if (
-    typeof decoded !== 'object' ||
-    decoded === null ||
-    !('userId' in decoded)
-  ) {
-    return {
-      message: 'Failed to authenticate user',
-      isAuthenticated: false,
-    };
-  } else {
+    if (typeof payload !== 'object' || !('userId' in payload)) {
+      return {
+        message: 'Failed to authenticate user',
+        isAuthenticated: false,
+      };
+    }
+
     return {
       message: 'Successfully authenticated user',
       isAuthenticated: true,
+    };
+  } catch {
+    return {
+      message: 'Failed to authenticate user',
+      isAuthenticated: false,
     };
   }
 };
