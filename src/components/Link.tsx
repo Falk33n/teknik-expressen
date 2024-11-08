@@ -16,7 +16,7 @@ export const Link = forwardRef<LinkType, LinkProps>(
       target={target}
       rel={(rel ?? target === '_blank') ? 'noopener' : undefined}
       className={cn(
-        'underline underline-offset-2 transition-colors hover:text-primary hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary',
+        'underline-offset-2 transition-colors hover:text-primary hover:underline hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary',
         className,
       )}
       {...props}

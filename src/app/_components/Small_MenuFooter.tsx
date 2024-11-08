@@ -16,16 +16,19 @@ const SMALL_MENU_CONTENTS: Small_MenuContentProps[] = [
     href: '/cart',
     Icon: FaBagShopping,
     text: 'Kundkorg',
+    className: 'border-y',
   },
   {
     href: '/login',
     Icon: FaUser,
     text: 'Logga in',
+    className: 'border-b',
   },
   {
     href: '/support',
     Icon: MdSupportAgent,
     text: 'Kundtjänst',
+    className: 'border-b',
   },
 ];
 
@@ -39,26 +42,23 @@ export const Small_MenuFooter = () => {
   return (
     <div className='flex flex-col items-center justify-end gap-12 py-12 text-sm'>
       <ul className='flex w-full flex-col'>
-        {SMALL_MENU_CONTENTS.map(({ Icon, href, text }, i) => (
+        {SMALL_MENU_CONTENTS.map(({ Icon, href, text, className }, i) => (
           <Fragment key={i}>
             {text === 'Logga in' ? (
               <>
                 {isLoading ? (
-                  <Skeleton className='h-8 w-full' />
+                  <Skeleton className='h-14 w-full' />
                 ) : (
                   <Small_MenuContent
-                    className='border-b'
-                    href={isAuthenticated ? '/account' : '/login'}
-                    Icon={FaUser}
-                    text={isAuthenticated ? 'Mitt konto' : 'Logga in'}
+                    className={className}
+                    href={isAuthenticated ? '/account' : href}
+                    Icon={Icon}
+                    text={isAuthenticated ? 'Mitt konto' : text}
                   />
                 )}
               </>
             ) : (
-              <Small_MenuContent
-                className='border-b'
-                {...{ Icon, href, text }}
-              />
+              <Small_MenuContent {...{ Icon, href, text, className }} />
             )}
           </Fragment>
         ))}
