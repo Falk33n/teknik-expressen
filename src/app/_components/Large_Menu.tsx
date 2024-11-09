@@ -12,7 +12,7 @@ export const Large_Menu = () => {
   const isAuthenticated = data && data.isAuthenticated && !isLoading;
 
   return (
-    <ul className='flex items-center gap-6 whitespace-nowrap xl:gap-12'>
+    <ul className='flex items-center gap-6 whitespace-nowrap xl:gap-10'>
       <li>
         <Large_MenuProducts />
       </li>
