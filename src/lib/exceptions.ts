@@ -9,3 +9,13 @@ export class ConflictError extends TRPCError {
     this.name = 'ConflictError';
   }
 }
+
+export class UnauthorizedError extends TRPCError {
+  constructor(message: string) {
+    super({
+      code: 'UNAUTHORIZED',
+      message,
+    });
+    this.name = 'UnauthorizedError';
+  }
+}
