@@ -1,16 +1,13 @@
-import { getSession, handleServerError, verifyPassword } from '@/lib';
+import {
+  getSession,
+  handleServerError,
+  handleUnauthorized,
+  verifyPassword,
+} from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
-import { TRPCError } from '@trpc/server';
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
 import { z } from 'zod';
-
-const handleUnauthorized = () => {
-  throw new TRPCError({
-    message: 'Invalid email or password',
-    code: 'UNAUTHORIZED',
-  });
-};
 
 export const sessionRouter = createTRPCRouter({
   createSession: publicProcedure
@@ -25,26 +22,29 @@ export const sessionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const { resHeaders, db } = ctx;
       const { email, password, rememberMe } = input;
 
-      const user = await ctx.db.user.findUnique({
+      const user = await db.user.findUnique({
         where: {
           email,
         },
       });
-      if (!user) return handleUnauthorized();
+      if (!user) return handleUnauthorized('Incorrect email or password');
 
-      const passwordEntry = await ctx.db.password.findUnique({
+      const passwordEntry = await db.password.findUnique({
         where: { userId: user.id },
       });
-      if (!passwordEntry) return handleUnauthorized();
+      if (!passwordEntry)
+        return handleUnauthorized('Incorrect email or password');
 
       const isValidPassword = await verifyPassword(
         password,
         passwordEntry.salt,
         passwordEntry.hashedPassword,
       );
-      if (!isValidPassword) return handleUnauthorized();
+      if (!isValidPassword)
+        return handleUnauthorized('Incorrect email or password');
 
       const tokenExpiration = rememberMe ? '30d' : '2h';
       const cookieExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
@@ -69,7 +69,7 @@ export const sessionRouter = createTRPCRouter({
         maxAge: cookieExpiration,
         path: '/',
       });
-      ctx.resHeaders.set('Set-Cookie', sessionCookie);
+      resHeaders.set('Set-Cookie', sessionCookie);
 
       return {
         ok: true,
@@ -77,7 +77,8 @@ export const sessionRouter = createTRPCRouter({
       };
     }),
 
-  getSession: publicProcedure.query(
-    async ({ ctx }) => await getSession(ctx.req),
-  ),
+  getSession: publicProcedure.query(async ({ ctx }) => {
+    const { req } = ctx;
+    return await getSession(req);
+  }),
 });

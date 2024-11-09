@@ -237,8 +237,11 @@ export const RegisterForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
-        {FIELDS.map(
-          ({ id, label, type, placeholder, description, autoComplete }, i) => (
+        {FIELDS.map((props, i) => {
+          const { id, label, type, placeholder, description, autoComplete } =
+            props;
+
+          return (
             <FormField
               key={i}
               control={form.control}
@@ -265,60 +268,64 @@ export const RegisterForm = () => {
                 </FormItem>
               )}
             />
-          ),
-        )}
+          );
+        })}
 
-        {PASSWORD_FIELDS.map(({ id, label, autoComplete, description }, i) => (
-          <FormField
-            key={i}
-            control={form.control}
-            name={id}
-            render={({ field }) => {
-              const isVisible = visibility[id];
-              const Icon = isVisible ? FaEyeSlash : FaEye;
+        {PASSWORD_FIELDS.map((props, i) => {
+          const { id, label, autoComplete, description } = props;
 
-              return (
-                <FormItem className='relative'>
-                  <FormLabel htmlFor={id}>{label}</FormLabel>
+          return (
+            <FormField
+              key={i}
+              control={form.control}
+              name={id}
+              render={({ field }) => {
+                const isVisible = visibility[id];
+                const Icon = isVisible ? FaEyeSlash : FaEye;
 
-                  <FormControl>
-                    <Input
-                      id={id}
-                      placeholder='******'
-                      type={isVisible ? 'text' : 'password'}
-                      autoComplete={autoComplete}
-                      {...field}
-                    />
-                  </FormControl>
+                return (
+                  <FormItem className='relative'>
+                    <FormLabel htmlFor={id}>{label}</FormLabel>
 
-                  <Button
-                    aria-live='polite'
-                    type='button'
-                    variant='ghost'
-                    size='sm'
-                    aria-controls={id}
-                    onClick={() =>
-                      setVisibility((prev) => ({
-                        ...prev,
-                        [id]: !prev[id],
-                      }))
-                    }
-                    className='absolute -top-2.5 right-0 py-0'
-                  >
-                    <Icon aria-hidden className='scale-95' />
-                    {isVisible ? 'Dölj' : 'Visa'} lösenordet
-                  </Button>
+                    <FormControl>
+                      <Input
+                        id={id}
+                        placeholder='******'
+                        type={isVisible ? 'text' : 'password'}
+                        autoComplete={autoComplete}
+                        {...field}
+                      />
+                    </FormControl>
 
-                  <FormDescription className='sr-only'>
-                    {description}
-                  </FormDescription>
+                    <Button
+                      aria-live='polite'
+                      type='button'
+                      variant='ghost'
+                      size='sm'
+                      aria-controls={id}
+                      onClick={() =>
+                        setVisibility((prev) => ({
+                          ...prev,
+                          [id]: !prev[id],
+                        }))
+                      }
+                      className='absolute -top-2.5 right-0 py-0'
+                    >
+                      <Icon aria-hidden className='scale-95' />
+                      {isVisible ? 'Dölj' : 'Visa'} lösenordet
+                    </Button>
 
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
-        ))}
+                    <FormDescription className='sr-only'>
+                      {description}
+                    </FormDescription>
+
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          );
+        })}
 
         <Button type='submit'>Registrera</Button>
       </form>

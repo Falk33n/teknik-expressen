@@ -1,6 +1,5 @@
-import { generateSaltHash, getCookieConsent } from '@/lib';
+import { generateSaltHash, getCookieConsent, handleConflict } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
-import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 export const userRouter = createTRPCRouter({
@@ -24,6 +23,7 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const { db, req } = ctx;
       const {
         email,
         fullName,
@@ -36,59 +36,48 @@ export const userRouter = createTRPCRouter({
       } = input;
 
       const [existingEmail, existingPhoneNumber] = await Promise.all([
-        ctx.db.user.findUnique({ where: { email } }),
-        ctx.db.user.findUnique({ where: { phoneNumber } }),
+        db.user.findUnique({ where: { email } }),
+        db.user.findUnique({ where: { phoneNumber } }),
       ]);
+      if (existingEmail || existingPhoneNumber)
+        return handleConflict('Email or phone number is already in use');
 
-      if (existingEmail || existingPhoneNumber) {
-        throw new TRPCError({
-          message: 'Email or phone number is already in use',
-          code: 'CONFLICT',
-        });
-      }
+      const newUser = await db.user.create({
+        data: {
+          fullName,
+          streetAddress,
+          postalCode: postalCode.replace(/\s+/g, ''),
+          city,
+          country,
+          email,
+          phoneNumber,
+        },
+      });
 
       const { salt, hashedPassword } = await generateSaltHash(password);
 
-      const isConsentGiven = getCookieConsent(ctx);
+      const consent = getCookieConsent(req);
+      const isConsentGiven = consent !== null && consent ? true : false;
 
-      try {
-        const user = await ctx.db.$transaction(async (prisma) => {
-          const newUser = await prisma.user.create({
-            data: {
-              fullName,
-              streetAddress,
-              postalCode: postalCode.replace(/\s+/g, ''),
-              city,
-              country,
-              email,
-              phoneNumber,
-            },
-          });
+      await Promise.all([
+        db.password.create({
+          data: {
+            userId: newUser.id,
+            salt,
+            hashedPassword,
+          },
+        }),
+        db.cookieConsent.create({
+          data: {
+            userId: newUser.id,
+            consentGiven: isConsentGiven,
+          },
+        }),
+      ]);
 
-          await prisma.password.create({
-            data: {
-              userId: newUser.id,
-              salt,
-              hashedPassword,
-            },
-          });
-
-          await prisma.cookieConsent.create({
-            data: {
-              userId: newUser.id,
-              consentGiven: isConsentGiven.hasAccepted === true ? true : false,
-            },
-          });
-
-          return newUser;
-        });
-
-        return { message: 'User successfully created', userId: user.id };
-      } catch {
-        throw new TRPCError({
-          message: 'Internal server error',
-          code: 'INTERNAL_SERVER_ERROR',
-        });
-      }
+      return {
+        ok: true,
+        message: 'Successfully created user',
+      };
     }),
 });

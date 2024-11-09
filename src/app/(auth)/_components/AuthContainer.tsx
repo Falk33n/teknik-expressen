@@ -9,8 +9,6 @@ type AuthContainerProps = {
 
 export const AuthContainer = ({ usedFor, children }: AuthContainerProps) => {
   const actionText = usedFor === 'login' ? 'logga in' : 'registrera dig';
-  const promptText =
-    usedFor === 'login' ? 'Har du inget konto? ' : 'Har du redan ett konto? ';
 
   return (
     <div
@@ -34,7 +32,9 @@ export const AuthContainer = ({ usedFor, children }: AuthContainerProps) => {
       </h3>
 
       <span className='my-4 flex w-full items-center text-sm'>
-        {promptText}
+        {usedFor === 'login'
+          ? 'Har du inget konto? '
+          : 'Har du redan ett konto? '}
 
         <Link
           aria-label={`Gå till ${actionText} sidan`}

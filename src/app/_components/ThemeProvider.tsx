@@ -1,11 +1,11 @@
 'use client';
 
+import { Skeleton } from '@/components';
 import {
   ThemeProvider as Next_ThemeProvider,
   type ThemeProviderProps,
 } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { Skeleton } from '../../components';
 
 export const ThemeProvider = ({ children, ...props }: ThemeProviderProps) => {
   const [isMounted, setIsMounted] = useState(false);
