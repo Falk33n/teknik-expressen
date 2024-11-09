@@ -1,10 +1,13 @@
-export { ConflictError, UnauthorizedError } from './exceptions';
+export {
+  ConflictError,
+  InternalServerError,
+  UnauthorizedError,
+} from './exceptions';
 export {
   cn,
   generateSaltHash,
   getCookieConsent,
   getSession,
-  handleServerError,
   handleUnauthorized,
   omitKeys,
   pickKeys,

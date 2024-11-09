@@ -1,5 +1,4 @@
-import { UnauthorizedError } from '@/lib';
-import { TRPCError } from '@trpc/server';
+import { InternalServerError, UnauthorizedError } from '@/lib';
 import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
 import { jwtVerify } from 'jose';
@@ -44,7 +43,7 @@ export const getSession = async (
   }
 
   const processedKey = process.env.SECRET_JWT_KEY;
-  if (!processedKey) return handleServerError();
+  if (!processedKey) throw new InternalServerError();
   const jwtKey = new TextEncoder().encode(processedKey);
 
   const { payload } = await jwtVerify(authCookie.value, jwtKey);
@@ -89,13 +88,6 @@ export const pickKeys = <T extends object, K extends keyof T>(
   }
 
   return result;
-};
-
-export const handleServerError = () => {
-  throw new TRPCError({
-    message: 'Something went wrong',
-    code: 'INTERNAL_SERVER_ERROR',
-  });
 };
 
 type UnauthorizedReturnType =

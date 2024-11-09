@@ -19,3 +19,13 @@ export class UnauthorizedError extends TRPCError {
     this.name = 'UnauthorizedError';
   }
 }
+
+export class InternalServerError extends TRPCError {
+  constructor(message: string = 'Något gick fel') {
+    super({
+      code: 'INTERNAL_SERVER_ERROR',
+      message,
+    });
+    this.name = 'InternalServerError';
+  }
+}
