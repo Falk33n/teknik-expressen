@@ -120,10 +120,3 @@ export const handleUnauthorized = (
     message,
   });
 };
-
-export const handleConflict = (message: string) => {
-  throw new TRPCError({
-    code: 'CONFLICT',
-    message,
-  });
-};

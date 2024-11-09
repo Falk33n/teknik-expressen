@@ -4,7 +4,6 @@ export {
   generateSaltHash,
   getCookieConsent,
   getSession,
-  handleConflict,
   handleServerError,
   handleUnauthorized,
   omitKeys,
