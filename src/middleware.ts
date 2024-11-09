@@ -7,15 +7,15 @@ export const middleware = async (req: NextRequest) => {
   const authPaths = ['/account'];
   // const adminPaths = ['/dashboard'];
 
-  /* if (adminPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
-    if (!isAuthenticated || !isAdmin) {
+  /* if (adminPaths.some((path) => req.nextUrl.pathname.startsWith(path)) &&
+    (!isAuthenticated || !isAdmin)) {
       return NextResponse.redirect(new URL('/login', req.url));
-    }
   } else */
-  if (authPaths.some((path) => req.nextUrl.pathname.startsWith(path))) {
-    if (!isAuthenticated) {
-      return NextResponse.redirect(new URL('/login', req.url));
-    }
+  if (
+    authPaths.some((path) => req.nextUrl.pathname.startsWith(path)) &&
+    !isAuthenticated
+  ) {
+    return NextResponse.redirect(new URL('/login', req.url));
   }
 
   return NextResponse.next();
