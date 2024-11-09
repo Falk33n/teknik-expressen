@@ -37,7 +37,7 @@ export const getSession = async (
   const authCookie = req.cookies.get('sc');
   if (!authCookie || !authCookie.value) {
     return handleUnauthorized(
-      'Failed to authenticate user',
+      'Misslyckades att verifiera sessionen',
       usedInClient ? false : true,
     );
   }
@@ -46,13 +46,13 @@ export const getSession = async (
   const { payload } = await jwtVerify(authCookie.value, jwtKey);
   if (typeof payload !== 'object' || !('userId' in payload)) {
     return handleUnauthorized(
-      'Failed to authenticate user',
+      'Misslyckades att verifiera sessionen',
       usedInClient ? false : true,
     );
   }
 
   return {
-    message: 'Successfully authenticated user',
+    message: 'Lyckades att verifiera sessionen',
     isAuthenticated: true,
   };
 };
