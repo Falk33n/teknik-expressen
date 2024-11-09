@@ -37,7 +37,7 @@ export const Searchbar = () => {
   return (
     <Command
       className={cn(
-        'relative min-w-[100px] flex-1 border focus-within:ring-1 focus-within:ring-primary sm:max-w-[500px] lg:max-w-[400px]',
+        'relative min-w-[100px] flex-1 border focus-within:ring-1 focus-within:ring-primary sm:max-w-[500px] md:max-w-[400px]',
         searchbar.hasFocus && searchbar.hasValue && 'rounded-b-none',
       )}
       onBlur={(e) => handleBlur(e)}

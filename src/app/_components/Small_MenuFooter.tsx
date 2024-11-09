@@ -5,7 +5,6 @@ import {
   type Small_MenuContentProps,
   ThemeToggle,
 } from '@/app/_components';
-import { api } from '@/trpc';
 import { Fragment } from 'react';
 import { FaRegUser } from 'react-icons/fa6';
 import { MdOutlineShoppingCart, MdSupportAgent } from 'react-icons/md';
@@ -31,34 +30,30 @@ const SMALL_MENU_CONTENTS: Small_MenuContentProps[] = [
   },
 ];
 
-export const Small_MenuFooter = () => {
-  const { data, isLoading } = api.session.getSession.useQuery(undefined, {
-    retry: false,
-  });
+export const Small_MenuFooter = ({
+  isAuthenticated,
+}: {
+  isAuthenticated?: boolean;
+}) => (
+  <div className='flex flex-col items-center justify-end gap-12 py-12 text-sm'>
+    <ul className='flex w-full flex-col'>
+      {SMALL_MENU_CONTENTS.map(({ Icon, href, text, className }, i) => (
+        <Fragment key={i}>
+          {text === 'Logga in' ? (
+            <Small_MenuContent
+              className={className}
+              href={isAuthenticated ? '/account' : href}
+              Icon={Icon}
+              text={isAuthenticated ? 'Mitt konto' : text}
+            />
+          ) : (
+            <Small_MenuContent {...{ Icon, href, text, className }} />
+          )}
+        </Fragment>
+      ))}
+    </ul>
 
-  const isAuthenticated = data && data.isAuthenticated && !isLoading;
-
-  return (
-    <div className='flex flex-col items-center justify-end gap-12 py-12 text-sm'>
-      <ul className='flex w-full flex-col'>
-        {SMALL_MENU_CONTENTS.map(({ Icon, href, text, className }, i) => (
-          <Fragment key={i}>
-            {text === 'Logga in' ? (
-              <Small_MenuContent
-                className={className}
-                href={isAuthenticated ? '/account' : href}
-                Icon={Icon}
-                text={isAuthenticated ? 'Mitt konto' : text}
-              />
-            ) : (
-              <Small_MenuContent {...{ Icon, href, text, className }} />
-            )}
-          </Fragment>
-        ))}
-      </ul>
-
-      <ThemeToggle />
-    </div>
-  );
-};
+    <ThemeToggle />
+  </div>
+);
 Small_MenuFooter.displayName = 'Small_MenuFooter';

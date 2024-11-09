@@ -19,30 +19,30 @@ export const metadata: Metadata = {
   description: 'TeknikExpressen är en e-handel inom teknik',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html lang='sv' suppressHydrationWarning>
-      <body className={`${inter.className} w-full`}>
-        <TRPCReactProvider>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
-            <CookieBanner />
+const RootLayout = ({ children }: { children: ReactNode }) => (
+  <html lang='sv' suppressHydrationWarning>
+    <body className={`${inter.className} w-full`}>
+      <TRPCReactProvider>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <CookieBanner />
 
-            <Topbar />
-            <Navbar />
+          <Topbar />
+          <Navbar />
 
-            <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
-              {children}
-            </main>
+          <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
+            {children}
+          </main>
 
-            <Toaster />
-          </ThemeProvider>
-        </TRPCReactProvider>
-      </body>
-    </html>
-  );
-}
+          <Toaster />
+        </ThemeProvider>
+      </TRPCReactProvider>
+    </body>
+  </html>
+);
+RootLayout.displayName = 'RootLayout';
+export default RootLayout;

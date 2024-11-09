@@ -1,9 +1,9 @@
 import { AuthContainer, RegisterForm } from '@/app/(auth)/_components';
 
-export default function Register() {
-  return (
-    <AuthContainer usedFor='register'>
-      <RegisterForm />
-    </AuthContainer>
-  );
-}
+const Register = () => (
+  <AuthContainer usedFor='register'>
+    <RegisterForm />
+  </AuthContainer>
+);
+Register.displayName = 'Register';
+export default Register;

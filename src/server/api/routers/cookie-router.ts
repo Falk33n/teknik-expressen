@@ -19,7 +19,7 @@ export const cookieRouter = createTRPCRouter({
       });
       resHeaders.set('Set-Cookie', consentCookie);
 
-      return true;
+      return { message: 'Lyckades skapa en samtyckes cookie' };
     }),
 
   getConsent: publicProcedure.query(({ ctx }) => {

@@ -139,7 +139,11 @@ const SMALL_MENU_LISTS: Small_MenuListProps[] = [
   },
 ];
 
-export const Small_Menu = () => {
+export const Small_Menu = ({
+  isAuthenticated,
+}: {
+  isAuthenticated?: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
@@ -176,7 +180,7 @@ export const Small_Menu = () => {
         ))}
 
         <SheetFooter className='flex-1'>
-          <Small_MenuFooter />
+          <Small_MenuFooter isAuthenticated={isAuthenticated} />
         </SheetFooter>
       </SheetContent>
     </Sheet>

@@ -13,7 +13,7 @@ import {
   FormMessage,
   Input,
 } from '@/components';
-import { useCreateAuth } from '@/hooks';
+import { useCreateSession } from '@/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -80,7 +80,7 @@ const FIELDS: FieldProps[] = [
 export const LoginForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { createAuth } = useCreateAuth();
+  const { createSession } = useCreateSession();
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(LOGIN_SCHEMA),
@@ -92,7 +92,7 @@ export const LoginForm = () => {
   });
 
   const handleSubmit = async (values: LoginSchemaType) => {
-    await createAuth.mutateAsync(values);
+    await createSession.mutateAsync(values);
   };
 
   return (

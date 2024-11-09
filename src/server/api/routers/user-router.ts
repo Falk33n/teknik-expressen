@@ -1,4 +1,4 @@
-import { generateSaltHash, getCookieConsent, handleConflict } from '@/lib';
+import { ConflictError, generateSaltHash, getCookieConsent } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { z } from 'zod';
 
@@ -40,7 +40,9 @@ export const userRouter = createTRPCRouter({
         db.user.findUnique({ where: { phoneNumber } }),
       ]);
       if (existingEmail || existingPhoneNumber) {
-        return handleConflict('Email or phone number is already in use');
+        throw new ConflictError(
+          'E-postadress eller telefonnummer används redan',
+        );
       }
 
       const newUser = await db.user.create({
@@ -77,8 +79,7 @@ export const userRouter = createTRPCRouter({
       ]);
 
       return {
-        ok: true,
-        message: 'Successfully created user',
+        message: 'Lyckades skapa användaren',
       };
     }),
 });

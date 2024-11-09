@@ -4,12 +4,12 @@ import { useToast } from '@/hooks';
 import { api } from '@/trpc';
 import { useRouter } from 'next/navigation';
 
-export const useCreateAuth = () => {
+export const useCreateSession = () => {
   const { toast } = useToast();
 
   const router = useRouter();
 
-  const createAuth = api.session.createSession.useMutation({
+  const createSession = api.session.createSession.useMutation({
     onSuccess: () => {
       router.push('/');
 
@@ -20,20 +20,13 @@ export const useCreateAuth = () => {
       });
     },
     onError: (error) => {
-      const { data } = error;
-
-      const errorTitle =
-        data?.code === 'UNAUTHORIZED'
-          ? 'Fel e-postadress eller lösenord!'
-          : 'Något gick fel!';
-
       toast({
         variant: 'destructive',
-        title: errorTitle,
+        title: error.message,
         description: 'Var god försök igen.',
       });
     },
   });
 
-  return { createAuth };
+  return { createSession };
 };
