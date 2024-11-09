@@ -40,7 +40,9 @@ export const userRouter = createTRPCRouter({
         db.user.findUnique({ where: { phoneNumber } }),
       ]);
       if (existingEmail || existingPhoneNumber) {
-        throw new ConflictError('Email or phone number is already in use');
+        throw new ConflictError(
+          'E-postadress eller telefonnummer används redan',
+        );
       }
 
       const newUser = await db.user.create({
@@ -77,7 +79,7 @@ export const userRouter = createTRPCRouter({
       ]);
 
       return {
-        message: 'Successfully created user',
+        message: 'Lyckades skapa användaren',
       };
     }),
 });
