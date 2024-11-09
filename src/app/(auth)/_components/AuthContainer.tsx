@@ -13,39 +13,36 @@ export const AuthContainer = ({ usedFor, children }: AuthContainerProps) => {
   return (
     <div
       className={cn(
-        'flex flex-col gap-3 px-4',
-        usedFor === 'register' ? 'pb-32 pt-12' : 'py-12',
+        'flex w-full px-4 sm:px-12 lg:justify-center lg:px-0',
+        usedFor === 'register' ? 'pb-32 pt-12' : 'py-12 lg:pt-16',
       )}
     >
-      <h2 className='text-2xl font-semibold capitalize sm:text-3xl'>
-        {actionText}
-      </h2>
+      <section className='flex flex-col gap-3 lg:w-[65%]'>
+        <h2 className='text-2xl font-semibold capitalize sm:text-3xl'>
+          {actionText}
+        </h2>
 
-      <h3
-        className={cn(
-          'text-pretty text-sm font-medium sm:text-base',
-          usedFor === 'register' ? 'max-w-[90%]' : 'max-w-[85%]',
-        )}
-      >
-        Välkommen! Fyll i dina uppgifter nedan och klicka sedan på&nbsp;
-        {actionText} knappen.
-      </h3>
+        <h3 className='max-w-[85%] text-pretty text-sm font-medium sm:text-base'>
+          Välkommen! Fyll i dina uppgifter nedan och klicka sedan på&nbsp;
+          {actionText} knappen.
+        </h3>
 
-      <span className='my-4 flex w-full items-center text-sm'>
-        {usedFor === 'login'
-          ? 'Har du inget konto? '
-          : 'Har du redan ett konto? '}
+        <span className='my-4 flex w-full items-center text-sm'>
+          {usedFor === 'login'
+            ? 'Har du inget konto? '
+            : 'Har du redan ett konto? '}
 
-        <Link
-          aria-label={`Gå till ${actionText} sidan`}
-          href={`/${usedFor === 'login' ? 'register' : 'login'}`}
-          className='rounded-md p-1.5 font-medium'
-        >
-          {usedFor === 'login' ? 'Registrera dig' : 'Logga in'}
-        </Link>
-      </span>
+          <Link
+            aria-label={`Gå till ${actionText} sidan`}
+            href={`/${usedFor === 'login' ? 'register' : 'login'}`}
+            className='rounded-md p-1.5 font-medium'
+          >
+            {usedFor === 'login' ? 'Registrera dig' : 'Logga in'}
+          </Link>
+        </span>
 
-      {children}
+        {children}
+      </section>
     </div>
   );
 };

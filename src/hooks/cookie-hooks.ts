@@ -23,7 +23,7 @@ export const useCreateCookieConsent = ({
       toast({
         variant: 'destructive',
         title: 'Något gick fel!',
-        description: 'Var god försök igen senare.',
+        description: 'Var god försök igen.',
       });
 
       onConsentSubmit(true);

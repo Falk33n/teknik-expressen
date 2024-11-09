@@ -19,10 +19,17 @@ export const useCreateAuth = () => {
         description: 'Inloggningen lyckades.',
       });
     },
-    onError: () => {
+    onError: (error) => {
+      const { data } = error;
+
+      const errorTitle =
+        data?.code === 'UNAUTHORIZED'
+          ? 'Fel e-postadress eller lösenord!'
+          : 'Något gick fel!';
+
       toast({
         variant: 'destructive',
-        title: 'Något gick fel!',
+        title: errorTitle,
         description: 'Var god försök igen.',
       });
     },

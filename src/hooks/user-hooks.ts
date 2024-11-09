@@ -19,10 +19,17 @@ export const useCreateUser = () => {
         description: 'Registreringen lyckades, var god och logga in.',
       });
     },
-    onError: () => {
+    onError: (error) => {
+      const { data } = error;
+
+      const errorTitle =
+        data?.code === 'CONFLICT'
+          ? 'E-postadressen eller telefonnumret är upptagen!'
+          : 'Något gick fel!';
+
       toast({
         variant: 'destructive',
-        title: 'Något gick fel!',
+        title: errorTitle,
         description: 'Var god försök igen.',
       });
     },

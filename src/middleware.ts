@@ -4,21 +4,29 @@ import { type NextRequest, NextResponse } from 'next/server';
 export const middleware = async (req: NextRequest) => {
   const { isAuthenticated } = await getSession(req, false);
 
-  const authPaths = ['/account'];
-  // const adminPaths = ['/dashboard'];
-
-  /* if (adminPaths.some((path) => req.nextUrl.pathname.startsWith(path)) &&
-    (!isAuthenticated || !isAdmin)) {
-      return NextResponse.redirect(new URL('/login', req.url));
-  } else */
-  if (
-    authPaths.some((path) => req.nextUrl.pathname.startsWith(path)) &&
-    !isAuthenticated
-  ) {
-    return NextResponse.redirect(new URL('/login', req.url));
+  switch (req.nextUrl.pathname) {
+    case '/register': {
+      if (isAuthenticated) {
+        return NextResponse.redirect(new URL('/account', req.url));
+      }
+      break;
+    }
+    case '/login': {
+      if (isAuthenticated) {
+        return NextResponse.redirect(new URL('/account', req.url));
+      }
+      break;
+    }
+    case '/account': {
+      if (!isAuthenticated) {
+        return NextResponse.redirect(new URL('/login', req.url));
+      }
+      break;
+    }
+    default: {
+      return NextResponse.next();
+    }
   }
-
-  return NextResponse.next();
 };
 
 export const config = {

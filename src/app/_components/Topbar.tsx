@@ -38,7 +38,7 @@ export const Topbar = () => (
       <h1>Välkommen till Teknik-Expressen</h1>
     </header>
 
-    <aside className='flex w-full items-center justify-evenly gap-2 overflow-x-auto bg-secondary px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-secondary-foreground sm:justify-center sm:gap-12 sm:py-3 sm:text-sm sm:tracking-wide'>
+    <aside className='flex w-full items-center justify-evenly gap-2 overflow-x-auto bg-secondary px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-secondary-foreground sm:justify-center sm:gap-8 sm:py-3 sm:text-sm sm:tracking-wide md:gap-12'>
       {ICONS_WITH_TEXTS.map((props, i) => (
         <IconWithText key={i} {...props} />
       ))}
