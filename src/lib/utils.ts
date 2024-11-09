@@ -90,6 +90,12 @@ export const pickKeys = <T extends object, K extends keyof T>(
   return result;
 };
 
+export const getSecretJwtKey = () => {
+  const secretKey = process.env.SECRET_JWT_KEY;
+  if (!secretKey) throw new InternalServerError();
+  return { secretKey };
+};
+
 type UnauthorizedReturnType =
   | {
       message: string;
