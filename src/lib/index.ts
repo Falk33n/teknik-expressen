@@ -1,3 +1,4 @@
+export { ConflictError } from './exceptions';
 export {
   cn,
   generateSaltHash,
