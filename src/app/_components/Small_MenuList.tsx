@@ -1,4 +1,4 @@
-import { MenuContent } from '@/app/_components';
+import { Small_MenuContent } from '@/app/_components';
 import {
   Accordion,
   AccordionContent,
@@ -10,32 +10,35 @@ import {
 } from '@/components';
 import { cn } from '@/lib';
 
-export type MenuListProps = {
+export type Small_MenuListProps = {
   trigger: IconWithTextProps;
   content: LinkIconWithTextProps[];
 };
 
-export const MenuList = ({ trigger, content }: MenuListProps) => (
+export const Small_MenuList = ({
+  trigger: { Icon, text },
+  content,
+}: Small_MenuListProps) => (
   <Accordion type='single' collapsible>
     <AccordionItem value='accordion-item-1'>
       <AccordionTrigger
-        aria-label={`${trigger.text}, Visa eller dölj innehållet`}
+        aria-label={`${text}, Visa eller dölj innehållet`}
         className='px-4'
       >
-        <IconWithText Icon={trigger.Icon} text={trigger.text} />
+        <IconWithText Icon={Icon} text={text} />
       </AccordionTrigger>
 
       <AccordionContent className={cn('pb-12 pt-0')}>
         <ul
-          aria-label={`Lista med länkar inom kategorin ${trigger.text}`}
+          aria-label={`Lista med länkar inom kategorin ${text}`}
           className='flex flex-col [&>li:nth-child(even)]:bg-accent [&>li:nth-child(odd)]:bg-accent/35'
         >
           {content.map((props, i) => (
-            <MenuContent key={i} {...props} />
+            <Small_MenuContent key={i} {...props} />
           ))}
         </ul>
       </AccordionContent>
     </AccordionItem>
   </Accordion>
 );
-MenuList.displayName = 'MenuList';
+Small_MenuList.displayName = 'Small_MenuList';

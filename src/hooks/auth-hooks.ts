@@ -9,7 +9,7 @@ export const useCreateAuth = () => {
 
   const router = useRouter();
 
-  const createAuth = api.auth.createAuth.useMutation({
+  const createAuth = api.session.createSession.useMutation({
     onSuccess: () => {
       router.push('/');
 

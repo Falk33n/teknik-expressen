@@ -7,13 +7,12 @@ import { useState } from 'react';
 export const CookieBanner = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { data, isLoading } = api.cookieConsent.getConsent.useQuery(undefined, {
+  const { data, isLoading } = api.cookie.getConsent.useQuery(undefined, {
     retry: false,
   });
 
-  if (isSubmitted || (data && data.hasAccepted !== null) || isLoading) {
-    return null;
-  } else if (data && data.hasAccepted === null && !isLoading) {
+  if (isSubmitted || data !== null || isLoading) return null;
+  else if (data === null && !isLoading) {
     return (
       <div
         aria-label='Cookie-banner för att samla in samtycke'

@@ -28,7 +28,7 @@ export const Command = forwardRef<CommandType, CommandProps>(
     <CMDK_Command
       ref={ref}
       className={cn(
-        'flex h-full w-full flex-col rounded-sm bg-popover text-popover-foreground',
+        'flex h-full flex-col rounded-sm bg-popover text-popover-foreground',
         className,
       )}
       {...props}
@@ -41,7 +41,7 @@ type CommandDialogProps = DialogProps;
 
 export const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
   <Dialog {...props}>
-    <DialogContent className='overflow-hidden p-0'>
+    <DialogContent className='p-0'>
       <Command className='[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-group]]:px-2 [&_[cmdk-input-wrapper]_svg]:size-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:size-5'>
         {children}
       </Command>
@@ -55,7 +55,7 @@ type CommandInputProps = ComponentPropsWithoutRef<typeof CMDK_CommandInput>;
 
 export const CommandInput = forwardRef<CommandInputType, CommandInputProps>(
   ({ className, ...props }, ref) => (
-    <div className='flex items-center px-4' cmdk-input-wrapper=''>
+    <div className='flex items-center justify-end px-4' cmdk-input-wrapper=''>
       <RxMagnifyingGlass
         aria-hidden
         className='mr-2 size-4 shrink-0 opacity-50 sm:size-5'
@@ -112,7 +112,7 @@ export const CommandGroup = forwardRef<CommandGroupType, CommandGroupProps>(
     <CMDK_CommandGroup
       ref={ref}
       className={cn(
-        'overflow-hidden text-foreground [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-accent-foreground [&_[cmdk-item]]:mt-3 [&_[cmdk-item]]:text-sm [&_[cmdk-item]]:sm:text-base',
+        'text-foreground [&_[cmdk-group-heading]]:text-sm [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-accent-foreground [&_[cmdk-item]]:mt-3 [&_[cmdk-item]]:text-sm [&_[cmdk-item]]:sm:mt-5',
         className,
       )}
       {...props}
@@ -146,7 +146,7 @@ export const CommandItem = forwardRef<CommandItemType, CommandItemProps>(
     <CMDK_CommandItem
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center gap-2 truncate rounded-sm px-4 py-2 text-sm outline-none data-[disabled=true]:pointer-events-none data-[selected=true]:bg-popover data-[selected=true]:text-popover-foreground data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+        'relative flex cursor-default select-none items-center gap-2 truncate rounded-sm bg-background/30 px-4 py-2 text-sm text-foreground outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
         className,
       )}
       {...props}

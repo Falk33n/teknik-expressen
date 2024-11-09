@@ -7,24 +7,10 @@
  * need to use are documented accordingly near the end.
  */
 import { db } from '@/server';
-import type { PrismaClient } from '@prisma/client';
-import { DefaultArgs } from '@prisma/client/runtime/library';
 import { initTRPC } from '@trpc/server';
 import type { NextRequest } from 'next/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
-
-export type CtxProps = {
-  req: NextRequest;
-  resHeaders: Headers;
-  db: PrismaClient<
-    {
-      log: ('query' | 'warn' | 'error')[];
-    },
-    never,
-    DefaultArgs
-  >;
-};
 
 /**
  * 1. CONTEXT

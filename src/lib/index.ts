@@ -1,8 +1,11 @@
 export {
   cn,
   generateSaltHash,
-  getAuth,
   getCookieConsent,
+  getSession,
+  handleConflict,
+  handleServerError,
+  handleUnauthorized,
   omitKeys,
   pickKeys,
   verifyPassword,

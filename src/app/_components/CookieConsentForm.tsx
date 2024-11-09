@@ -13,8 +13,8 @@ export const CookieConsentForm = ({ onConsentSubmit }: OnConsentSubmit) => {
 
   const { createConsent } = useCreateCookieConsent({ onConsentSubmit });
 
-  const handleSubmit = async () => {
-    await createConsent.mutateAsync({ hasAccepted: isChecked });
+  const handleSubmit = () => {
+    createConsent.mutate({ hasAccepted: isChecked });
   };
 
   return (

@@ -1,6 +1,10 @@
 'use client';
 
-import { MenuFooter, MenuList, type MenuListProps } from '@/app/_components';
+import {
+  Small_MenuFooter,
+  Small_MenuList,
+  type Small_MenuListProps,
+} from '@/app/_components';
 import {
   Button,
   Sheet,
@@ -27,7 +31,7 @@ import { LuCable } from 'react-icons/lu';
 import { MdOutlineDevicesOther } from 'react-icons/md';
 import { TbDeviceIpad } from 'react-icons/tb';
 
-const MENU_LISTS: MenuListProps[] = [
+const SMALL_MENU_LISTS: Small_MenuListProps[] = [
   {
     trigger: { Icon: BsMouse2, text: 'Datorutrustning' },
     content: [
@@ -135,15 +139,14 @@ const MENU_LISTS: MenuListProps[] = [
   },
 ];
 
-export const Menu = () => {
+export const Small_Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
 
   useEffect(() => {
-    if (!isOpen) return;
-    setIsOpen(false); // disabled isOpen dependency
-  }, [pathname]); // eslint-disable-line
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -152,10 +155,10 @@ export const Menu = () => {
           aria-label='Öppna eller dölj menyn'
           variant='outline'
           size='icon'
-          className='p-2'
+          className='p-2 sm:size-10'
           onClick={() => setIsOpen(true)}
         >
-          <FaBars aria-hidden />
+          <FaBars aria-hidden className='sm:scale-110' />
         </Button>
       </SheetTrigger>
 
@@ -168,15 +171,15 @@ export const Menu = () => {
           </SheetDescription>
         </SheetHeader>
 
-        {MENU_LISTS.map((props, i) => (
-          <MenuList key={i} {...props} />
+        {SMALL_MENU_LISTS.map((props, i) => (
+          <Small_MenuList key={i} {...props} />
         ))}
 
         <SheetFooter className='flex-1'>
-          <MenuFooter />
+          <Small_MenuFooter />
         </SheetFooter>
       </SheetContent>
     </Sheet>
   );
 };
-Menu.displayName = 'Menu';
+Small_Menu.displayName = 'Small_Menu';

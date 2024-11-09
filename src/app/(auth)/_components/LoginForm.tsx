@@ -98,19 +98,18 @@ export const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
-        {FIELDS.map(
-          (
-            {
-              id,
-              label,
-              placeholder,
-              type,
-              autoComplete,
-              description,
-              Component,
-            },
-            i,
-          ) => (
+        {FIELDS.map((props, i) => {
+          const {
+            id,
+            label,
+            placeholder,
+            type,
+            autoComplete,
+            description,
+            Component,
+          } = props;
+
+          return (
             <FormField
               key={i}
               control={form.control}
@@ -175,8 +174,8 @@ export const LoginForm = () => {
                 );
               }}
             />
-          ),
-        )}
+          );
+        })}
 
         <Button type='submit'>Logga in</Button>
       </form>

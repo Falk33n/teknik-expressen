@@ -1,6 +1,6 @@
 'use client';
 
-import type { Toast, ToastAction } from '@/components';
+import type { ToastAction, Toast as ToastComponent } from '@/components';
 import {
   useEffect,
   useState,
@@ -22,9 +22,8 @@ const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
 const addToRemoveQueue = (toastId: string) => {
-  if (toastTimeouts.has(toastId)) {
-    return;
-  } else {
+  if (toastTimeouts.has(toastId)) return;
+  else {
     const timeout = setTimeout(() => {
       toastTimeouts.delete(toastId);
       dispatch({
@@ -37,7 +36,7 @@ const addToRemoveQueue = (toastId: string) => {
   }
 };
 
-type ToastProps = ComponentPropsWithoutRef<typeof Toast>;
+type ToastProps = ComponentPropsWithoutRef<typeof ToastComponent>;
 
 type ToastActionElement = ReactElement<typeof ToastAction>;
 
@@ -95,9 +94,8 @@ export const reducer = (state: State, action: Action): State => {
 
     case 'DISMISS_TOAST': {
       const { toastId } = action;
-      if (toastId) {
-        addToRemoveQueue(toastId);
-      } else {
+      if (toastId) addToRemoveQueue(toastId);
+      else {
         state.toasts.forEach((toast) => {
           addToRemoveQueue(toast.id);
         });

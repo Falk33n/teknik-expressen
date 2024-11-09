@@ -1,30 +1,17 @@
-import type { CtxProps } from '@/server/api/trpc';
+import { TRPCError } from '@trpc/server';
 import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
-import { verify } from 'jsonwebtoken';
+import { jwtVerify } from 'jose';
+import type { NextRequest } from 'next/server';
 import { twMerge } from 'tailwind-merge';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-export const getCookieConsent = (ctx: CtxProps) => {
-  const consetCookie = ctx.req.cookies.get('cc');
-
-  if (!consetCookie || !consetCookie.value) {
-    return {
-      hasAccepted: null,
-      message: 'Consent has never been given by the user',
-    };
-  } else if (consetCookie.value === 'true') {
-    return {
-      hasAccepted: true,
-      message: 'Consent has been accepted by the user',
-    };
-  } else {
-    return {
-      hasAccepted: false,
-      message: 'Consent has not been accepted by the user',
-    };
-  }
+export const getCookieConsent = (req: NextRequest) => {
+  const consetCookie = req.cookies.get('cc');
+  if (!consetCookie || !consetCookie.value) return null;
+  else if (consetCookie.value === 'true') return true;
+  return false;
 };
 
 export const generateSaltHash = async (password: string) => {
@@ -39,43 +26,38 @@ export const verifyPassword = async (
   storedHashedPassword: string,
 ) => {
   const hashedPassword = await hash(password, storedSalt);
-
-  if (hashedPassword === storedHashedPassword) {
-    return true;
-  } else {
-    return false;
-  }
+  if (hashedPassword === storedHashedPassword) return true;
+  return false;
 };
 
-export const getAuth = (ctx: CtxProps) => {
-  const authCookie = ctx.req.cookies.get('ac');
-
+export const getSession = async (
+  req: NextRequest,
+  usedInClient: boolean = true,
+) => {
+  const authCookie = req.cookies.get('ac');
   if (!authCookie || !authCookie.value) {
-    return {
-      message: 'Failed to authenticate user',
-      isAuthenticated: false,
-    };
+    return handleUnauthorized(
+      'Failed to authenticate user',
+      usedInClient ? false : true,
+    );
   }
 
-  const key = process.env.SECRET_JWT_KEY as string;
+  const processedKey = process.env.SECRET_JWT_KEY;
+  if (!processedKey) return handleServerError();
+  const jwtKey = new TextEncoder().encode(processedKey);
 
-  const decoded = verify(authCookie.value, key);
-
-  if (
-    typeof decoded !== 'object' ||
-    decoded === null ||
-    !('userId' in decoded)
-  ) {
-    return {
-      message: 'Failed to authenticate user',
-      isAuthenticated: false,
-    };
-  } else {
-    return {
-      message: 'Successfully authenticated user',
-      isAuthenticated: true,
-    };
+  const { payload } = await jwtVerify(authCookie.value, jwtKey);
+  if (typeof payload !== 'object' || !('userId' in payload)) {
+    return handleUnauthorized(
+      'Failed to authenticate user',
+      usedInClient ? false : true,
+    );
   }
+
+  return {
+    message: 'Successfully authenticated user',
+    isAuthenticated: true,
+  };
 };
 
 export const omitKeys = <T extends object, K extends keyof T>(
@@ -83,8 +65,8 @@ export const omitKeys = <T extends object, K extends keyof T>(
   keys: K | K[],
 ): Omit<T, K> => {
   const result = { ...obj };
-  const keysArray = Array.isArray(keys) ? keys : [keys];
 
+  const keysArray = Array.isArray(keys) ? keys : [keys];
   for (const key of keysArray) {
     delete result[key];
   }
@@ -97,8 +79,8 @@ export const pickKeys = <T extends object, K extends keyof T>(
   keys: K | K[],
 ): Pick<T, K> => {
   const result = {} as Pick<T, K>;
-  const keysArray = Array.isArray(keys) ? keys : [keys];
 
+  const keysArray = Array.isArray(keys) ? keys : [keys];
   for (const key of keysArray) {
     if (key in obj) {
       result[key] = obj[key];
@@ -106,4 +88,35 @@ export const pickKeys = <T extends object, K extends keyof T>(
   }
 
   return result;
+};
+
+export const handleServerError = () => {
+  throw new TRPCError({
+    message: 'Something went wrong',
+    code: 'INTERNAL_SERVER_ERROR',
+  });
+};
+
+export const handleUnauthorized = (
+  message: string,
+  shouldThrow: boolean = true,
+) => {
+  if (!shouldThrow) {
+    return {
+      message,
+      isAuthenticated: false,
+    };
+  }
+
+  throw new TRPCError({
+    code: 'UNAUTHORIZED',
+    message,
+  });
+};
+
+export const handleConflict = (message: string) => {
+  throw new TRPCError({
+    code: 'CONFLICT',
+    message,
+  });
 };
