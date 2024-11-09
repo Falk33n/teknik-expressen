@@ -18,10 +18,10 @@ export const ThemeToggle = () => {
       size='icon'
       aria-label={`Toggle the color theme, theme is currently ${currentTheme}`}
       aria-live='polite'
-      className='size-12 md:size-10'
+      className='size-11'
       onClick={() => setTheme(nextTheme)}
     >
-      <Icon aria-hidden className='scale-125 md:scale-110' />
+      <Icon aria-hidden className='scale-125' />
     </Button>
   );
 };
