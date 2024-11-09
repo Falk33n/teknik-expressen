@@ -1,6 +1,6 @@
 import {
+  getSecretJwtKey,
   getSession,
-  handleServerError,
   handleUnauthorized,
   verifyPassword,
 } from '@/lib';
@@ -31,14 +31,20 @@ export const sessionRouter = createTRPCRouter({
         },
       });
       if (!user) {
-        return handleUnauthorized('Incorrect email or password');
+        return handleUnauthorized(
+          'Felaktig e-postadress eller lösenord',
+          false,
+        );
       }
 
       const passwordEntry = await db.password.findUnique({
         where: { userId: user.id },
       });
       if (!passwordEntry) {
-        return handleUnauthorized('Incorrect email or password');
+        return handleUnauthorized(
+          'Felaktig e-postadress eller lösenord',
+          false,
+        );
       }
 
       const isValidPassword = await verifyPassword(
@@ -47,16 +53,16 @@ export const sessionRouter = createTRPCRouter({
         passwordEntry.hashedPassword,
       );
       if (!isValidPassword) {
-        return handleUnauthorized('Incorrect email or password');
+        return handleUnauthorized(
+          'Felaktig e-postadress eller lösenord',
+          false,
+        );
       }
 
       const tokenExpiration = rememberMe ? '30d' : '2h';
       const cookieExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
 
-      const processedKey = process.env.SECRET_JWT_KEY;
-      if (!processedKey) return handleServerError();
-
-      const jwtKey = new TextEncoder().encode(processedKey);
+      const { jwtKey } = getSecretJwtKey();
       const jwtToken = await new SignJWT({
         userId: user.id,
       })
@@ -76,8 +82,7 @@ export const sessionRouter = createTRPCRouter({
       resHeaders.set('Set-Cookie', sessionCookie);
 
       return {
-        ok: true,
-        message: 'Successfully created session',
+        message: 'Lyckades skapa en session',
       };
     }),
 

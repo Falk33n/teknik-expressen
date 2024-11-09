@@ -1,4 +1,4 @@
-import { TRPCError } from '@trpc/server';
+import { InternalServerError, UnauthorizedError } from '@/lib';
 import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
 import { jwtVerify } from 'jose';
@@ -37,25 +37,22 @@ export const getSession = async (
   const authCookie = req.cookies.get('sc');
   if (!authCookie || !authCookie.value) {
     return handleUnauthorized(
-      'Failed to authenticate user',
+      'Misslyckades att verifiera sessionen',
       usedInClient ? false : true,
     );
   }
 
-  const processedKey = process.env.SECRET_JWT_KEY;
-  if (!processedKey) return handleServerError();
-  const jwtKey = new TextEncoder().encode(processedKey);
-
+  const { jwtKey } = getSecretJwtKey();
   const { payload } = await jwtVerify(authCookie.value, jwtKey);
   if (typeof payload !== 'object' || !('userId' in payload)) {
     return handleUnauthorized(
-      'Failed to authenticate user',
+      'Misslyckades att verifiera sessionen',
       usedInClient ? false : true,
     );
   }
 
   return {
-    message: 'Successfully authenticated user',
+    message: 'Lyckades att verifiera sessionen',
     isAuthenticated: true,
   };
 };
@@ -90,14 +87,14 @@ export const pickKeys = <T extends object, K extends keyof T>(
   return result;
 };
 
-export const handleServerError = () => {
-  throw new TRPCError({
-    message: 'Something went wrong',
-    code: 'INTERNAL_SERVER_ERROR',
-  });
+export const getSecretJwtKey = () => {
+  const secretKey = process.env.SECRET_JWT_KEY;
+  if (!secretKey) throw new InternalServerError();
+  const jwtKey = new TextEncoder().encode(secretKey);
+  return { jwtKey, secretKey };
 };
 
-type UnathorizedReturnType =
+type UnauthorizedReturnType =
   | {
       message: string;
       isAuthenticated: boolean;
@@ -107,7 +104,7 @@ type UnathorizedReturnType =
 export const handleUnauthorized = (
   message: string,
   shouldThrow: boolean = true,
-): UnathorizedReturnType => {
+): UnauthorizedReturnType => {
   if (!shouldThrow) {
     return {
       message,
@@ -115,15 +112,5 @@ export const handleUnauthorized = (
     };
   }
 
-  throw new TRPCError({
-    code: 'UNAUTHORIZED',
-    message,
-  });
-};
-
-export const handleConflict = (message: string) => {
-  throw new TRPCError({
-    code: 'CONFLICT',
-    message,
-  });
+  throw new UnauthorizedError(message);
 };

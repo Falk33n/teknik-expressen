@@ -1,3 +1,3 @@
-export default function Account() {
-  return <div>account</div>;
-}
+const Account = () => <div>account</div>;
+Account.displayName = 'Account';
+export default Account;
