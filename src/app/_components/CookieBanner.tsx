@@ -7,7 +7,7 @@ import { useState } from 'react';
 export const CookieBanner = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const { data, isLoading } = api.cookieConsent.getConsent.useQuery(undefined, {
+  const { data, isLoading } = api.cookie.getConsent.useQuery(undefined, {
     retry: false,
   });
 

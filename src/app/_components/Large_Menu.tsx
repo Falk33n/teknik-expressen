@@ -5,7 +5,7 @@ import { Link, Skeleton } from '@/components';
 import { api } from '@/trpc';
 
 export const Large_Menu = () => {
-  const { data, isLoading } = api.auth.getAuth.useQuery(undefined, {
+  const { data, isLoading } = api.session.getSession.useQuery(undefined, {
     retry: false,
   });
 

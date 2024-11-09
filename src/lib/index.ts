@@ -1,8 +1,9 @@
 export {
   cn,
   generateSaltHash,
-  getAuth,
   getCookieConsent,
+  getSession,
+  handleServerError,
   omitKeys,
   pickKeys,
   verifyPassword,

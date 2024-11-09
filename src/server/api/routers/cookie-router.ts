@@ -3,7 +3,7 @@ import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { serialize } from 'cookie';
 import { z } from 'zod';
 
-export const cookieConsentRouter = createTRPCRouter({
+export const cookieRouter = createTRPCRouter({
   createConsent: publicProcedure
     .input(z.object({ hasAccepted: z.boolean() }))
     .mutation(({ ctx, input }) => {

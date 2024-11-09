@@ -9,7 +9,7 @@ export const useCreateCookieConsent = ({
 }: OnConsentSubmit) => {
   const { toast } = useToast();
 
-  const createConsent = api.cookieConsent.createConsent.useMutation({
+  const createConsent = api.cookie.createConsent.useMutation({
     onSuccess: () => {
       toast({
         variant: 'success',

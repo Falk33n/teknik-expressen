@@ -1,3 +1,3 @@
-export { authRouter } from './auth-router';
-export { cookieConsentRouter } from './cookie-consent-router';
+export { cookieRouter } from './cookie-router';
+export { sessionRouter } from './session-router';
 export { userRouter } from './user-router';

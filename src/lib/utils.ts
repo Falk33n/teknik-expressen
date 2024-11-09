@@ -1,4 +1,5 @@
 import type { CtxProps } from '@/server/api/trpc';
+import { TRPCError } from '@trpc/server';
 import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
 import { jwtVerify } from 'jose';
@@ -29,9 +30,17 @@ export const getCookieConsent = (ctx: CtxProps) => {
 };
 
 export const generateSaltHash = async (password: string) => {
-  const salt = await genSalt(10);
-  const hashedPassword = await hash(password, salt);
-  return { salt, hashedPassword };
+  try {
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(password, salt);
+
+    return { salt, hashedPassword };
+  } catch {
+    throw new TRPCError({
+      message: 'Something went wrong',
+      code: 'INTERNAL_SERVER_ERROR',
+    });
+  }
 };
 
 export const verifyPassword = async (
@@ -39,23 +48,37 @@ export const verifyPassword = async (
   storedSalt: string,
   storedHashedPassword: string,
 ) => {
-  const hashedPassword = await hash(password, storedSalt);
+  try {
+    const hashedPassword = await hash(password, storedSalt);
 
-  if (hashedPassword === storedHashedPassword) {
-    return true;
-  } else {
+    if (hashedPassword === storedHashedPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch {
     return false;
   }
 };
 
-export const getAuth = async (req: NextRequest) => {
+export const getSession = async (
+  req: NextRequest,
+  usedInClient: boolean = true,
+) => {
   const authCookie = req.cookies.get('ac');
 
+  const handleUnauthenticated = () =>
+    usedInClient
+      ? { message: 'User is not authenticated', isAuthenticated: false }
+      : (() => {
+          throw new TRPCError({
+            message: 'User is not authenticated',
+            code: 'UNAUTHORIZED',
+          });
+        })();
+
   if (!authCookie || !authCookie.value) {
-    return {
-      message: 'Failed to authenticate user',
-      isAuthenticated: false,
-    };
+    return handleUnauthenticated();
   }
 
   const key = new TextEncoder().encode(process.env.SECRET_JWT_KEY);
@@ -64,10 +87,7 @@ export const getAuth = async (req: NextRequest) => {
     const { payload } = await jwtVerify(authCookie.value, key);
 
     if (typeof payload !== 'object' || !('userId' in payload)) {
-      return {
-        message: 'Failed to authenticate user',
-        isAuthenticated: false,
-      };
+      return handleUnauthenticated();
     }
 
     return {
@@ -75,10 +95,7 @@ export const getAuth = async (req: NextRequest) => {
       isAuthenticated: true,
     };
   } catch {
-    return {
-      message: 'Failed to authenticate user',
-      isAuthenticated: false,
-    };
+    return handleUnauthenticated();
   }
 };
 
@@ -110,4 +127,11 @@ export const pickKeys = <T extends object, K extends keyof T>(
   }
 
   return result;
+};
+
+export const handleServerError = () => {
+  throw new TRPCError({
+    message: 'Something went wrong',
+    code: 'INTERNAL_SERVER_ERROR',
+  });
 };
