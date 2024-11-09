@@ -4,12 +4,12 @@ import { useToast } from '@/hooks';
 import { api } from '@/trpc';
 import { useRouter } from 'next/navigation';
 
-export const useCreateAuth = () => {
+export const useCreateSession = () => {
   const { toast } = useToast();
 
   const router = useRouter();
 
-  const createAuth = api.session.createSession.useMutation({
+  const createSession = api.session.createSession.useMutation({
     onSuccess: () => {
       router.push('/');
 
@@ -28,5 +28,5 @@ export const useCreateAuth = () => {
     },
   });
 
-  return { createAuth };
+  return { createSession };
 };
