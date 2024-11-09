@@ -120,7 +120,7 @@ export const LoginForm = () => {
                 const Icon = isPasswordVisible ? FaEyeSlash : FaEye;
 
                 return (
-                  <FormItem className='relative'>
+                  <FormItem className='relative sm:max-w-[90%] md:max-w-[600px]'>
                     {!isCheckbox && <FormLabel htmlFor={id}>{label}</FormLabel>}
 
                     <FormControl>
