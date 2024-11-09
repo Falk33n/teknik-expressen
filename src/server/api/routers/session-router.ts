@@ -1,7 +1,7 @@
 import {
   getSecretJwtKey,
   getSession,
-  UnauthorizedError,
+  handleUnauthorized,
   verifyPassword,
 } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
@@ -31,14 +31,20 @@ export const sessionRouter = createTRPCRouter({
         },
       });
       if (!user) {
-        throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
+        return handleUnauthorized(
+          'Felaktig e-postadress eller lösenord',
+          false,
+        );
       }
 
       const passwordEntry = await db.password.findUnique({
         where: { userId: user.id },
       });
       if (!passwordEntry) {
-        throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
+        return handleUnauthorized(
+          'Felaktig e-postadress eller lösenord',
+          false,
+        );
       }
 
       const isValidPassword = await verifyPassword(
@@ -47,7 +53,10 @@ export const sessionRouter = createTRPCRouter({
         passwordEntry.hashedPassword,
       );
       if (!isValidPassword) {
-        throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
+        return handleUnauthorized(
+          'Felaktig e-postadress eller lösenord',
+          false,
+        );
       }
 
       const tokenExpiration = rememberMe ? '30d' : '2h';
