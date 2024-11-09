@@ -34,7 +34,7 @@ export const getSession = async (
   req: NextRequest,
   usedInClient: boolean = true,
 ) => {
-  const authCookie = req.cookies.get('ac');
+  const authCookie = req.cookies.get('sc');
   if (!authCookie || !authCookie.value) {
     return handleUnauthorized(
       'Failed to authenticate user',
