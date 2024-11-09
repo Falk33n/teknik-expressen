@@ -97,7 +97,7 @@ export const handleServerError = () => {
   });
 };
 
-type UnathorizedReturnType =
+type UnauthorizedReturnType =
   | {
       message: string;
       isAuthenticated: boolean;
@@ -107,7 +107,7 @@ type UnathorizedReturnType =
 export const handleUnauthorized = (
   message: string,
   shouldThrow: boolean = true,
-): UnathorizedReturnType => {
+): UnauthorizedReturnType => {
   if (!shouldThrow) {
     return {
       message,

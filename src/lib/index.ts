@@ -5,6 +5,7 @@ export {
   getCookieConsent,
   getSession,
   handleServerError,
+  handleUnauthorized,
   omitKeys,
   pickKeys,
   verifyPassword,
