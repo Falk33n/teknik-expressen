@@ -5,6 +5,7 @@ import { useMediaQuery } from '@/hooks';
 
 export const MenuWrapper = () => {
   const { mediaQuery } = useMediaQuery();
+
   if (!mediaQuery) return null;
   else if (mediaQuery === 'xs' || mediaQuery === 'sm' || mediaQuery === 'md')
     return <Small_Menu />;

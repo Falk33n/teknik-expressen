@@ -30,21 +30,25 @@ export const sessionRouter = createTRPCRouter({
           email,
         },
       });
-      if (!user) return handleUnauthorized('Incorrect email or password');
+      if (!user) {
+        return handleUnauthorized('Incorrect email or password');
+      }
 
       const passwordEntry = await db.password.findUnique({
         where: { userId: user.id },
       });
-      if (!passwordEntry)
+      if (!passwordEntry) {
         return handleUnauthorized('Incorrect email or password');
+      }
 
       const isValidPassword = await verifyPassword(
         password,
         passwordEntry.salt,
         passwordEntry.hashedPassword,
       );
-      if (!isValidPassword)
+      if (!isValidPassword) {
         return handleUnauthorized('Incorrect email or password');
+      }
 
       const tokenExpiration = rememberMe ? '30d' : '2h';
       const cookieExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;

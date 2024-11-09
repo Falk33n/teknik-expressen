@@ -39,8 +39,9 @@ export const userRouter = createTRPCRouter({
         db.user.findUnique({ where: { email } }),
         db.user.findUnique({ where: { phoneNumber } }),
       ]);
-      if (existingEmail || existingPhoneNumber)
+      if (existingEmail || existingPhoneNumber) {
         return handleConflict('Email or phone number is already in use');
+      }
 
       const newUser = await db.user.create({
         data: {
