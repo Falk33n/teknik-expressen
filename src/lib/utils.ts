@@ -1,3 +1,4 @@
+import { UnauthorizedError } from '@/lib';
 import { TRPCError } from '@trpc/server';
 import { genSalt, hash } from 'bcryptjs';
 import { clsx, type ClassValue } from 'clsx';
@@ -115,8 +116,5 @@ export const handleUnauthorized = (
     };
   }
 
-  throw new TRPCError({
-    code: 'UNAUTHORIZED',
-    message,
-  });
+  throw new UnauthorizedError(message);
 };
