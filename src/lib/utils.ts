@@ -42,10 +42,7 @@ export const getSession = async (
     );
   }
 
-  const processedKey = process.env.SECRET_JWT_KEY;
-  if (!processedKey) throw new InternalServerError();
-  const jwtKey = new TextEncoder().encode(processedKey);
-
+  const { jwtKey } = getSecretJwtKey();
   const { payload } = await jwtVerify(authCookie.value, jwtKey);
   if (typeof payload !== 'object' || !('userId' in payload)) {
     return handleUnauthorized(
@@ -93,7 +90,8 @@ export const pickKeys = <T extends object, K extends keyof T>(
 export const getSecretJwtKey = () => {
   const secretKey = process.env.SECRET_JWT_KEY;
   if (!secretKey) throw new InternalServerError();
-  return { secretKey };
+  const jwtKey = new TextEncoder().encode(secretKey);
+  return { jwtKey, secretKey };
 };
 
 type UnauthorizedReturnType =

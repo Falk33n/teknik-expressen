@@ -7,6 +7,7 @@ export {
   cn,
   generateSaltHash,
   getCookieConsent,
+  getSecretJwtKey,
   getSession,
   handleUnauthorized,
   omitKeys,
