@@ -20,16 +20,9 @@ export const useCreateUser = () => {
       });
     },
     onError: (error) => {
-      const { data } = error;
-
-      const errorTitle =
-        data?.code === 'CONFLICT'
-          ? 'E-postadressen eller telefonnumret är upptagen!'
-          : 'Något gick fel!';
-
       toast({
         variant: 'destructive',
-        title: errorTitle,
+        title: error.message,
         description: 'Var god försök igen.',
       });
     },
