@@ -1,6 +1,6 @@
 import {
   getSession,
-  handleServerError,
+  InternalServerError,
   UnauthorizedError,
   verifyPassword,
 } from '@/lib';
@@ -54,7 +54,7 @@ export const sessionRouter = createTRPCRouter({
       const cookieExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
 
       const processedKey = process.env.SECRET_JWT_KEY;
-      if (!processedKey) return handleServerError();
+      if (!processedKey) throw new InternalServerError();
 
       const jwtKey = new TextEncoder().encode(processedKey);
       const jwtToken = await new SignJWT({
