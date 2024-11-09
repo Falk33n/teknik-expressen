@@ -5,7 +5,6 @@ import {
   type Small_MenuContentProps,
   ThemeToggle,
 } from '@/app/_components';
-import { Skeleton } from '@/components';
 import { api } from '@/trpc';
 import { Fragment } from 'react';
 import { FaRegUser } from 'react-icons/fa6';
@@ -37,7 +36,7 @@ export const Small_MenuFooter = () => {
     retry: false,
   });
 
-  const isAuthenticated = data && data.isAuthenticated;
+  const isAuthenticated = data && data.isAuthenticated && !isLoading;
 
   return (
     <div className='flex flex-col items-center justify-end gap-12 py-12 text-sm'>
@@ -45,18 +44,12 @@ export const Small_MenuFooter = () => {
         {SMALL_MENU_CONTENTS.map(({ Icon, href, text, className }, i) => (
           <Fragment key={i}>
             {text === 'Logga in' ? (
-              <>
-                {isLoading ? (
-                  <Skeleton className='h-14 w-full' />
-                ) : (
-                  <Small_MenuContent
-                    className={className}
-                    href={isAuthenticated ? '/account' : href}
-                    Icon={Icon}
-                    text={isAuthenticated ? 'Mitt konto' : text}
-                  />
-                )}
-              </>
+              <Small_MenuContent
+                className={className}
+                href={isAuthenticated ? '/account' : href}
+                Icon={Icon}
+                text={isAuthenticated ? 'Mitt konto' : text}
+              />
             ) : (
               <Small_MenuContent {...{ Icon, href, text, className }} />
             )}

@@ -1,7 +1,7 @@
 'use client';
 
 import { Large_MenuProducts, ThemeToggle } from '@/app/_components';
-import { Link, Skeleton } from '@/components';
+import { Link } from '@/components';
 import { api } from '@/trpc';
 
 export const Large_Menu = () => {
@@ -9,7 +9,7 @@ export const Large_Menu = () => {
     retry: false,
   });
 
-  const isAuthenticated = data && data.isAuthenticated;
+  const isAuthenticated = data && data.isAuthenticated && !isLoading;
 
   return (
     <ul className='flex items-center gap-6 xl:gap-12'>
@@ -21,18 +21,16 @@ export const Large_Menu = () => {
           Kundtjänst
         </Link>
       </li>
-      {isLoading ? (
-        <Skeleton className='h-8 w-28' />
-      ) : (
-        <li>
-          <Link
-            className='rounded-sm px-4 py-2'
-            href={isAuthenticated ? '/account' : '/login'}
-          >
-            {isAuthenticated ? 'Mitt konto' : 'Logga in'}
-          </Link>
-        </li>
-      )}
+      <li>
+        <Link
+          className='rounded-sm px-4 py-2'
+          aria-live='polite'
+          aria-label={`Gå till sidan ${isAuthenticated ? 'Mitt konto' : 'Logga in'}`}
+          href={isAuthenticated ? '/account' : '/login'}
+        >
+          {isAuthenticated ? 'Mitt konto' : 'Logga in'}
+        </Link>
+      </li>
       <li>
         <Link className='rounded-sm px-4 py-2' href='/cart'>
           Kundkorg
