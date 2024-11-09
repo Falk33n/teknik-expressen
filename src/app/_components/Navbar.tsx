@@ -9,7 +9,7 @@ export const Navbar = () => (
       {/* TODO: place brand logo here */}
       <p>logo</p>
 
-      <div className='flex items-center justify-end gap-6 sm:gap-8 md:gap-10 lg:gap-12'>
+      <div className='flex flex-1 items-center justify-between gap-6 sm:gap-8 md:justify-end md:gap-10 lg:gap-12'>
         <Searchbar />
 
         <MenuWrapper />

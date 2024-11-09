@@ -34,7 +34,7 @@ export const getSession = async (
   req: NextRequest,
   usedInClient: boolean = true,
 ) => {
-  const authCookie = req.cookies.get('ac');
+  const authCookie = req.cookies.get('sc');
   if (!authCookie || !authCookie.value) {
     return handleUnauthorized(
       'Failed to authenticate user',
@@ -97,10 +97,17 @@ export const handleServerError = () => {
   });
 };
 
+type UnathorizedReturnType =
+  | {
+      message: string;
+      isAuthenticated: boolean;
+    }
+  | never;
+
 export const handleUnauthorized = (
   message: string,
   shouldThrow: boolean = true,
-) => {
+): UnathorizedReturnType => {
   if (!shouldThrow) {
     return {
       message,
