@@ -1,16 +1,13 @@
 import { DropdownMenuItem, Link } from '@/components';
-import type { ReactNode } from 'react';
 
 export type Large_MenuProductsListProps = {
   category: string;
-  href: string;
-  text: ReactNode;
+  listItems: { text: string; href: string }[];
 };
 
 export const Large_MenuProductsList = ({
   category,
-  href,
-  text,
+  listItems,
 }: Large_MenuProductsListProps) => (
   <div
     aria-orientation='vertical'
@@ -22,11 +19,16 @@ export const Large_MenuProductsList = ({
       {category}
     </DropdownMenuItem>
 
-    <DropdownMenuItem asChild>
-      <Link href={href} aria-label={`Gå till sidan ${text}`}>
-        {text}
-      </Link>
-    </DropdownMenuItem>
+    {listItems.map(({ text, href }, i) => (
+      <DropdownMenuItem asChild key={i}>
+        <Link
+          href={href}
+          aria-label={`Gå till sidan ${text} inom kategorin ${category}`}
+        >
+          {text}
+        </Link>
+      </DropdownMenuItem>
+    ))}
   </div>
 );
 Large_MenuProductsList.displayName = 'Large_MenuProductsList';
