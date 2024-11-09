@@ -15,9 +15,12 @@ export const Large_MenuProductsList = ({
     aria-label={`Lista med länkar inom kategorin ${category}`}
     className='flex flex-col gap-1'
   >
-    <DropdownMenuItem aria-hidden className='mb-1.5 font-semibold'>
+    <div
+      aria-hidden
+      className='pointer-events-none mb-0.5 px-2 py-1.5 text-base font-semibold tracking-wide'
+    >
       {category}
-    </DropdownMenuItem>
+    </div>
 
     {listItems.map(({ text, href }, i) => (
       <DropdownMenuItem asChild key={i}>
