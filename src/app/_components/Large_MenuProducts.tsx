@@ -26,7 +26,7 @@ export const Large_MenuProducts = () => {
         <ul
           aria-orientation='vertical'
           role='menu'
-          aria-label='Lista för KATEGORI'
+          aria-label='Lista med länkar inom kategorin '
           className='flex flex-col gap-1'
         >
           <li aria-hidden className='mb-1.5 px-2 text-sm font-semibold'>
