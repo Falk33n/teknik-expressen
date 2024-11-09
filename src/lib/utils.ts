@@ -97,10 +97,17 @@ export const handleServerError = () => {
   });
 };
 
+type UnathorizedReturnType =
+  | {
+      message: string;
+      isAuthenticated: boolean;
+    }
+  | never;
+
 export const handleUnauthorized = (
   message: string,
   shouldThrow: boolean = true,
-) => {
+): UnathorizedReturnType => {
   if (!shouldThrow) {
     return {
       message,
