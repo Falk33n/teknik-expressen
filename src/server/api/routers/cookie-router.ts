@@ -19,7 +19,7 @@ export const cookieRouter = createTRPCRouter({
       });
       resHeaders.set('Set-Cookie', consentCookie);
 
-      return true;
+      return { message: 'Successfully created consent cookie' };
     }),
 
   getConsent: publicProcedure.query(({ ctx }) => {
