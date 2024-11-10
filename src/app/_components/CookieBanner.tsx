@@ -11,10 +11,10 @@ export const CookieBanner = () => {
     retry: false,
   });
 
-  const status = data && data.status;
+  const isConsentGiven = data && data.status !== 204;
 
-  if (isSubmitted || status !== 204 || isLoading) return null;
-  else if (status === 204 && !isLoading) {
+  if (isSubmitted || isConsentGiven || isLoading) return null;
+  else if (!isConsentGiven && !isLoading) {
     return (
       <div
         aria-label='Cookie-banner för att samla in samtycke'
