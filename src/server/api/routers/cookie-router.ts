@@ -18,7 +18,7 @@ export const cookieRouter = createTRPCRouter({
 
       return {
         status: 200,
-        message: 'Lyckades skapa en samtyckes cookie',
+        message: 'Lyckades! Samtyckes cookie sparad',
         isConsentSaved: true,
       };
     }),
