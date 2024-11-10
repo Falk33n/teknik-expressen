@@ -9,7 +9,6 @@ export {
   getCookieConsent,
   getSecretJwtKey,
   getSession,
-  handleUnauthorized,
   omitKeys,
   pickKeys,
   verifyPassword,
