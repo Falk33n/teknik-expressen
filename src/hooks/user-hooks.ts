@@ -9,19 +9,17 @@ export const useCreateUser = () => {
   const router = useRouter();
 
   const createUser = api.user.createUser.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const isUserCreated = data.status === 200 ? true : false;
+
       router.push('/login');
+
       toast({
-        variant: 'success',
-        title: 'Välkommen!',
-        description: 'Registreringen lyckades, var god och logga in.',
-      });
-    },
-    onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: error.message,
-        description: 'Var god försök igen.',
+        variant: isUserCreated ? 'success' : 'destructive',
+        title: isUserCreated ? 'Välkommen!' : 'Misslyckades!',
+        description: isUserCreated
+          ? 'Var god och logga in.'
+          : `${data.message}. Var god och försök igen.`,
       });
     },
   });
