@@ -6,4 +6,5 @@ const Register = () => (
   </AuthContainer>
 );
 Register.displayName = 'Register';
+
 export default Register;

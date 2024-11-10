@@ -25,4 +25,5 @@ const Error = ({ error, reset }: ErrorProps) => (
   </section>
 );
 Error.displayName = 'Error';
+
 export default Error;
