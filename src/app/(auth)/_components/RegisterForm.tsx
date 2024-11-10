@@ -237,95 +237,86 @@ export const RegisterForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
-        {FIELDS.map((props, i) => {
-          const { id, label, type, placeholder, description, autoComplete } =
-            props;
+        {FIELDS.map((field, i) => (
+          <FormField
+            key={i}
+            control={form.control}
+            name={field.id}
+            render={({ field: formField }) => (
+              <FormItem>
+                <FormLabel htmlFor={field.id}>{field.label}</FormLabel>
 
-          return (
-            <FormField
-              key={i}
-              control={form.control}
-              name={id}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor={id}>{label}</FormLabel>
+                <FormControl>
+                  <Input
+                    id={field.id}
+                    placeholder={field.placeholder}
+                    type={field.type}
+                    autoComplete={field.autoComplete}
+                    {...formField}
+                  />
+                </FormControl>
+
+                <FormDescription className='sr-only'>
+                  {field.description}
+                </FormDescription>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        ))}
+
+        {PASSWORD_FIELDS.map((field, i) => (
+          <FormField
+            key={i}
+            control={form.control}
+            name={field.id}
+            render={({ field: formField }) => {
+              const isVisible = visibility[field.id];
+              const Icon = isVisible ? FaEyeSlash : FaEye;
+
+              return (
+                <FormItem className='relative'>
+                  <FormLabel htmlFor={field.id}>{field.label}</FormLabel>
 
                   <FormControl>
                     <Input
-                      id={id}
-                      placeholder={placeholder}
-                      type={type}
-                      autoComplete={autoComplete}
-                      {...field}
+                      id={field.id}
+                      placeholder='******'
+                      type={isVisible ? 'text' : 'password'}
+                      autoComplete={field.autoComplete}
+                      {...formField}
                     />
                   </FormControl>
 
+                  <Button
+                    aria-live='polite'
+                    type='button'
+                    variant='ghost'
+                    size='sm'
+                    aria-controls={field.id}
+                    onClick={() =>
+                      setVisibility((prev) => ({
+                        ...prev,
+                        [field.id]: !prev[field.id],
+                      }))
+                    }
+                    className='absolute -top-2.5 right-0 py-0'
+                  >
+                    <Icon aria-hidden className='scale-95' />
+                    {isVisible ? 'Dölj' : 'Visa'} lösenordet
+                  </Button>
+
                   <FormDescription className='sr-only'>
-                    {description}
+                    {field.description}
                   </FormDescription>
 
                   <FormMessage />
                 </FormItem>
-              )}
-            />
-          );
-        })}
-
-        {PASSWORD_FIELDS.map((props, i) => {
-          const { id, label, autoComplete, description } = props;
-
-          return (
-            <FormField
-              key={i}
-              control={form.control}
-              name={id}
-              render={({ field }) => {
-                const isVisible = visibility[id];
-                const Icon = isVisible ? FaEyeSlash : FaEye;
-
-                return (
-                  <FormItem className='relative'>
-                    <FormLabel htmlFor={id}>{label}</FormLabel>
-
-                    <FormControl>
-                      <Input
-                        id={id}
-                        placeholder='******'
-                        type={isVisible ? 'text' : 'password'}
-                        autoComplete={autoComplete}
-                        {...field}
-                      />
-                    </FormControl>
-
-                    <Button
-                      aria-live='polite'
-                      type='button'
-                      variant='ghost'
-                      size='sm'
-                      aria-controls={id}
-                      onClick={() =>
-                        setVisibility((prev) => ({
-                          ...prev,
-                          [id]: !prev[id],
-                        }))
-                      }
-                      className='absolute -top-2.5 right-0 py-0'
-                    >
-                      <Icon aria-hidden className='scale-95' />
-                      {isVisible ? 'Dölj' : 'Visa'} lösenordet
-                    </Button>
-
-                    <FormDescription className='sr-only'>
-                      {description}
-                    </FormDescription>
-
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-          );
-        })}
+              );
+            }}
+          />
+        ))}
 
         <Button type='submit'>Registrera</Button>
       </form>

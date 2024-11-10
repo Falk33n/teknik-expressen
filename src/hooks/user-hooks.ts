@@ -6,13 +6,11 @@ import { useRouter } from 'next/navigation';
 
 export const useCreateUser = () => {
   const { toast } = useToast();
-
   const router = useRouter();
 
   const createUser = api.user.createUser.useMutation({
     onSuccess: () => {
       router.push('/login');
-
       toast({
         variant: 'success',
         title: 'Välkommen!',

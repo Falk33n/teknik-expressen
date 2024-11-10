@@ -37,17 +37,17 @@ export const Small_MenuFooter = ({
 }) => (
   <div className='flex flex-col items-center justify-end gap-12 py-12 text-sm'>
     <ul className='flex w-full flex-col'>
-      {SMALL_MENU_CONTENTS.map(({ Icon, href, text, className }, i) => (
+      {SMALL_MENU_CONTENTS.map((content, i) => (
         <Fragment key={i}>
-          {text === 'Logga in' ? (
+          {content.text === 'Logga in' ? (
             <Small_MenuContent
-              className={className}
-              href={isAuthenticated ? '/account' : href}
-              Icon={Icon}
-              text={isAuthenticated ? 'Mitt konto' : text}
+              className={content.className}
+              href={isAuthenticated ? '/account' : content.href}
+              Icon={content.Icon}
+              text={isAuthenticated ? 'Mitt konto' : content.text}
             />
           ) : (
-            <Small_MenuContent {...{ Icon, href, text, className }} />
+            <Small_MenuContent {...content} />
           )}
         </Fragment>
       ))}

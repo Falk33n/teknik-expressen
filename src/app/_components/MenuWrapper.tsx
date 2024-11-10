@@ -14,10 +14,16 @@ export const MenuWrapper = () => {
 
   const isAuthenticated = data && data.isAuthenticated;
 
-  if (!mediaQuery || isLoading)
+  if (!mediaQuery || isLoading) {
     return <Skeleton className='size-10 lg:w-[560px] xl:w-[620px]' />;
-  else if (mediaQuery === 'xs' || mediaQuery === 'sm' || mediaQuery === 'md')
+  } else if (
+    mediaQuery === 'xs' ||
+    mediaQuery === 'sm' ||
+    mediaQuery === 'md'
+  ) {
     return <Small_Menu isAuthenticated={isAuthenticated} />;
+  }
+
   return <Large_Menu isAuthenticated={isAuthenticated} />;
 };
 MenuWrapper.displayName = 'MenuWrapper';

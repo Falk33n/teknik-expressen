@@ -98,53 +98,49 @@ export const LoginForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
-        {FIELDS.map((props, i) => {
-          const {
-            id,
-            label,
-            placeholder,
-            type,
-            autoComplete,
-            description,
-            Component,
-          } = props;
-
+        {FIELDS.map((field, i) => {
           return (
             <FormField
               key={i}
               control={form.control}
-              name={id}
-              render={({ field }) => {
-                const isPasswordField = id === 'password';
-                const isCheckbox = Component === Checkbox;
+              name={field.id}
+              render={({ field: formField }) => {
+                const isPasswordField = field.id === 'password';
+                const isCheckbox = field.Component === Checkbox;
                 const Icon = isPasswordVisible ? FaEyeSlash : FaEye;
 
                 return (
                   <FormItem className='relative sm:max-w-[90%] md:max-w-[600px]'>
-                    {!isCheckbox && <FormLabel htmlFor={id}>{label}</FormLabel>}
+                    {!isCheckbox && (
+                      <FormLabel htmlFor={field.id}>{field.label}</FormLabel>
+                    )}
 
                     <FormControl>
                       {isCheckbox ? (
                         <CheckboxWithText
-                          label={label}
-                          id={id}
-                          checked={!!field.value}
-                          onBlur={field.onBlur}
-                          name={field.name}
-                          ref={field.ref}
-                          onCheckedChange={field.onChange}
+                          label={field.label}
+                          id={field.id}
+                          checked={!!formField.value}
+                          onBlur={formField.onBlur}
+                          name={formField.name}
+                          ref={formField.ref}
+                          onCheckedChange={formField.onChange}
                         />
                       ) : (
                         <Input
-                          id={id}
-                          placeholder={placeholder}
+                          id={field.id}
+                          placeholder={field.placeholder}
                           type={
-                            isPasswordField && isPasswordVisible ? 'text' : type
+                            isPasswordField && isPasswordVisible
+                              ? 'text'
+                              : field.type
                           }
-                          autoComplete={autoComplete}
-                          {...field}
+                          autoComplete={field.autoComplete}
+                          {...formField}
                           value={
-                            typeof field.value === 'string' ? field.value : ''
+                            typeof formField.value === 'string'
+                              ? formField.value
+                              : ''
                           }
                         />
                       )}
@@ -166,7 +162,7 @@ export const LoginForm = () => {
                     )}
 
                     <FormDescription className='sr-only'>
-                      {description}
+                      {field.description}
                     </FormDescription>
 
                     <FormMessage />

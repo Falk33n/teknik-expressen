@@ -11,22 +11,20 @@ export const useCreateCookieConsent = ({
 
   const createConsent = api.cookie.createConsent.useMutation({
     onSuccess: () => {
+      onConsentSubmit(true);
       toast({
         variant: 'success',
         title: 'Tack!',
         description: 'Vi har sparat dina preferenser.',
       });
-
-      onConsentSubmit(true);
     },
     onError: () => {
+      onConsentSubmit(true);
       toast({
         variant: 'destructive',
         title: 'Något gick fel!',
         description: 'Var god försök igen.',
       });
-
-      onConsentSubmit(true);
     },
   });
 

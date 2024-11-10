@@ -15,22 +15,19 @@ export type Small_MenuListProps = {
   content: LinkIconWithTextProps[];
 };
 
-export const Small_MenuList = ({
-  trigger: { Icon, text },
-  content,
-}: Small_MenuListProps) => (
+export const Small_MenuList = ({ trigger, content }: Small_MenuListProps) => (
   <Accordion type='single' collapsible>
     <AccordionItem value='accordion-item-1'>
       <AccordionTrigger
-        aria-label={`${text}, Visa eller dölj innehållet`}
+        aria-label={`${trigger.text}, Visa eller dölj innehållet`}
         className='px-4'
       >
-        <IconWithText Icon={Icon} text={text} />
+        <IconWithText Icon={trigger.Icon} text={trigger.text} />
       </AccordionTrigger>
 
       <AccordionContent className={cn('pb-12 pt-0')}>
         <ul
-          aria-label={`Lista med länkar inom kategorin ${text}`}
+          aria-label={`Lista med länkar inom kategorin ${trigger.text}`}
           className='flex flex-col [&>li:nth-child(even)]:bg-accent [&>li:nth-child(odd)]:bg-accent/35'
         >
           {content.map((props, i) => (
