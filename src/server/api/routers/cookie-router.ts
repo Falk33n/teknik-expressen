@@ -16,7 +16,11 @@ export const cookieRouter = createTRPCRouter({
       });
       ctx.resHeaders.set('Set-Cookie', consentCookie);
 
-      return { message: 'Lyckades skapa en samtyckes cookie' };
+      return {
+        status: 200,
+        message: 'Lyckades skapa en samtyckes cookie',
+        isConsentSaved: true,
+      };
     }),
 
   getConsent: publicProcedure.query(({ ctx }) => getCookieConsent(ctx.req)),

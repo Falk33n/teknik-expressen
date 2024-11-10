@@ -9,15 +9,34 @@ export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 export const getCookieConsent = (req: NextRequest) => {
   const consetCookie = req.cookies.get('cc');
-  if (!consetCookie || !consetCookie.value) return null;
-  else if (consetCookie.value === 'true') return true;
-  return false;
+  if (!consetCookie || !consetCookie.value) {
+    return {
+      status: 204,
+      message: 'Misslyckades att hitta en samtyckes cookie',
+      isConsentGiven: null,
+    };
+  } else if (consetCookie.value === 'true')
+    return {
+      status: 200,
+      message: 'Lyckades hitta en samtyckes cookie med värdet samtycker',
+      isConsentGiven: true,
+    };
+
+  return {
+    status: 200,
+    message: 'Lyckades hitta en samtyckes cookie med värdet samtycker inte',
+    isConsentGiven: false,
+  };
 };
 
 export const generateSaltHash = async (password: string) => {
-  const salt = await genSalt(10);
-  const hashedPassword = await hash(password, salt);
-  return { salt, hashedPassword };
+  try {
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(password, salt);
+    return { salt, hashedPassword };
+  } catch {
+    throw new InternalServerError();
+  }
 };
 
 export const verifyPassword = async (
@@ -25,36 +44,52 @@ export const verifyPassword = async (
   storedSalt: string,
   storedHashedPassword: string,
 ) => {
-  const hashedPassword = await hash(password, storedSalt);
-  if (hashedPassword === storedHashedPassword) return true;
-  return false;
+  try {
+    const hashedPassword = await hash(password, storedSalt);
+    if (hashedPassword === storedHashedPassword) return true;
+    return false;
+  } catch {
+    throw new InternalServerError();
+  }
 };
 
 export const getSession = async (
   req: NextRequest,
   usedInClient: boolean = true,
 ) => {
-  const authCookie = req.cookies.get('sc');
-  if (!authCookie || !authCookie.value) {
-    return handleUnauthorized(
-      'Misslyckades att verifiera sessionen',
-      usedInClient ? false : true,
-    );
-  }
+  try {
+    const authCookie = req.cookies.get('sc');
+    if (!authCookie || !authCookie.value) {
+      throw new UnauthorizedError('Misslyckades att verifiera sessionen');
+    }
 
-  const { jwtKey } = getSecretJwtKey();
-  const { payload } = await jwtVerify(authCookie.value, jwtKey);
-  if (typeof payload !== 'object' || !('userId' in payload)) {
-    return handleUnauthorized(
-      'Misslyckades att verifiera sessionen',
-      usedInClient ? false : true,
-    );
-  }
+    const { jwtKey } = getSecretJwtKey();
+    const { payload } = await jwtVerify(authCookie.value, jwtKey);
+    if (typeof payload !== 'object' || !('userId' in payload)) {
+      throw new UnauthorizedError('Misslyckades att verifiera sessionen');
+    }
 
-  return {
-    message: 'Lyckades att verifiera sessionen',
-    isAuthenticated: true,
-  };
+    return {
+      status: 200,
+      message: 'Lyckades att verifiera sessionen',
+      isAuthenticated: true,
+    };
+  } catch (error) {
+    if (usedInClient) {
+      return {
+        status: 401,
+        message: 'Misslyckades att verifiera sessionen',
+        isAuthenticated: false,
+      };
+    } else if (
+      (!usedInClient && !(error instanceof UnauthorizedError)) ||
+      !(error instanceof InternalServerError)
+    ) {
+      throw new InternalServerError();
+    }
+
+    throw error;
+  }
 };
 
 export const omitKeys = <T extends object, K extends keyof T>(
@@ -92,25 +127,4 @@ export const getSecretJwtKey = () => {
   if (!secretKey) throw new InternalServerError();
   const jwtKey = new TextEncoder().encode(secretKey);
   return { jwtKey, secretKey };
-};
-
-type UnauthorizedReturnType =
-  | {
-      message: string;
-      isAuthenticated: boolean;
-    }
-  | never;
-
-export const handleUnauthorized = (
-  message: string,
-  shouldThrow: boolean = true,
-): UnauthorizedReturnType => {
-  if (!shouldThrow) {
-    return {
-      message,
-      isAuthenticated: false,
-    };
-  }
-
-  throw new UnauthorizedError(message);
 };
