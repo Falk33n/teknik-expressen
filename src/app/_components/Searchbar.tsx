@@ -43,7 +43,7 @@ export const Searchbar = () => {
       onBlur={(e) => handleBlur(e)}
     >
       <CommandInput
-        className='py-4 text-sm sm:py-5'
+        className='py-4 text-base sm:py-5 lg:text-sm'
         onValueChange={(val) => handleValueChange(val)}
         placeholder='Sök efter en produkt...'
         onFocus={() =>
