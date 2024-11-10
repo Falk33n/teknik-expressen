@@ -18,14 +18,6 @@ export const useCreateCookieConsent = ({
         description: 'Vi har sparat dina preferenser.',
       });
     },
-    onError: () => {
-      onConsentSubmit(true);
-      toast({
-        variant: 'destructive',
-        title: 'Något gick fel!',
-        description: 'Var god försök igen.',
-      });
-    },
   });
 
   return { createConsent };
