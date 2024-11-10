@@ -7,23 +7,17 @@ export const cookieRouter = createTRPCRouter({
   createConsent: publicProcedure
     .input(z.object({ hasAccepted: z.boolean() }))
     .mutation(({ ctx, input }) => {
-      const { resHeaders } = ctx;
-      const { hasAccepted } = input;
-
-      const consentCookie = serialize('cc', hasAccepted.toString(), {
+      const consentCookie = serialize('cc', input.hasAccepted.toString(), {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',
         maxAge: 24 * 60 * 60 * 365,
         path: '/',
       });
-      resHeaders.set('Set-Cookie', consentCookie);
+      ctx.resHeaders.set('Set-Cookie', consentCookie);
 
       return { message: 'Lyckades skapa en samtyckes cookie' };
     }),
 
-  getConsent: publicProcedure.query(({ ctx }) => {
-    const { req } = ctx;
-    return getCookieConsent(req);
-  }),
+  getConsent: publicProcedure.query(({ ctx }) => getCookieConsent(ctx.req)),
 });

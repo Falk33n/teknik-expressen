@@ -22,12 +22,9 @@ export const sessionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { resHeaders, db } = ctx;
-      const { email, password, rememberMe } = input;
-
-      const user = await db.user.findUnique({
+      const user = await ctx.db.user.findUnique({
         where: {
-          email,
+          email: input.email,
         },
       });
       if (!user) {
@@ -37,7 +34,7 @@ export const sessionRouter = createTRPCRouter({
         );
       }
 
-      const passwordEntry = await db.password.findUnique({
+      const passwordEntry = await ctx.db.password.findUnique({
         where: { userId: user.id },
       });
       if (!passwordEntry) {
@@ -48,7 +45,7 @@ export const sessionRouter = createTRPCRouter({
       }
 
       const isValidPassword = await verifyPassword(
-        password,
+        input.password,
         passwordEntry.salt,
         passwordEntry.hashedPassword,
       );
@@ -59,8 +56,10 @@ export const sessionRouter = createTRPCRouter({
         );
       }
 
-      const tokenExpiration = rememberMe ? '30d' : '2h';
-      const cookieExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
+      const tokenExpiration = input.rememberMe ? '30d' : '2h';
+      const cookieExpiration = input.rememberMe
+        ? 30 * 24 * 60 * 60
+        : 2 * 60 * 60;
 
       const { jwtKey } = getSecretJwtKey();
       const jwtToken = await new SignJWT({
@@ -79,15 +78,14 @@ export const sessionRouter = createTRPCRouter({
         maxAge: cookieExpiration,
         path: '/',
       });
-      resHeaders.set('Set-Cookie', sessionCookie);
+      ctx.resHeaders.set('Set-Cookie', sessionCookie);
 
       return {
         message: 'Lyckades skapa en session',
       };
     }),
 
-  getSession: publicProcedure.query(async ({ ctx }) => {
-    const { req } = ctx;
-    return await getSession(req);
-  }),
+  getSession: publicProcedure.query(
+    async ({ ctx }) => await getSession(ctx.req),
+  ),
 });
