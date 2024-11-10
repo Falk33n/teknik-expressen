@@ -1,19 +1,19 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 
-type ErrorsContainerProps = {
+type ErrorContainerProps = {
   errorCode: string | number;
   errorAriaLabel: string;
   errorMessage: ReactNode;
   children?: ReactNode;
 };
 
-export const ErrorsContainer = ({
+export const ErrorContainer = ({
   errorCode,
   errorAriaLabel,
   errorMessage,
   children,
-}: ErrorsContainerProps) => (
+}: ErrorContainerProps) => (
   <section className='flex h-[80vh] flex-col items-center justify-center gap-6 px-4'>
     <figure aria-hidden>
       <Image
@@ -44,4 +44,4 @@ export const ErrorsContainer = ({
     {children}
   </section>
 );
-ErrorsContainer.displayName = 'ErrorsContainer';
+ErrorContainer.displayName = 'ErrorContainer';
