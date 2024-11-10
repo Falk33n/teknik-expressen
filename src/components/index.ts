@@ -4,7 +4,7 @@ export {
   AccordionItem,
   AccordionTrigger,
 } from './Accordion';
-export { Button } from './Button';
+export { Button, ErrorButton } from './Button';
 export { Checkbox, CheckboxWithText } from './Checkbox';
 export {
   Command,
@@ -46,7 +46,7 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './DropdownMenu';
-export { ErrorsContainer } from './ErrorsContainer';
+export { ErrorContainer } from './ErrorContainer';
 export {
   Form,
   FormControl,

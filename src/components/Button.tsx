@@ -1,3 +1,4 @@
+import { Link } from '@/components';
 import { cn } from '@/lib';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -61,3 +62,34 @@ export const Button = forwardRef<ButtonType, ButtonProps>(
   },
 );
 Button.displayName = 'Button';
+
+type ErrorButtonProps = ButtonProps & {
+  href?: string;
+  asLink?: boolean;
+  text: string;
+};
+
+export const ErrorButton = ({
+  href = '/',
+  text,
+  asLink = false,
+  className,
+  ...props
+}: ErrorButtonProps) => (
+  <Button
+    asChild={asLink}
+    className={cn(
+      'hover:bg-primary/60 hover:text-white focus-visible:bg-primary/60 focus-visible:text-white',
+      className,
+    )}
+    {...props}
+  >
+    {!asLink && text}
+    {asLink && (
+      <Link href={href} resetClassName>
+        {text}
+      </Link>
+    )}
+  </Button>
+);
+ErrorButton.displayName = 'ErrorButton';
