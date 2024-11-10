@@ -2,7 +2,7 @@ import Image from 'next/image';
 import type { ReactNode } from 'react';
 
 type ErrorsContainerProps = {
-  errorCode: string;
+  errorCode: string | number;
   errorAriaLabel: string;
   errorMessage: ReactNode;
   children?: ReactNode;
