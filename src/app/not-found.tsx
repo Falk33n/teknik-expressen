@@ -1,13 +1,13 @@
 'use client';
 
-import { Button, ErrorsContainer, Link } from '@/components';
+import { ErrorButton, ErrorContainer } from '@/components';
 import { usePathname } from 'next/navigation';
 
 const NotFound = () => {
   const pathname = usePathname();
 
   return (
-    <ErrorsContainer
+    <ErrorContainer
       errorCode={404}
       errorAriaLabel={`Felkod: 404. Sidan '${pathname}' finns inte`}
       errorMessage={
@@ -17,16 +17,8 @@ const NotFound = () => {
         </>
       }
     >
-      <Button asChild>
-        <Link
-          href='/'
-          resetClassName
-          className='mt-1.5 hover:bg-primary/60 hover:text-white focus-visible:bg-primary/60 focus-visible:text-white'
-        >
-          Gå tillbaka till hemsidan
-        </Link>
-      </Button>
-    </ErrorsContainer>
+      <ErrorButton asLink text='Gå tillbaka till hemsidan' className='mt-1.5' />
+    </ErrorContainer>
   );
 };
 NotFound.displayName = 'NotFound';
