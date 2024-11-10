@@ -1,16 +1,13 @@
+export { cn, omitKeys, pickKeys } from './client-utils';
 export {
   ConflictError,
   InternalServerError,
   UnauthorizedError,
 } from './exceptions';
 export {
-  cn,
   generateSaltHash,
   getCookieConsent,
   getSecretJwtKey,
   getSession,
-  handleUnauthorized,
-  omitKeys,
-  pickKeys,
   verifyPassword,
-} from './utils';
+} from './server-utils';

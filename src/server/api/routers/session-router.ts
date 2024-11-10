@@ -1,7 +1,8 @@
 import {
   getSecretJwtKey,
   getSession,
-  handleUnauthorized,
+  InternalServerError,
+  UnauthorizedError,
   verifyPassword,
 } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
@@ -22,72 +23,77 @@ export const sessionRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { resHeaders, db } = ctx;
-      const { email, password, rememberMe } = input;
+      try {
+        const user = await ctx.db.user.findUnique({
+          where: {
+            email: input.email,
+          },
+        });
+        if (!user) {
+          throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
+        }
 
-      const user = await db.user.findUnique({
-        where: {
-          email,
-        },
-      });
-      if (!user) {
-        return handleUnauthorized(
-          'Felaktig e-postadress eller lösenord',
-          false,
+        const passwordEntry = await ctx.db.password.findUnique({
+          where: { userId: user.id },
+        });
+        if (!passwordEntry) {
+          throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
+        }
+
+        const isValidPassword = await verifyPassword(
+          input.password,
+          passwordEntry.salt,
+          passwordEntry.hashedPassword,
         );
-      }
+        if (!isValidPassword) {
+          throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
+        }
 
-      const passwordEntry = await db.password.findUnique({
-        where: { userId: user.id },
-      });
-      if (!passwordEntry) {
-        return handleUnauthorized(
-          'Felaktig e-postadress eller lösenord',
-          false,
-        );
-      }
+        const tokenExpiration = input.rememberMe ? '30d' : '2h';
+        const cookieExpiration = input.rememberMe
+          ? 30 * 24 * 60 * 60
+          : 2 * 60 * 60;
 
-      const isValidPassword = await verifyPassword(
-        password,
-        passwordEntry.salt,
-        passwordEntry.hashedPassword,
-      );
-      if (!isValidPassword) {
-        return handleUnauthorized(
-          'Felaktig e-postadress eller lösenord',
-          false,
-        );
-      }
-
-      const tokenExpiration = rememberMe ? '30d' : '2h';
-      const cookieExpiration = rememberMe ? 30 * 24 * 60 * 60 : 2 * 60 * 60;
-
-      const { jwtKey } = getSecretJwtKey();
-      const jwtToken = await new SignJWT({
-        userId: user.id,
-      })
-        .setProtectedHeader({
-          alg: 'HS256',
+        const { jwtKey } = getSecretJwtKey();
+        const jwtToken = await new SignJWT({
+          userId: user.id,
         })
-        .setExpirationTime(tokenExpiration)
-        .sign(jwtKey);
+          .setProtectedHeader({
+            alg: 'HS256',
+          })
+          .setExpirationTime(tokenExpiration)
+          .sign(jwtKey);
 
-      const sessionCookie = serialize('sc', jwtToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: cookieExpiration,
-        path: '/',
-      });
-      resHeaders.set('Set-Cookie', sessionCookie);
+        const sessionCookie = serialize('sc', jwtToken, {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'strict',
+          maxAge: cookieExpiration,
+          path: '/',
+        });
+        ctx.resHeaders.set('Set-Cookie', sessionCookie);
 
-      return {
-        message: 'Lyckades skapa en session',
-      };
+        return {
+          status: 200,
+          message: 'Lyckades! Session skapad',
+          isSessionCreated: true,
+        };
+      } catch (error) {
+        if (error instanceof UnauthorizedError) {
+          return {
+            status: 401,
+            message: `Misslyckades! ${error.message}`,
+            isSessionCreated: false,
+          };
+        } else if (!(error instanceof InternalServerError)) {
+          throw new InternalServerError();
+        }
+
+        throw error;
+      }
     }),
 
-  getSession: publicProcedure.query(async ({ ctx }) => {
-    const { req } = ctx;
-    return await getSession(req);
-  }),
+  getSession: publicProcedure.query(
+    async ({ ctx }) => await getSession(ctx.req),
+  ),
 });

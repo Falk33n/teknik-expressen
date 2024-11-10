@@ -6,13 +6,11 @@ import { useRouter } from 'next/navigation';
 
 export const useCreateSession = () => {
   const { toast } = useToast();
-
   const router = useRouter();
 
   const createSession = api.session.createSession.useMutation({
     onSuccess: () => {
       router.push('/');
-
       toast({
         variant: 'success',
         title: 'Välkommen tillbaka!',

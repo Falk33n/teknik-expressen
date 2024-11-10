@@ -22,13 +22,13 @@ export const Large_MenuProductsList = ({
       {category}
     </div>
 
-    {listItems.map(({ text, href }, i) => (
+    {listItems.map((item, i) => (
       <DropdownMenuItem asChild key={i}>
         <Link
-          href={href}
-          aria-label={`Gå till sidan ${text} inom kategorin ${category}`}
+          href={item.href}
+          aria-label={`Gå till sidan ${item.text} inom kategorin ${category}`}
         >
-          {text}
+          {item.text}
         </Link>
       </DropdownMenuItem>
     ))}

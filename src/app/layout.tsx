@@ -45,4 +45,5 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
   </html>
 );
 RootLayout.displayName = 'RootLayout';
+
 export default RootLayout;

@@ -1,4 +1,9 @@
-import { ConflictError, generateSaltHash, getCookieConsent } from '@/lib';
+import {
+  ConflictError,
+  generateSaltHash,
+  getCookieConsent,
+  InternalServerError,
+} from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { z } from 'zod';
 
@@ -23,63 +28,67 @@ export const userRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      const { db, req } = ctx;
-      const {
-        email,
-        fullName,
-        city,
-        country,
-        password,
-        phoneNumber,
-        postalCode,
-        streetAddress,
-      } = input;
+      try {
+        const [existingEmail, existingPhoneNumber] = await Promise.all([
+          ctx.db.user.findUnique({ where: { email: input.email } }),
+          ctx.db.user.findUnique({ where: { phoneNumber: input.phoneNumber } }),
+        ]);
+        if (existingEmail || existingPhoneNumber) {
+          throw new ConflictError(
+            'E-postadress eller telefonnummer används redan',
+          );
+        }
 
-      const [existingEmail, existingPhoneNumber] = await Promise.all([
-        db.user.findUnique({ where: { email } }),
-        db.user.findUnique({ where: { phoneNumber } }),
-      ]);
-      if (existingEmail || existingPhoneNumber) {
-        throw new ConflictError(
-          'E-postadress eller telefonnummer används redan',
-        );
+        const newUser = await ctx.db.user.create({
+          data: {
+            fullName: input.fullName,
+            streetAddress: input.streetAddress,
+            postalCode: input.postalCode.replace(/\s+/g, ''),
+            city: input.city,
+            country: input.country,
+            email: input.email,
+            phoneNumber: input.phoneNumber,
+          },
+        });
+
+        const { salt, hashedPassword } = await generateSaltHash(input.password);
+
+        const consent = getCookieConsent(ctx.req);
+        const isConsentGiven = consent.status !== 204 ? true : false;
+
+        await Promise.all([
+          ctx.db.password.create({
+            data: {
+              userId: newUser.id,
+              salt,
+              hashedPassword,
+            },
+          }),
+          ctx.db.cookieConsent.create({
+            data: {
+              userId: newUser.id,
+              consentGiven: isConsentGiven,
+            },
+          }),
+        ]);
+
+        return {
+          status: 200,
+          message: 'Lyckades! Användaren är skapad',
+          isUserCreated: true,
+        };
+      } catch (error) {
+        if (error instanceof ConflictError) {
+          return {
+            status: 409,
+            message: `Misslyckades! ${error.message}`,
+            isUserCreated: false,
+          };
+        } else if (!(error instanceof InternalServerError)) {
+          throw new InternalServerError();
+        }
+
+        throw error;
       }
-
-      const newUser = await db.user.create({
-        data: {
-          fullName,
-          streetAddress,
-          postalCode: postalCode.replace(/\s+/g, ''),
-          city,
-          country,
-          email,
-          phoneNumber,
-        },
-      });
-
-      const { salt, hashedPassword } = await generateSaltHash(password);
-
-      const consent = getCookieConsent(req);
-      const isConsentGiven = consent !== null && consent ? true : false;
-
-      await Promise.all([
-        db.password.create({
-          data: {
-            userId: newUser.id,
-            salt,
-            hashedPassword,
-          },
-        }),
-        db.cookieConsent.create({
-          data: {
-            userId: newUser.id,
-            consentGiven: isConsentGiven,
-          },
-        }),
-      ]);
-
-      return {
-        message: 'Lyckades skapa användaren',
-      };
     }),
 });
