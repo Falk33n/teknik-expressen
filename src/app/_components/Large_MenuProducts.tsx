@@ -65,7 +65,7 @@ export const Large_MenuProducts = () => (
 
     <DropdownMenuContent
       sideOffset={23}
-      className='flex w-[50vw] max-w-[700px] flex-wrap gap-x-10 gap-y-9 rounded-t-none p-4'
+      className='flex w-[75vw] max-w-[700px] flex-wrap gap-x-10 gap-y-9 rounded-t-none p-4'
     >
       <DropdownMenuLabel className='sr-only'>
         Lista med alla produkter
