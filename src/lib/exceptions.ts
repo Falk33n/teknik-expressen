@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 
 export class ConflictError extends TRPCError {
-  public statusCode: number;
+  public digest: string;
 
   constructor(message: string) {
     super({
@@ -9,12 +9,12 @@ export class ConflictError extends TRPCError {
       message,
     });
     this.name = 'ConflictError';
-    this.statusCode = 409;
+    this.digest = '409';
   }
 }
 
 export class UnauthorizedError extends TRPCError {
-  public statusCode: number;
+  public digest: string;
 
   constructor(message: string) {
     super({
@@ -22,19 +22,19 @@ export class UnauthorizedError extends TRPCError {
       message,
     });
     this.name = 'UnauthorizedError';
-    this.statusCode = 401;
+    this.digest = '401';
   }
 }
 
 export class InternalServerError extends TRPCError {
-  public statusCode: number;
+  public digest: string;
 
-  constructor(message: string = 'Något gick fel') {
+  constructor() {
     super({
       code: 'INTERNAL_SERVER_ERROR',
-      message,
+      message: 'Något gick fel',
     });
     this.name = 'InternalServerError';
-    this.statusCode = 500;
+    this.digest = '500';
   }
 }
