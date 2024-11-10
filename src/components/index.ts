@@ -46,6 +46,7 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from './DropdownMenu';
+export { ErrorsContainer } from './ErrorsContainer';
 export {
   Form,
   FormControl,
