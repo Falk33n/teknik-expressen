@@ -2,7 +2,9 @@ import { getSession } from '@/lib';
 import { type NextRequest, NextResponse } from 'next/server';
 
 export const middleware = async (req: NextRequest) => {
-  const { isAuthenticated } = await getSession(req, false);
+  const { status } = await getSession(req, false);
+
+  const isAuthenticated = status === 'success';
 
   switch (req.nextUrl.pathname) {
     case '/register': {

@@ -2,10 +2,20 @@ import {
   ConflictError,
   generateSaltHash,
   getCookieConsent,
-  handleErrorLogs,
+  InternalServerError,
 } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { z } from 'zod';
+
+type CreateUserReturn =
+  | Promise<{
+      status: 'success' | 'conflict';
+      title: 'Lyckades!' | 'Misslyckades!';
+      message:
+        | 'E-postadress eller telefonnummer används redan.'
+        | 'Användaren har skapats.';
+    }>
+  | never;
 
 export const userRouter = createTRPCRouter({
   createUser: publicProcedure
@@ -27,7 +37,7 @@ export const userRouter = createTRPCRouter({
           .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }): CreateUserReturn => {
       try {
         const [existingEmail, existingPhoneNumber] = await Promise.all([
           ctx.db.user.findUnique({ where: { email: input.email } }),
@@ -54,7 +64,7 @@ export const userRouter = createTRPCRouter({
         const { salt, hashedPassword } = await generateSaltHash(input.password);
 
         const consent = getCookieConsent(ctx.req);
-        const isConsentGiven = consent.status !== 204 ? true : false;
+        const isConsentGiven = consent.status === 'success' ? true : false;
 
         await Promise.all([
           ctx.db.password.create({
@@ -73,20 +83,20 @@ export const userRouter = createTRPCRouter({
         ]);
 
         return {
-          status: 200,
-          message: 'Lyckades! Användaren är skapad',
-          isUserCreated: true,
+          status: 'success',
+          title: 'Lyckades!',
+          message: 'Användaren har skapats.',
         };
       } catch (error) {
         if (error instanceof ConflictError) {
           return {
-            status: 409,
-            message: `Misslyckades! ${error.message}`,
-            isUserCreated: false,
+            status: 'conflict',
+            title: 'Misslyckades!',
+            message: 'E-postadress eller telefonnummer används redan.',
           };
         }
 
-        throw await handleErrorLogs(ctx.db, error);
+        throw new InternalServerError();
       }
     }),
 });

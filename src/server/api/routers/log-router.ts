@@ -1,6 +1,13 @@
-import { handleErrorLogs } from '@/lib';
+import { InternalServerError } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { z } from 'zod';
+
+type CreateErrorReturn =
+  | Promise<{
+      status: 'success';
+      message: 'Skapade en error logg.';
+    }>
+  | never;
 
 export const logRouter = createTRPCRouter({
   createError: publicProcedure
@@ -12,24 +19,23 @@ export const logRouter = createTRPCRouter({
         statusCode: z.number().optional(),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }): CreateErrorReturn => {
       try {
         await ctx.db.errorLog.create({
           data: {
             message: input.message,
             name: input.name,
-            statusCode: input.statusCode,
-            stack: input.stack,
+            statusCode: input.statusCode ?? undefined,
+            stack: input.stack ?? undefined,
           },
         });
 
         return {
-          status: 200,
-          message: 'Lyckades! felet har sparats',
-          isErrorSaved: true,
+          status: 'success',
+          message: 'Skapade en error logg.',
         };
-      } catch (error) {
-        throw await handleErrorLogs(ctx.db, error);
+      } catch {
+        throw new InternalServerError();
       }
     }),
 });

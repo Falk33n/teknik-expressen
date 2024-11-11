@@ -1,6 +1,4 @@
 import { InternalServerError, UnauthorizedError } from '@/lib';
-import type { PrismaClient } from '@prisma/client';
-import type { DefaultArgs } from '@prisma/client/runtime/library';
 import { genSalt, hash } from 'bcryptjs';
 import { jwtVerify } from 'jose';
 import type { NextRequest } from 'next/server';
@@ -12,18 +10,17 @@ export const getSecretJwtKey = () => {
   return { jwtKey, secretKey };
 };
 
-type GetSessionReturnType =
+type GetSessionReturn =
   | Promise<{
-      status: 200 | 401;
-      message: string;
-      isAuthenticated: boolean;
+      status: 'success' | 'unauthorized';
+      message: 'Kunde inte verifiera sessionen.' | 'Kunde verifiera sessionen.';
     }>
   | never;
 
 export const getSession = async (
   req: NextRequest,
   usedInClient: boolean = true,
-): GetSessionReturnType => {
+): GetSessionReturn => {
   try {
     const authCookie = req.cookies.get('sc');
     if (!authCookie || !authCookie.value) {
@@ -37,51 +34,59 @@ export const getSession = async (
     }
 
     return {
-      status: 200,
-      message: 'Lyckades! Kunde verifiera sessionen',
-      isAuthenticated: true,
+      status: 'success',
+      message: 'Kunde verifiera sessionen.',
     };
   } catch (error) {
     if (usedInClient && error instanceof UnauthorizedError) {
       return {
-        status: 401,
-        message: `Misslyckades! ${error.message}`,
-        isAuthenticated: false,
+        status: 'unauthorized',
+        message: 'Kunde inte verifiera sessionen.',
       };
+    } else if (!usedInClient && error instanceof UnauthorizedError) {
+      throw error;
     }
 
     throw new InternalServerError();
   }
 };
 
-type GetCookieConsentReturnType = {
-  status: 200 | 204;
-  message: string;
-  isConsentGiven: boolean | null;
-};
+type GetCookieConsentReturn =
+  | {
+      status: 'success' | 'no-content';
+      message:
+        | 'Hittade ingen samtyckes cookie'
+        | 'Hittade en samtyckes cookie med värdet sant'
+        | 'Hittade en samtyckes cookie med värdet falskt';
+      isConsentGiven?: boolean;
+    }
+  | never;
 
-export const getCookieConsent = (
-  req: NextRequest,
-): GetCookieConsentReturnType => {
-  const consetCookie = req.cookies.get('cc');
-  if (!consetCookie || !consetCookie.value) {
+export const getCookieConsent = (req: NextRequest): GetCookieConsentReturn => {
+  try {
+    const consetCookie = req.cookies.get('cc');
+
+    if (!consetCookie || !consetCookie.value) {
+      return {
+        status: 'no-content',
+        message: 'Hittade ingen samtyckes cookie',
+      };
+    } else if (consetCookie.value === 'false') {
+      return {
+        status: 'success',
+        message: 'Hittade en samtyckes cookie med värdet falskt',
+        isConsentGiven: false,
+      };
+    }
+
     return {
-      status: 204,
-      message: 'Misslyckades! Kunde inte hitta en samtyckes cookie',
-      isConsentGiven: null,
-    };
-  } else if (consetCookie.value === 'true')
-    return {
-      status: 200,
-      message: 'Lyckades! Hittade en samtyckes cookie med värdet samtycker',
+      status: 'success',
+      message: 'Hittade en samtyckes cookie med värdet sant',
       isConsentGiven: true,
     };
-
-  return {
-    status: 200,
-    message: 'Lyckades! Hittade en samtyckes cookie med värdet samtycker inte',
-    isConsentGiven: false,
-  };
+  } catch {
+    throw new InternalServerError();
+  }
 };
 
 export const generateSaltHash = async (password: string) => {
@@ -106,38 +111,4 @@ export const verifyPassword = async (
   } catch {
     throw new InternalServerError();
   }
-};
-
-type Database = PrismaClient<
-  {
-    log: ('query' | 'warn' | 'error')[];
-  },
-  never,
-  DefaultArgs
->;
-
-export const handleErrorLogs = async (db: Database, error: unknown) => {
-  if (
-    error instanceof UnauthorizedError ||
-    error instanceof InternalServerError
-  ) {
-    await db.errorLog.create({
-      data: {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-        statusCode: Number(error.digest),
-      },
-    });
-
-    throw error;
-  } else if (error instanceof Error) {
-    await db.errorLog.create({
-      data: { message: error.message, name: error.name, stack: error.stack },
-    });
-
-    throw new InternalServerError();
-  }
-
-  throw new InternalServerError();
 };

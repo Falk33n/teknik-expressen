@@ -1,7 +1,8 @@
 'use client';
 
 import { Button, CheckboxWithText } from '@/components';
-import { useCreateCookieConsent } from '@/hooks';
+import { useToast } from '@/hooks';
+import { api } from '@/trpc';
 import { useState } from 'react';
 
 export type OnConsentSubmit = {
@@ -11,7 +12,18 @@ export type OnConsentSubmit = {
 export const CookieConsentForm = ({ onConsentSubmit }: OnConsentSubmit) => {
   const [isChecked, setIsChecked] = useState(true);
 
-  const { createConsent } = useCreateCookieConsent({ onConsentSubmit });
+  const { toast } = useToast();
+
+  const createConsent = api.cookie.createConsent.useMutation({
+    onSuccess: (data) => {
+      onConsentSubmit(true);
+      toast({
+        variant: data.status,
+        title: data.title,
+        description: data.message,
+      });
+    },
+  });
 
   const handleSubmit = () => {
     createConsent.mutate({ hasAccepted: isChecked });

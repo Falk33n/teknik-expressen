@@ -1,7 +1,7 @@
 import {
   getSecretJwtKey,
   getSession,
-  handleErrorLogs,
+  InternalServerError,
   UnauthorizedError,
   verifyPassword,
 } from '@/lib';
@@ -9,6 +9,14 @@ import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
 import { z } from 'zod';
+
+type CreateSessionReturn =
+  | Promise<{
+      status: 'success' | 'unauthorized';
+      title: 'Lyckades!' | 'Misslyckades!';
+      message: 'Felaktig e-postadress eller lösenord.' | 'Skapade en session.';
+    }>
+  | never;
 
 export const sessionRouter = createTRPCRouter({
   createSession: publicProcedure
@@ -22,7 +30,7 @@ export const sessionRouter = createTRPCRouter({
         rememberMe: z.boolean().default(false),
       }),
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }): CreateSessionReturn => {
       try {
         const user = await ctx.db.user.findUnique({
           where: {
@@ -74,20 +82,20 @@ export const sessionRouter = createTRPCRouter({
         ctx.resHeaders.set('Set-Cookie', sessionCookie);
 
         return {
-          status: 200,
-          message: 'Lyckades! Session skapad',
-          isSessionCreated: true,
+          status: 'success',
+          title: 'Lyckades!',
+          message: 'Skapade en session.',
         };
       } catch (error) {
         if (error instanceof UnauthorizedError) {
           return {
-            status: 401,
-            message: `Misslyckades! ${error.message}`,
-            isSessionCreated: false,
+            status: 'unauthorized',
+            title: 'Misslyckades!',
+            message: 'Felaktig e-postadress eller lösenord.',
           };
         }
 
-        throw await handleErrorLogs(ctx.db, error);
+        throw new InternalServerError();
       }
     }),
 

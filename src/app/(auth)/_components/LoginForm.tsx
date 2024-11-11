@@ -13,8 +13,10 @@ import {
   FormMessage,
   Input,
 } from '@/components';
-import { useCreateSession } from '@/hooks';
+import { useToast } from '@/hooks';
+import { api } from '@/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
@@ -80,7 +82,24 @@ const FIELDS: FieldProps[] = [
 export const LoginForm = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { createSession } = useCreateSession();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const createSession = api.session.createSession.useMutation({
+    onSuccess: (data) => {
+      const isSessionCreated = data.status === 'success';
+
+      if (isSessionCreated) router.push('/');
+
+      toast({
+        variant: isSessionCreated ? 'success' : 'destructive',
+        title: isSessionCreated ? 'Lyckades!' : 'Misslyckades!',
+        description: isSessionCreated
+          ? 'Skapade en session.'
+          : 'Felaktig e-postadress eller lösenord.',
+      });
+    },
+  });
 
   const form = useForm<LoginSchemaType>({
     resolver: zodResolver(LOGIN_SCHEMA),
