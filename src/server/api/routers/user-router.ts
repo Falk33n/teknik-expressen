@@ -54,7 +54,7 @@ export const userRouter = createTRPCRouter({
         const { salt, hashedPassword } = await generateSaltHash(input.password);
 
         const consent = getCookieConsent(ctx.req);
-        const isConsentGiven = consent.status !== 204 ? true : false;
+        const isConsentGiven = consent.status === 'success' ? true : false;
 
         await Promise.all([
           ctx.db.password.create({
