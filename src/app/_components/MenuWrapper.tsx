@@ -12,7 +12,7 @@ export const MenuWrapper = () => {
     retry: false,
   });
 
-  const isAuthenticated = data && data.isAuthenticated;
+  const isAuthenticated = data && data.status === 'success';
 
   if (!mediaQuery || isLoading) {
     return <Skeleton className='size-10 lg:w-[560px] xl:w-[620px]' />;
