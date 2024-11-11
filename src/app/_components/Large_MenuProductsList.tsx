@@ -27,6 +27,7 @@ export const Large_MenuProductsList = ({
         <Link
           href={item.href}
           aria-label={`Gå till sidan ${item.text} inom kategorin ${category}`}
+          className='cursor-pointer focus:text-primary'
         >
           {item.text}
         </Link>
