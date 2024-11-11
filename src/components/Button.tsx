@@ -84,11 +84,12 @@ export const ErrorButton = ({
     )}
     {...props}
   >
-    {!asLink && text}
-    {asLink && (
+    {asLink ? (
       <Link href={href} resetClassName>
         {text}
       </Link>
+    ) : (
+      text
     )}
   </Button>
 );
