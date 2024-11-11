@@ -2,7 +2,7 @@ import {
   ConflictError,
   generateSaltHash,
   getCookieConsent,
-  InternalServerError,
+  handleErrorLogs,
 } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { z } from 'zod';
@@ -84,11 +84,9 @@ export const userRouter = createTRPCRouter({
             message: `Misslyckades! ${error.message}`,
             isUserCreated: false,
           };
-        } else if (!(error instanceof InternalServerError)) {
-          throw new InternalServerError();
         }
 
-        throw error;
+        throw await handleErrorLogs(ctx.db, error);
       }
     }),
 });
