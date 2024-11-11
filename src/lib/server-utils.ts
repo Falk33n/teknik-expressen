@@ -54,34 +54,42 @@ export const getSession = async (
   }
 };
 
-type GetCookieConsentReturnType = {
-  status: 200 | 204;
-  message: string;
-  isConsentGiven: boolean | null;
-};
+type GetCookieConsentReturn =
+  | {
+      status: 'success' | 'no-content';
+      message:
+        | 'Hittade ingen samtyckes cookie'
+        | 'Hittade en samtyckes cookie med värdet sant'
+        | 'Hittade en samtyckes cookie med värdet falskt';
+      isConsentGiven?: boolean;
+    }
+  | never;
 
-export const getCookieConsent = (
-  req: NextRequest,
-): GetCookieConsentReturnType => {
-  const consetCookie = req.cookies.get('cc');
-  if (!consetCookie || !consetCookie.value) {
+export const getCookieConsent = (req: NextRequest): GetCookieConsentReturn => {
+  try {
+    const consetCookie = req.cookies.get('cc');
+
+    if (!consetCookie || !consetCookie.value) {
+      return {
+        status: 'no-content',
+        message: 'Hittade ingen samtyckes cookie',
+      };
+    } else if (consetCookie.value === 'false') {
+      return {
+        status: 'success',
+        message: 'Hittade en samtyckes cookie med värdet falskt',
+        isConsentGiven: false,
+      };
+    }
+
     return {
-      status: 204,
-      message: 'Misslyckades! Kunde inte hitta en samtyckes cookie',
-      isConsentGiven: null,
-    };
-  } else if (consetCookie.value === 'true')
-    return {
-      status: 200,
-      message: 'Lyckades! Hittade en samtyckes cookie med värdet samtycker',
+      status: 'success',
+      message: 'Hittade en samtyckes cookie med värdet sant',
       isConsentGiven: true,
     };
-
-  return {
-    status: 200,
-    message: 'Lyckades! Hittade en samtyckes cookie med värdet samtycker inte',
-    isConsentGiven: false,
-  };
+  } catch {
+    throw new InternalServerError();
+  }
 };
 
 export const generateSaltHash = async (password: string) => {
