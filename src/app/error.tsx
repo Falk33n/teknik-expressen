@@ -1,6 +1,8 @@
 'use client';
 
 import { ErrorButton, ErrorContainer } from '@/components';
+import { api } from '@/trpc';
+import { useEffect } from 'react';
 
 type ErrorProps = {
   error: Error & { digest?: string };
@@ -8,6 +10,27 @@ type ErrorProps = {
 };
 
 const Error = ({ error }: ErrorProps) => {
+  const handleErrors = api.log.createError.useMutation();
+
+  useEffect(() => {
+    const logErrors = async () => {
+      await handleErrors.mutateAsync({
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+        statusCode: Number(error.digest),
+      });
+    };
+    logErrors();
+  }, [
+    error.cause,
+    error.digest,
+    error.message,
+    error.name,
+    error.stack,
+    handleErrors,
+  ]);
+
   return (
     <ErrorContainer
       errorCode={error.digest ?? 500}
