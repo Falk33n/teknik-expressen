@@ -12,16 +12,12 @@ export const useErrorLog = ({ error }: ErrorProps) => {
 
   useEffect(() => {
     const logErrors = async () => {
-      try {
-        await handleErrors.mutateAsync({
-          message: error.message,
-          name: error.name,
-          stack: error.stack || '',
-          statusCode: Number(error.digest) || 500,
-        });
-      } catch {
-        console.error('INTERNAL_SERVER_ERROR');
-      }
+      await handleErrors.mutateAsync({
+        message: error.message,
+        name: error.name,
+        stack: error.stack ?? undefined,
+        statusCode: Number(error.digest) ?? undefined,
+      });
     };
 
     logErrors();
