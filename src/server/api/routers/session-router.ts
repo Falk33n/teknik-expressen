@@ -87,13 +87,40 @@ export const sessionRouter = createTRPCRouter({
           };
         } else if (!(error instanceof InternalServerError)) {
           throw new InternalServerError();
+        } else if (error instanceof InternalServerError) {
+          await ctx.db.errorLog.create({
+            data: {
+              message: error.message,
+              name: error.name,
+              statusCode: Number(error.digest),
+              stack: error.stack,
+            },
+          });
         }
 
         throw error;
       }
     }),
 
-  getSession: publicProcedure.query(
-    async ({ ctx }) => await getSession(ctx.req),
-  ),
+  getSession: publicProcedure.query(async ({ ctx }) => {
+    try {
+      return await getSession(ctx.req);
+    } catch (error) {
+      if (
+        error instanceof UnauthorizedError ||
+        error instanceof InternalServerError
+      ) {
+        await ctx.db.errorLog.create({
+          data: {
+            message: error.message,
+            name: error.name,
+            statusCode: Number(error.digest),
+            stack: error.stack,
+          },
+        });
+      }
+
+      throw error;
+    }
+  }),
 });
