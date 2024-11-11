@@ -9,19 +9,17 @@ export const useCreateSession = () => {
   const router = useRouter();
 
   const createSession = api.session.createSession.useMutation({
-    onSuccess: () => {
-      router.push('/');
+    onSuccess: (data) => {
+      const isSessionCreated = data.status === 200 ? true : false;
+
+      if (isSessionCreated) router.push('/');
+
       toast({
-        variant: 'success',
-        title: 'Välkommen tillbaka!',
-        description: 'Inloggningen lyckades.',
-      });
-    },
-    onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: error.message,
-        description: 'Var god försök igen.',
+        variant: isSessionCreated ? 'success' : 'destructive',
+        title: isSessionCreated ? 'Välkommen tillbaka!' : 'Misslyckades!',
+        description: isSessionCreated
+          ? 'Inloggningen lyckades.'
+          : 'Felaktig e-postadress eller lösenord.',
       });
     },
   });

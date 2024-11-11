@@ -12,14 +12,14 @@ export const useCreateUser = () => {
     onSuccess: (data) => {
       const isUserCreated = data.status === 200 ? true : false;
 
-      router.push('/login');
+      if (isUserCreated) router.push('/login');
 
       toast({
         variant: isUserCreated ? 'success' : 'destructive',
         title: isUserCreated ? 'Välkommen!' : 'Misslyckades!',
         description: isUserCreated
           ? 'Var god och logga in.'
-          : `${data.message}. Var god och försök igen.`,
+          : 'E-postadress eller telefonnummer är upptaget.',
       });
     },
   });
