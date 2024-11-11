@@ -5,9 +5,10 @@ import { useErrorLog } from '@/hooks';
 
 type ErrorProps = {
   error: Error & { digest?: string };
+  retry: () => void;
 };
 
-const Error = ({ error }: ErrorProps) => {
+const Error = ({ error, retry }: ErrorProps) => {
   useErrorLog({ error });
 
   return (
@@ -16,6 +17,12 @@ const Error = ({ error }: ErrorProps) => {
       errorAriaLabel={`Felkod: ${error.digest ?? 500}. ${error.message}`}
       errorMessage={error.message}
     >
+      <ErrorButton
+        onClick={() => retry()}
+        text='Försök igen'
+        className='mt-1.5'
+      />
+
       <span className='mt-1.5 flex items-center gap-2'>
         <ErrorButton asLink href='/support' text='Kontakta kundtjänst' />
 
