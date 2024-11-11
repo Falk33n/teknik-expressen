@@ -1,7 +1,7 @@
 import {
   getSecretJwtKey,
   getSession,
-  InternalServerError,
+  handleErrorLogs,
   UnauthorizedError,
   verifyPassword,
 } from '@/lib';
@@ -85,11 +85,9 @@ export const sessionRouter = createTRPCRouter({
             message: `Misslyckades! ${error.message}`,
             isSessionCreated: false,
           };
-        } else if (!(error instanceof InternalServerError)) {
-          throw new InternalServerError();
         }
 
-        throw error;
+        throw await handleErrorLogs(ctx.db, error);
       }
     }),
 

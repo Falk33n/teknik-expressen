@@ -1,4 +1,6 @@
 import { InternalServerError, UnauthorizedError } from '@/lib';
+import type { PrismaClient } from '@prisma/client';
+import type { DefaultArgs } from '@prisma/client/runtime/library';
 import { genSalt, hash } from 'bcryptjs';
 import { jwtVerify } from 'jose';
 import type { NextRequest } from 'next/server';
@@ -25,35 +27,30 @@ export const getSession = async (
   try {
     const authCookie = req.cookies.get('sc');
     if (!authCookie || !authCookie.value) {
-      throw new UnauthorizedError('Misslyckades att verifiera sessionen');
+      throw new UnauthorizedError('Kunde inte verifiera sessionen');
     }
 
     const { jwtKey } = getSecretJwtKey();
     const { payload } = await jwtVerify(authCookie.value, jwtKey);
     if (typeof payload !== 'object' || !('userId' in payload)) {
-      throw new UnauthorizedError('Misslyckades att verifiera sessionen');
+      throw new UnauthorizedError('Kunde inte verifiera sessionen');
     }
 
     return {
       status: 200,
-      message: 'Lyckades att verifiera sessionen',
+      message: 'Lyckades! Kunde verifiera sessionen',
       isAuthenticated: true,
     };
   } catch (error) {
     if (usedInClient && error instanceof UnauthorizedError) {
       return {
         status: 401,
-        message: 'Misslyckades att verifiera sessionen',
+        message: `Misslyckades! ${error.message}`,
         isAuthenticated: false,
       };
-    } else if (
-      !(error instanceof InternalServerError) &&
-      !(error instanceof UnauthorizedError)
-    ) {
-      throw new InternalServerError();
     }
 
-    throw error;
+    throw new InternalServerError();
   }
 };
 
@@ -70,19 +67,19 @@ export const getCookieConsent = (
   if (!consetCookie || !consetCookie.value) {
     return {
       status: 204,
-      message: 'Misslyckades att hitta en samtyckes cookie',
+      message: 'Misslyckades! Kunde inte hitta en samtyckes cookie',
       isConsentGiven: null,
     };
   } else if (consetCookie.value === 'true')
     return {
       status: 200,
-      message: 'Lyckades hitta en samtyckes cookie med värdet samtycker',
+      message: 'Lyckades! Hittade en samtyckes cookie med värdet samtycker',
       isConsentGiven: true,
     };
 
   return {
     status: 200,
-    message: 'Lyckades hitta en samtyckes cookie med värdet samtycker inte',
+    message: 'Lyckades! Hittade en samtyckes cookie med värdet samtycker inte',
     isConsentGiven: false,
   };
 };
@@ -109,4 +106,38 @@ export const verifyPassword = async (
   } catch {
     throw new InternalServerError();
   }
+};
+
+type Database = PrismaClient<
+  {
+    log: ('query' | 'warn' | 'error')[];
+  },
+  never,
+  DefaultArgs
+>;
+
+export const handleErrorLogs = async (db: Database, error: unknown) => {
+  if (
+    error instanceof UnauthorizedError ||
+    error instanceof InternalServerError
+  ) {
+    await db.errorLog.create({
+      data: {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+        statusCode: Number(error.digest),
+      },
+    });
+
+    throw error;
+  } else if (error instanceof Error) {
+    await db.errorLog.create({
+      data: { message: error.message, name: error.name, stack: error.stack },
+    });
+
+    throw new InternalServerError();
+  }
+
+  throw new InternalServerError();
 };
