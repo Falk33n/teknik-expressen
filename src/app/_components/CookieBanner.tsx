@@ -11,7 +11,7 @@ export const CookieBanner = () => {
     retry: false,
   });
 
-  const isConsentGiven = data && data.status !== 204;
+  const isConsentGiven = data && data.status === 200;
 
   if (isSubmitted || isConsentGiven || isLoading) return null;
   else if (!isConsentGiven && !isLoading) {
