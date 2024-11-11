@@ -11,9 +11,11 @@ import {
   FormMessage,
   Input,
 } from '@/components';
-import { useCreateUser } from '@/hooks';
+import { useToast } from '@/hooks';
 import { omitKeys } from '@/lib';
+import { api } from '@/trpc';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa6';
@@ -212,7 +214,24 @@ const passwordVisibility = {
 export const RegisterForm = () => {
   const [visibility, setVisibility] = useState(passwordVisibility);
 
-  const { createUser } = useCreateUser();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const createUser = api.user.createUser.useMutation({
+    onSuccess: (data) => {
+      const isUserCreated = data.status === 'success';
+
+      if (isUserCreated) router.push('/login');
+
+      toast({
+        variant: isUserCreated ? 'success' : 'destructive',
+        title: isUserCreated ? 'Lyckades!' : 'Misslyckades!',
+        description: isUserCreated
+          ? 'Användaren har skapats.'
+          : 'E-postadress eller telefonnummer används redan.',
+      });
+    },
+  });
 
   const form = useForm<RegisterSchemaType>({
     resolver: zodResolver(REGISTER_SCHEMA),
