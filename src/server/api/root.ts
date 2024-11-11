@@ -1,4 +1,9 @@
-import { cookieRouter, sessionRouter, userRouter } from '@/server/api/routers';
+import {
+  cookieRouter,
+  logRouter,
+  sessionRouter,
+  userRouter,
+} from '@/server/api/routers';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 /**
@@ -10,6 +15,7 @@ export const appRouter = createTRPCRouter({
   cookie: cookieRouter,
   user: userRouter,
   session: sessionRouter,
+  log: logRouter,
 });
 
 // export type definition of API
