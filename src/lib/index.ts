@@ -9,6 +9,5 @@ export {
   getCookieConsent,
   getSecretJwtKey,
   getSession,
-  handleErrorLogs,
   verifyPassword,
 } from './server-utils';
