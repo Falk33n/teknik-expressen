@@ -29,10 +29,10 @@ export class UnauthorizedError extends TRPCError {
 export class InternalServerError extends TRPCError {
   public digest: string;
 
-  constructor() {
+  constructor(message: string = 'Något gick fel') {
     super({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Något gick fel',
+      message,
     });
     this.name = 'InternalServerError';
     this.digest = '500';
