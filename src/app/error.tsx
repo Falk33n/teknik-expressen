@@ -1,36 +1,31 @@
 'use client';
 
 import { ErrorButton, ErrorContainer } from '@/app/_components';
-import { useErrorLog } from '@/hooks';
 
 type ErrorProps = {
   error: Error & { digest?: string };
   retry: () => void;
 };
 
-const Error = ({ error, retry }: ErrorProps) => {
-  useErrorLog({ error });
+const Error = ({ error, retry }: ErrorProps) => (
+  <ErrorContainer
+    errorCode={error.digest ?? 500}
+    errorAriaLabel={`Felkod: ${error.digest ?? 500}. ${error.message}`}
+    errorMessage={error.message}
+  >
+    <ErrorButton
+      onClick={() => retry()}
+      text='Försök igen'
+      className='mt-1.5'
+    />
 
-  return (
-    <ErrorContainer
-      errorCode={error.digest ?? 500}
-      errorAriaLabel={`Felkod: ${error.digest ?? 500}. ${error.message}`}
-      errorMessage={error.message}
-    >
-      <ErrorButton
-        onClick={() => retry()}
-        text='Försök igen'
-        className='mt-1.5'
-      />
+    <span className='mt-1.5 flex items-center gap-2'>
+      <ErrorButton asLink href='/support' text='Kontakta kundtjänst' />
 
-      <span className='mt-1.5 flex items-center gap-2'>
-        <ErrorButton asLink href='/support' text='Kontakta kundtjänst' />
-
-        <ErrorButton asLink text='Gå till hemsidan' />
-      </span>
-    </ErrorContainer>
-  );
-};
+      <ErrorButton asLink text='Gå till hemsidan' />
+    </span>
+  </ErrorContainer>
+);
 Error.displayName = 'Error';
 
 export default Error;

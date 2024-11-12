@@ -1,7 +1,6 @@
 'use client';
 
 import { ErrorButton, ErrorContainer } from '@/app/_components';
-import { useErrorLog } from '@/hooks';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({
@@ -17,35 +16,31 @@ type ErrorProps = {
   retry: () => void;
 };
 
-const GlobalError = ({ error, retry }: ErrorProps) => {
-  useErrorLog({ error });
+const GlobalError = ({ error, retry }: ErrorProps) => (
+  <html lang='sv'>
+    <body className={`${inter.className} w-full`}>
+      <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
+        <ErrorContainer
+          errorCode={error.digest ?? 500}
+          errorAriaLabel={`Felkod: ${error.digest ?? 500}. ${error.message}`}
+          errorMessage={error.message}
+        >
+          <ErrorButton
+            onClick={() => retry()}
+            text='Försök igen'
+            className='mt-1.5'
+          />
 
-  return (
-    <html lang='sv'>
-      <body className={`${inter.className} w-full`}>
-        <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
-          <ErrorContainer
-            errorCode={error.digest ?? 500}
-            errorAriaLabel={`Felkod: ${error.digest ?? 500}. ${error.message}`}
-            errorMessage={error.message}
-          >
-            <ErrorButton
-              onClick={() => retry()}
-              text='Försök igen'
-              className='mt-1.5'
-            />
+          <span className='mt-1.5 flex items-center gap-2'>
+            <ErrorButton asLink href='/support' text='Kontakta kundtjänst' />
 
-            <span className='mt-1.5 flex items-center gap-2'>
-              <ErrorButton asLink href='/support' text='Kontakta kundtjänst' />
-
-              <ErrorButton asLink text='Gå till hemsidan' />
-            </span>
-          </ErrorContainer>
-        </main>
-      </body>
-    </html>
-  );
-};
+            <ErrorButton asLink text='Gå till hemsidan' />
+          </span>
+        </ErrorContainer>
+      </main>
+    </body>
+  </html>
+);
 GlobalError.displayName = 'GlobalError';
 
 export default GlobalError;

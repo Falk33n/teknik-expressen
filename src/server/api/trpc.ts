@@ -6,8 +6,14 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
+import {
+  ConflictError,
+  InternalServerError,
+  parseTRPCErrorCode,
+  UnauthorizedError,
+} from '@/lib';
 import { db } from '@/server';
-import { initTRPC } from '@trpc/server';
+import { initTRPC, TRPCError } from '@trpc/server';
 import type { NextRequest } from 'next/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
@@ -98,10 +104,55 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 });
 
 /**
+ * Middleware for logging errors to the database.
+ */
+const errorLoggingMiddleware = t.middleware(async ({ next }) => {
+  try {
+    return await next();
+  } catch (error) {
+    if (error instanceof TRPCError) {
+      await db.errorLog.create({
+        data: {
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+          statusCode: parseTRPCErrorCode(error.code) ?? undefined,
+        },
+      });
+    } else if (
+      error instanceof UnauthorizedError ||
+      error instanceof InternalServerError ||
+      error instanceof ConflictError
+    ) {
+      await db.errorLog.create({
+        data: {
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+          statusCode: Number(error.digest) ?? undefined,
+        },
+      });
+    } else if (error instanceof Error) {
+      await db.errorLog.create({
+        data: {
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+        },
+      });
+    }
+
+    throw error;
+  }
+});
+
+/**
  * Public (unauthenticated) procedure
  *
  * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
  * guarantee that a user querying is authorized, but you can still access user session data if they
  * are logged in.
  */
-export const publicProcedure = t.procedure.use(timingMiddleware);
+export const publicProcedure = t.procedure
+  .use(errorLoggingMiddleware)
+  .use(timingMiddleware);
