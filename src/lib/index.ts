@@ -9,5 +9,6 @@ export {
   getCookieConsent,
   getSecretJwtKey,
   getSession,
+  parseTRPCErrorCode,
   verifyPassword,
 } from './server-utils';
