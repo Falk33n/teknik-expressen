@@ -6,13 +6,13 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
+import { db } from '@/server';
 import {
   ConflictError,
   InternalServerError,
   parseTRPCErrorCode,
   UnauthorizedError,
-} from '@/lib';
-import { db } from '@/server';
+} from '@/server/lib';
 import { initTRPC, TRPCError } from '@trpc/server';
 import type { NextRequest } from 'next/server';
 import superjson from 'superjson';

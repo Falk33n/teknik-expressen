@@ -1,10 +1,10 @@
+import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import {
   ConflictError,
   generateSaltHash,
   getCookieConsent,
   InternalServerError,
-} from '@/lib';
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+} from '@/server/lib';
 import { z } from 'zod';
 
 type CreateUserReturn =
