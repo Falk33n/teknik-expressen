@@ -1,2 +1,2 @@
-export { useMediaQuery } from './media-query-hooks';
-export { reducer, toast, useToast } from './toast-hooks';
+export { useMediaQuery } from './useMediaQuery';
+export { useToast } from './useToast';
