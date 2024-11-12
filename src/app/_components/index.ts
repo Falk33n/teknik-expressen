@@ -1,5 +1,8 @@
 export { CookieBanner } from './CookieBanner';
 export { CookieConsentForm, type OnConsentSubmit } from './CookieConsentForm';
+export { ErrorButton } from './ErrorButton';
+export { ErrorContainer } from './ErrorContainer';
+export { Footer } from './Footer';
 export { Large_Menu } from './Large_Menu';
 export { Large_MenuProducts } from './Large_MenuProducts';
 export {
