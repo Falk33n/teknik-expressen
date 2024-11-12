@@ -1,4 +1,10 @@
-import { CookieBanner, Navbar, ThemeProvider, Topbar } from '@/app/_components';
+import {
+  CookieBanner,
+  Footer,
+  Navbar,
+  ThemeProvider,
+  Topbar,
+} from '@/app/_components';
 import { Toaster } from '@/components';
 import '@/styles/globals.scss';
 import { TRPCReactProvider } from '@/trpc';
@@ -29,6 +35,8 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
           enableSystem
           disableTransitionOnChange
         >
+          <Toaster />
+
           <CookieBanner />
 
           <Topbar />
@@ -38,7 +46,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
             {children}
           </main>
 
-          <Toaster />
+          <Footer />
         </ThemeProvider>
       </TRPCReactProvider>
     </body>
