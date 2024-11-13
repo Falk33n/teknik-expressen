@@ -1,4 +1,4 @@
-import { getSession } from '@/server/lib';
+import { getSession } from '@/lib';
 import { type NextRequest, NextResponse } from 'next/server';
 
 export const middleware = async (req: NextRequest) => {
