@@ -1,4 +1,4 @@
-export { cookieRouter } from './cookie-router';
-export { logRouter } from './log-router';
-export { sessionRouter } from './session-router';
-export { userRouter } from './user-router';
+export { cookieRouter } from './cookie';
+export { logRouter } from './log';
+export { sessionRouter } from './session';
+export { userRouter } from './user';

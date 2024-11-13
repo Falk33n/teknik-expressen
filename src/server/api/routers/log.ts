@@ -1,5 +1,5 @@
+import { InternalServerError } from '@/lib';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
-import { InternalServerError } from '@/server/lib';
 import { z } from 'zod';
 
 type CreateErrorReturn =

@@ -1,11 +1,11 @@
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import {
   getSecretJwtKey,
   getSession,
   InternalServerError,
   UnauthorizedError,
   verifyPassword,
-} from '@/server/lib';
+} from '@/lib';
+import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
 import { z } from 'zod';
