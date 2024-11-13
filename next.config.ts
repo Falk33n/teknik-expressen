@@ -1,10 +1,6 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  sassOptions: {
-    // silenced for now, issue is said to be fixed Next.js v.16+
-    silenceDeprecations: ['legacy-js-api'],
-  },
   /**
    * Specify your server-side environment variables here. This way you can ensure the app
    * isn't built with invalid env vars.
