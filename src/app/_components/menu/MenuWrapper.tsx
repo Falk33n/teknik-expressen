@@ -15,7 +15,7 @@ export const MenuWrapper = () => {
   const isAuthenticated = data && data.status === 'success';
 
   if (!mediaQuery || isLoading) {
-    return <Skeleton className='size-10 lg:w-[560px] xl:w-[620px]' />;
+    return <Skeleton className='size-10 lg:w-[500px] xl:w-[550px]' />;
   } else if (
     mediaQuery === 'xs' ||
     mediaQuery === 'sm' ||
