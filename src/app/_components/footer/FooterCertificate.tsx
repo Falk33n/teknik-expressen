@@ -3,7 +3,12 @@ import Image from 'next/image';
 
 export const FooterCertificate = () => (
   <li role='menuitem' className='flex flex-1 items-center justify-end'>
-    <Button asChild variant='outline' size='icon' className='size-[2.6rem]'>
+    <Button
+      asChild
+      variant='outline'
+      size='icon'
+      className='size-[2.6rem] dark:bg-background/35'
+    >
       <Link
         href='https://tryggehandel.svenskhandel.se/'
         aria-label='Gå till Trygg e-handels hemsida, öppnas i ett nytt fönster'

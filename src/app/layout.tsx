@@ -35,16 +35,16 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
           enableSystem
           disableTransitionOnChange
         >
-          <Toaster />
-
-          <CookieBanner />
-
           <Topbar />
           <Navbar />
+
+          <CookieBanner />
 
           <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
             {children}
           </main>
+
+          <Toaster />
 
           <Footer />
         </ThemeProvider>

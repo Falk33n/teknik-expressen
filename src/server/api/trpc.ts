@@ -116,7 +116,7 @@ const errorLoggingMiddleware = t.middleware(async ({ next }) => {
           message: error.message,
           name: error.name,
           stack: error.stack,
-          statusCode: parseTRPCErrorCode(error.code) ?? undefined,
+          statusCode: parseTRPCErrorCode(error.code),
         },
       });
     } else if (
@@ -129,7 +129,7 @@ const errorLoggingMiddleware = t.middleware(async ({ next }) => {
           message: error.message,
           name: error.name,
           stack: error.stack,
-          statusCode: Number(error.digest) ?? undefined,
+          statusCode: Number(error.digest),
         },
       });
     } else if (error instanceof Error) {

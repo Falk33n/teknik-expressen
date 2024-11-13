@@ -1,4 +1,4 @@
-import { LargeMenuProducts, ThemeToggle } from '@/app/components';
+import { LargeMenuProducts } from '@/app/components';
 import { Link } from '@/components';
 
 export const LargeMenu = ({
@@ -29,9 +29,6 @@ export const LargeMenu = ({
       <Link className='rounded-sm px-4 py-2' href='/cart'>
         Kundkorg
       </Link>
-    </li>
-    <li>
-      <ThemeToggle />
     </li>
   </ul>
 );

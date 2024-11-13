@@ -1,5 +1,5 @@
 import { FooterCertificate, FooterLink } from '@/app/components';
-import { Skeleton } from '@/components';
+import { Separator, Skeleton } from '@/components';
 import { cn } from '@/lib';
 import type { ReactNode } from 'react';
 
@@ -18,38 +18,41 @@ export const FooterList = ({
   isAuthenticated,
   isLoading,
 }: FooterListProps) => (
-  <ul
-    role='menu'
-    aria-label={`Lista med länkar till ${heading.title}`}
-    className={className}
-  >
-    <li
-      aria-hidden
-      className={cn('mb-2 text-lg font-semibold', heading.className)}
+  <>
+    <ul
+      role='menu'
+      aria-label={`Lista med länkar till ${heading.title}`}
+      className={className}
     >
-      {heading.title}
-    </li>
-
-    {content.map((listItem, i) => (
-      <li role='menuitem' key={i}>
-        {listItem.isAccountListItem ? (
-          <>
-            {isLoading ? (
-              <Skeleton className='h-6 w-20 bg-primary/20' />
-            ) : (
-              <FooterLink
-                href={isAuthenticated ? '/account' : '/login'}
-                text={isAuthenticated ? 'Mitt konto' : 'Logga in'}
-              />
-            )}
-          </>
-        ) : (
-          listItem.children
-        )}
+      <li
+        aria-hidden
+        className={cn('mb-2 text-base font-bold sm:text-lg', heading.className)}
+      >
+        {heading.title}
       </li>
-    ))}
 
-    {heading.title === 'Sociala medier' && <FooterCertificate />}
-  </ul>
+      {content.map((listItem, i) => (
+        <li role='menuitem' key={i}>
+          {listItem.isAccountListItem ? (
+            <>
+              {isLoading ? (
+                <Skeleton className='h-6 w-20 bg-primary/20' />
+              ) : (
+                <FooterLink
+                  href={isAuthenticated ? '/account' : '/login'}
+                  text={isAuthenticated ? 'Mitt konto' : 'Logga in'}
+                />
+              )}
+            </>
+          ) : (
+            listItem.children
+          )}
+        </li>
+      ))}
+
+      {heading.title === 'Sociala medier' && <FooterCertificate />}
+    </ul>
+    <Separator />
+  </>
 );
 FooterList.displayName = 'FooterList';
