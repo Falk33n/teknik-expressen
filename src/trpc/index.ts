@@ -1,5 +1,5 @@
-export { createQueryClient } from './query-client';
-export { TRPCReactProvider, api, getBaseUrl } from './react';
+export * from './query-client';
+export * from './react';
 
 // can't import from server.ts
 /* ERROR MESSAGE: You're importing a component that needs "next/headers".

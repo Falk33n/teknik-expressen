@@ -1,15 +1,5 @@
-export {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from './Accordion';
-export {
-  IconWithText,
-  LinkIconWithText,
-  type IconWithTextProps,
-  type LinkIconWithTextProps,
-} from './IconWithText';
-export { Link, type LinkProps } from './Link';
-export { Separator } from './Separator';
-export { Skeleton } from './Skeleton';
+export * from './Accordion';
+export * from './IconWithText';
+export * from './Link';
+export * from './Separator';
+export * from './Skeleton';

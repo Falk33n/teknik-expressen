@@ -1,2 +1,2 @@
-export { ThemeProvider } from './ThemeProvider';
-export { ThemeToggle } from './ThemeToggle';
+export * from './ThemeProvider';
+export * from './ThemeToggle';
