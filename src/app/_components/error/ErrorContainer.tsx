@@ -27,19 +27,19 @@ export const ErrorContainer = ({
       />
     </figure>
 
-    <h2
+    <h1
       aria-hidden
       className='text-5xl font-bold tracking-wide text-red-600 lg:text-7xl'
     >
       {errorCode}
-    </h2>
+    </h1>
 
-    <h2
+    <h1
       aria-label={errorAriaLabel}
       className='text-lg font-medium md:mx-auto md:w-[60%] md:text-center'
     >
       {errorMessage}
-    </h2>
+    </h1>
 
     {children}
   </section>
