@@ -38,6 +38,7 @@ export {
   DropdownMenuTrigger as RadixDropdownMenuTrigger,
 } from '@radix-ui/react-dropdown-menu';
 export { Label as RadixLabel } from '@radix-ui/react-label';
+export { Separator as RadixSeparator } from '@radix-ui/react-separator';
 export { Slot } from '@radix-ui/react-slot';
 export {
   Toast as RadixToast,
