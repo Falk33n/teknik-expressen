@@ -6,20 +6,8 @@ import {
   type SmallMenuListProps,
 } from '@/app/components';
 import {
-  BsHeadset,
-  BsLightningCharge,
-  BsMouse2,
   Button,
-  FaBars,
-  FaRegKeyboard,
-  HiOutlineDesktopComputer,
-  IoLaptopOutline,
-  IoMdTv,
-  IoPhonePortraitOutline,
-  IoPhonePortraitSharp,
-  IoTvOutline,
-  LuCable,
-  MdOutlineDevicesOther,
+  Icons,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -27,113 +15,112 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  TbDeviceIpad,
 } from '@/components';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const SMALL_MENU_LISTS: SmallMenuListProps[] = [
   {
-    trigger: { Icon: BsMouse2, text: 'Datorutrustning' },
+    trigger: { Icon: Icons.BsMouse2, text: 'Datorutrustning' },
     content: [
       {
         href: '',
-        Icon: FaRegKeyboard,
+        Icon: Icons.FaRegKeyboard,
         text: 'Tangentbord',
       },
       {
         href: '',
-        Icon: BsMouse2,
+        Icon: Icons.BsMouse2,
         text: 'Datormöss',
       },
       {
         href: '',
-        Icon: BsHeadset,
+        Icon: Icons.BsHeadset,
         text: 'Hörlurar',
       },
     ],
   },
   {
-    trigger: { Icon: HiOutlineDesktopComputer, text: 'Datorer' },
+    trigger: { Icon: Icons.HiOutlineDesktopComputer, text: 'Datorer' },
     content: [
       {
         href: '',
-        Icon: IoLaptopOutline,
+        Icon: Icons.IoLaptopOutline,
         text: 'Bärbara datorer',
       },
       {
         href: '',
-        Icon: HiOutlineDesktopComputer,
+        Icon: Icons.HiOutlineDesktopComputer,
         text: 'Stationära datorer',
       },
     ],
   },
   {
-    trigger: { Icon: TbDeviceIpad, text: 'Surfplattor' },
+    trigger: { Icon: Icons.TbDeviceIpad, text: 'Surfplattor' },
     content: [
       {
         href: '',
-        Icon: TbDeviceIpad,
+        Icon: Icons.TbDeviceIpad,
         text: 'Samsungs surfplattor',
       },
       {
         href: '',
-        Icon: TbDeviceIpad,
+        Icon: Icons.TbDeviceIpad,
         text: 'Apples surfplattor',
       },
     ],
   },
   {
-    trigger: { Icon: IoPhonePortraitOutline, text: 'Mobiltelefoner' },
+    trigger: { Icon: Icons.IoPhonePortraitOutline, text: 'Mobiltelefoner' },
     content: [
       {
         href: '',
-        Icon: IoPhonePortraitSharp,
+        Icon: Icons.IoPhonePortraitSharp,
         text: 'Samsungs mobiltelefoner',
       },
       {
         href: '',
-        Icon: IoPhonePortraitOutline,
+        Icon: Icons.IoPhonePortraitOutline,
         text: 'Apples mobiltelefoner',
       },
     ],
   },
   {
-    trigger: { Icon: IoTvOutline, text: 'TV' },
+    trigger: { Icon: Icons.IoTvOutline, text: 'TV' },
     content: [
       {
         href: '',
-        Icon: IoMdTv,
+        Icon: Icons.IoTv,
         text: '48-60 Tums TV',
       },
       {
         href: '',
-        Icon: IoMdTv,
+        Icon: Icons.IoTv,
         text: '65-70 Tums TV',
       },
       {
         href: '',
-        Icon: IoMdTv,
+        Icon: Icons.IoTv,
         text: '75-85 Tums TV',
       },
     ],
   },
   {
-    trigger: { Icon: LuCable, text: 'Tillbehör' },
+    trigger: { Icon: Icons.LuCable, text: 'Tillbehör' },
     content: [
       {
         href: '',
-        Icon: BsLightningCharge,
+        Icon: Icons.BsLightningCharge,
         text: 'Laddare',
       },
       {
         href: '',
-        Icon: LuCable,
+        Icon: Icons.LuCable,
         text: 'Datorkablar',
       },
       {
         href: '',
-        Icon: MdOutlineDevicesOther,
+        Icon: Icons.MdOutlineDevicesOther,
         text: 'Övriga tillbehör',
       },
     ],
@@ -163,7 +150,7 @@ export const SmallMenu = ({
           className='p-2 sm:size-10'
           onClick={() => setIsOpen(true)}
         >
-          <FaBars aria-hidden className='sm:scale-110' />
+          <Icons.FaBars aria-hidden className='sm:scale-110' />
         </Button>
       </SheetTrigger>
 

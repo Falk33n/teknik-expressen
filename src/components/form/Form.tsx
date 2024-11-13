@@ -1,7 +1,8 @@
 'use client';
 
-import { Label, Slot } from '@/components';
+import { Label } from '@/components';
 import { cn } from '@/lib';
+import { Slot } from '@radix-ui/react-slot';
 import { type ComponentProps, createContext, useContext, useId } from 'react';
 import {
   Controller,

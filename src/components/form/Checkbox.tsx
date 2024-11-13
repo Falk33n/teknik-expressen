@@ -1,30 +1,26 @@
-import {
-  Label,
-  RadixCheckbox,
-  RadixCheckboxIndicator,
-  RxCheck,
-} from '@/components';
+import { Icons, Label } from '@/components';
 import { cn } from '@/lib';
+import * as Radix from '@radix-ui/react-checkbox';
 import type { ComponentProps, ReactNode } from 'react';
 
-type CheckboxProps = ComponentProps<typeof RadixCheckbox>;
+type CheckboxProps = ComponentProps<typeof Radix.Checkbox>;
 
 export const Checkbox = ({ className, ...props }: CheckboxProps) => (
-  <RadixCheckbox
+  <Radix.Checkbox
     className={cn(
       'peer size-4 shrink-0 rounded-sm border border-primary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground',
       className,
     )}
     {...props}
   >
-    <RadixCheckboxIndicator
+    <Radix.CheckboxIndicator
       className={cn('flex items-center justify-center text-current')}
     >
-      <RxCheck aria-hidden className='size-4' />
-    </RadixCheckboxIndicator>
-  </RadixCheckbox>
+      <Icons.RxCheck aria-hidden className='size-4' />
+    </Radix.CheckboxIndicator>
+  </Radix.Checkbox>
 );
-Checkbox.displayName = RadixCheckbox.displayName;
+Checkbox.displayName = Radix.Checkbox.displayName;
 
 type CheckboxWithTextProps = CheckboxProps & {
   label: ReactNode;

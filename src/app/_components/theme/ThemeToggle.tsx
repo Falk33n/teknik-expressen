@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, RxMoon, RxSun, Skeleton } from '@/components';
+import { Button, Icons, Skeleton } from '@/components';
 import { cn } from '@/lib';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -16,7 +16,7 @@ export const ThemeToggle = ({ className }: ThemeToggleProps) => {
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-  const Icon = currentTheme === 'light' ? RxSun : RxMoon;
+  const Icon = currentTheme === 'light' ? Icons.RxSun : Icons.RxMoon;
 
   useEffect(() => setMounted(true), []);
 

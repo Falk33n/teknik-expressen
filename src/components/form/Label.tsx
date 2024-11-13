@@ -1,5 +1,5 @@
-import { RadixLabel } from '@/components';
 import { cn } from '@/lib';
+import * as Radix from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 
@@ -7,10 +7,10 @@ const labelVariants = cva(
   'peer-disabled:opacity-70 font-medium text-sm leading-none peer-disabled:cursor-not-allowed',
 );
 
-type LabelProps = ComponentProps<typeof RadixLabel> &
+type LabelProps = ComponentProps<typeof Radix.Label> &
   VariantProps<typeof labelVariants>;
 
 export const Label = ({ className, ...props }: LabelProps) => (
-  <RadixLabel className={cn(labelVariants(), className)} {...props} />
+  <Radix.Label className={cn(labelVariants(), className)} {...props} />
 );
-Label.displayName = RadixLabel.displayName;
+Label.displayName = Radix.Label.displayName;

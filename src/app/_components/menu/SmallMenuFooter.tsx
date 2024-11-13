@@ -5,25 +5,25 @@ import {
   ThemeToggle,
   type SmallMenuContentProps,
 } from '@/app/components';
-import { FaRegUser, MdOutlineShoppingCart, MdSupportAgent } from '@/components';
+import { Icons } from '@/components';
 import { Fragment } from 'react';
 
 const SMALL_MENU_CONTENTS: SmallMenuContentProps[] = [
   {
     href: '/cart',
-    Icon: MdOutlineShoppingCart,
+    Icon: Icons.MdOutlineShoppingCart,
     text: 'Kundkorg',
     className: 'border-y',
   },
   {
     href: '/login',
-    Icon: FaRegUser,
+    Icon: Icons.FaRegUser,
     text: 'Logga in',
     className: 'border-b',
   },
   {
     href: '/support',
-    Icon: MdSupportAgent,
+    Icon: Icons.MdSupportAgent,
     text: 'Kundtjänst',
     className: 'border-b',
   },

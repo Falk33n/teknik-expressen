@@ -2,8 +2,6 @@
 
 import {
   Button,
-  FaEye,
-  FaEyeSlash,
   Form,
   FormControl,
   FormDescription,
@@ -11,6 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Icons,
   Input,
 } from '@/components';
 import { useToast } from '@/hooks';
@@ -293,7 +292,7 @@ export const RegisterForm = () => {
             name={field.id}
             render={({ field: formField }) => {
               const isVisible = visibility[field.id];
-              const Icon = isVisible ? FaEyeSlash : FaEye;
+              const Icon = isVisible ? Icons.FaEyeSlash : Icons.FaEye;
 
               return (
                 <FormItem className='relative'>

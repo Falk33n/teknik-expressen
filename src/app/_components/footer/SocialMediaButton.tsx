@@ -1,4 +1,4 @@
-import { Button, FaFacebook, FaInstagram, FaYoutube, Link } from '@/components';
+import { Button, Icons, Link } from '@/components';
 import { cn } from '@/lib';
 
 type SocialMediaButtonProps = {
@@ -8,10 +8,10 @@ type SocialMediaButtonProps = {
 export const SocialMediaButton = ({ socialMedia }: SocialMediaButtonProps) => {
   const Icon =
     socialMedia === 'Facebook'
-      ? FaFacebook
+      ? Icons.FaFacebook
       : socialMedia === 'YouTube'
-        ? FaYoutube
-        : FaInstagram;
+        ? Icons.FaYoutube
+        : Icons.FaInstagram;
 
   return (
     <Button

@@ -1,18 +1,12 @@
-import {
-  IconWithText,
-  IoReloadSharp,
-  LiaAwardSolid,
-  LiaShippingFastSolid,
-  type IconWithTextProps,
-} from '@/components';
+import { IconWithText, Icons, type IconWithTextProps } from '@/components';
 
 const ICONS_WITH_TEXTS: IconWithTextProps[] = [
   {
-    Icon: LiaAwardSolid,
+    Icon: Icons.LiaAwardSolid,
     text: 'Prismatch',
   },
   {
-    Icon: IoReloadSharp,
+    Icon: Icons.IoReloadSharp,
     iconClassName: 'scale-x-[-1]',
     text: (
       <>
@@ -24,7 +18,7 @@ const ICONS_WITH_TEXTS: IconWithTextProps[] = [
     ),
   },
   {
-    Icon: LiaShippingFastSolid,
+    Icon: Icons.LiaShippingFastSolid,
     text: (
       <>
         <span aria-label='Fri frakt över 500kr' className='sm:hidden'>

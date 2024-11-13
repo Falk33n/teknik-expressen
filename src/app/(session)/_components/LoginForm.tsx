@@ -4,8 +4,6 @@ import {
   Button,
   Checkbox,
   CheckboxWithText,
-  FaEye,
-  FaEyeSlash,
   Form,
   FormControl,
   FormDescription,
@@ -13,6 +11,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  Icons,
   Input,
 } from '@/components';
 import { useToast } from '@/hooks';
@@ -127,7 +126,7 @@ export const LoginForm = () => {
               render={({ field: formField }) => {
                 const isPasswordField = field.id === 'password';
                 const isCheckbox = field.Component === Checkbox;
-                const Icon = isPasswordVisible ? FaEyeSlash : FaEye;
+                const Icon = isPasswordVisible ? Icons.FaEyeSlash : Icons.FaEye;
 
                 return (
                   <FormItem className='relative sm:max-w-[90%] md:max-w-[600px]'>
