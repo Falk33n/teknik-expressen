@@ -1,6 +1,7 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/_components';
+import { ErrorButton, ErrorContainer } from '@/app/components';
+import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({

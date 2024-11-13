@@ -3,10 +3,10 @@ import {
   Footer,
   Navbar,
   ThemeProvider,
+  Toaster,
   Topbar,
-} from '@/app/_components';
-import { Toaster } from '@/components';
-import '@/styles/globals.scss';
+} from '@/app/components';
+import '@/styles/globals.css';
 import { TRPCReactProvider } from '@/trpc';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';

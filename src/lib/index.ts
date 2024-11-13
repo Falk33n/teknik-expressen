@@ -1,14 +1,9 @@
-export { cn, omitKeys, pickKeys } from './client-utils';
+export { generateSaltHash, parseTRPCErrorCode } from './api';
+export { getCookieConsent } from './cookie';
 export {
   ConflictError,
   InternalServerError,
   UnauthorizedError,
 } from './exceptions';
-export {
-  generateSaltHash,
-  getCookieConsent,
-  getSecretJwtKey,
-  getSession,
-  parseTRPCErrorCode,
-  verifyPassword,
-} from './server-utils';
+export { getSecretJwtKey, getSession, verifyPassword } from './session';
+export { cn, omitKeys, pickKeys } from './utils';

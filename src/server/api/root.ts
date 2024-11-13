@@ -1,9 +1,4 @@
-import {
-  cookieRouter,
-  logRouter,
-  sessionRouter,
-  userRouter,
-} from '@/server/api/routers';
+import { cookieRouter, logRouter, sessionRouter, userRouter } from '@/server';
 import { createCallerFactory, createTRPCRouter } from '@/server/api/trpc';
 
 /**

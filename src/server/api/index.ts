@@ -1,2 +1,5 @@
 export { appRouter, createCaller, type AppRouter } from './root';
-// can't export from trpc.ts since it throws error of undefined createTRPCContext
+export { cookieRouter, logRouter, sessionRouter, userRouter } from './routers';
+
+// can't export from trpc.ts
+/* ERROR MESSAGE: hook.js:608 Error: ❌ Attempted to access a server-side environment variable on the client */

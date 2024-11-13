@@ -76,7 +76,7 @@ type Action =
       toastId?: ToasterToast['id'];
     };
 
-export const reducer = (state: State, action: Action): State => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'ADD_TOAST':
       return {
@@ -141,7 +141,7 @@ const dispatch = (action: Action) => {
 
 type Toast = Omit<ToasterToast, 'id'>;
 
-export const toast = ({ ...props }: Toast) => {
+const toast = ({ ...props }: Toast) => {
   const id = genId();
 
   const update = (props: ToasterToast) =>
