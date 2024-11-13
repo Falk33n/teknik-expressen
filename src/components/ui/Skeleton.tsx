@@ -1,7 +1,7 @@
 import { cn } from '@/lib';
-import type { HTMLAttributes } from 'react';
+import type { ComponentProps } from 'react';
 
-type SkeletonProps = HTMLAttributes<HTMLDivElement>;
+type SkeletonProps = ComponentProps<'div'>;
 
 export const Skeleton = ({ className, ...props }: SkeletonProps) => (
   <div
