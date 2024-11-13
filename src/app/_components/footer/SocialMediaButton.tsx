@@ -19,12 +19,12 @@ export const SocialMediaButton = ({ socialMedia }: SocialMediaButtonProps) => {
       variant='outline'
       size='icon'
       className={cn(
-        'size-10',
+        'size-10 dark:bg-background/35',
         socialMedia === 'Facebook'
-          ? 'text-primary'
+          ? 'text-primary hover:text-primary/80'
           : socialMedia === 'YouTube'
-            ? 'text-red-600'
-            : 'text-orange-500',
+            ? 'text-red-600 hover:text-red-600/80'
+            : 'text-orange-500 hover:text-orange-500/80',
       )}
     >
       <Link
