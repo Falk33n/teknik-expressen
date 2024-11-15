@@ -1,5 +1,5 @@
 export * from './root';
-export * from './routers';
 
-// can't export from trpc.ts
-/* ERROR MESSAGE: hook.js:608 Error: ❌ Attempted to access a server-side environment variable on the client */
+// **IMPORTANT**
+// DO NOT blend exports from trpc.ts with the other exports.
+// since it could cause server environment variables to be sent to the client.
