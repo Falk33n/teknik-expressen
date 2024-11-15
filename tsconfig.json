@@ -27,8 +27,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/app/components": ["./src/app/_components/index.ts"],
-      "@/app/session/components": ["src/app/(session)/_components/index.ts"]
+      "@/app/layout": ["./src/app/layout.tsx"],
+      "@/app/components/*": ["./src/app/_components/*"],
+      "@/app/session/components": ["./src/app/(session)/_components/index.ts"]
     }
   },
   "include": [
