@@ -1,5 +1,5 @@
-import { Icons } from '@/components';
-import { cn } from '@/lib';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-dialog';
 import type { ComponentProps } from 'react';
 
@@ -45,7 +45,7 @@ export const DialogContent = ({
         aria-label='Stäng'
         className='absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground'
       >
-        <Icons.RxCross2 aria-hidden className='size-4' />
+        <Rx.RxCross2 aria-hidden className='size-4' />
       </DialogClose>
     </Radix.DialogContent>
   </DialogPortal>

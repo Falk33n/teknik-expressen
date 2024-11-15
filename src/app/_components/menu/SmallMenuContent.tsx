@@ -1,5 +1,5 @@
-import { LinkIconWithText, type LinkIconWithTextProps } from '@/components';
-import { cn } from '@/lib';
+import { LinkIconWithText, type LinkIconWithTextProps } from '@/components/ui';
+import { cn } from '@/lib/utils';
 
 export type SmallMenuContentProps = LinkIconWithTextProps & {
   className?: string;

@@ -11,11 +11,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Icons,
   Input,
-} from '@/components';
+} from '@/components/form';
+import { Fa6 } from '@/components/icons';
 import { useToast } from '@/hooks';
-import { api } from '@/trpc';
+import { clientApi } from '@/trpc/Client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -85,7 +85,7 @@ export const LoginForm = () => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const createSession = api.session.createSession.useMutation({
+  const createSession = clientApi.session.createSession.useMutation({
     onSuccess: (data) => {
       const isSessionCreated = data.status === 'success';
 
@@ -126,7 +126,7 @@ export const LoginForm = () => {
               render={({ field: formField }) => {
                 const isPasswordField = field.id === 'password';
                 const isCheckbox = field.Component === Checkbox;
-                const Icon = isPasswordVisible ? Icons.FaEyeSlash : Icons.FaEye;
+                const Icon = isPasswordVisible ? Fa6.FaEyeSlash : Fa6.FaEye;
 
                 return (
                   <FormItem className='relative sm:max-w-[90%] md:max-w-[600px]'>

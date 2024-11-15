@@ -1,5 +1,5 @@
-import { Icons } from '@/components';
-import { cn } from '@/lib';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-accordion';
 import type { ComponentProps } from 'react';
 
@@ -28,7 +28,7 @@ export const AccordionTrigger = ({
       {...props}
     >
       {children}
-      <Icons.RxChevronDown
+      <Rx.RxChevronDown
         aria-hidden
         className='size-4 shrink-0 text-muted-foreground transition-transform duration-200 sm:size-5'
       />

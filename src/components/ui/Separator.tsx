@@ -1,6 +1,4 @@
-'use client';
-
-import { cn } from '@/lib';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-separator';
 import type { ComponentProps } from 'react';
 

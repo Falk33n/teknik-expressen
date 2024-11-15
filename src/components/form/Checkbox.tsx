@@ -1,5 +1,6 @@
-import { Icons, Label } from '@/components';
-import { cn } from '@/lib';
+import { Label } from '@/components/form';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-checkbox';
 import type { ComponentProps, ReactNode } from 'react';
 
@@ -16,7 +17,7 @@ export const Checkbox = ({ className, ...props }: CheckboxProps) => (
     <Radix.CheckboxIndicator
       className={cn('flex items-center justify-center text-current')}
     >
-      <Icons.RxCheck aria-hidden className='size-4' />
+      <Rx.RxCheck aria-hidden className='size-4' />
     </Radix.CheckboxIndicator>
   </Radix.Checkbox>
 );

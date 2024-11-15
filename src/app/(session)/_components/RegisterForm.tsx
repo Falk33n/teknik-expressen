@@ -9,12 +9,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Icons,
   Input,
-} from '@/components';
+} from '@/components/form';
+import { Fa6 } from '@/components/icons';
 import { useToast } from '@/hooks';
-import { omitKeys } from '@/lib';
-import { api } from '@/trpc';
+import { omitKeys } from '@/lib/utils';
+import { clientApi } from '@/trpc/Client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -217,7 +217,7 @@ export const RegisterForm = () => {
   const { toast } = useToast();
   const router = useRouter();
 
-  const createUser = api.user.createUser.useMutation({
+  const createUser = clientApi.user.createUser.useMutation({
     onSuccess: (data) => {
       const isUserCreated = data.status === 'success';
 
@@ -292,7 +292,7 @@ export const RegisterForm = () => {
             name={field.id}
             render={({ field: formField }) => {
               const isVisible = visibility[field.id];
-              const Icon = isVisible ? Icons.FaEyeSlash : Icons.FaEye;
+              const Icon = isVisible ? Fa6.FaEyeSlash : Fa6.FaEye;
 
               return (
                 <FormItem className='relative'>

@@ -1,5 +1,5 @@
-import { Link } from '@/components';
-import { cn } from '@/lib';
+import { Link } from '@/components/ui';
+import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 
 type SessionContainerProps = {

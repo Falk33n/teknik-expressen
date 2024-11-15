@@ -1,5 +1,5 @@
-import { Icons } from '@/components';
-import { cn } from '@/lib';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-dropdown-menu';
 import type { ComponentProps } from 'react';
 
@@ -36,7 +36,7 @@ export const DropdownMenuSubTrigger = ({
     {...props}
   >
     {children}
-    <Icons.RxChevronRight aria-hidden className='ml-auto' />
+    <Rx.RxChevronRight aria-hidden className='ml-auto' />
   </Radix.DropdownMenuSubTrigger>
 );
 DropdownMenuSubTrigger.displayName = Radix.DropdownMenuSubTrigger.displayName;
@@ -122,7 +122,7 @@ export const DropdownMenuCheckboxItem = ({
   >
     <span className='absolute left-2 flex size-3.5 items-center justify-center'>
       <Radix.DropdownMenuItemIndicator>
-        <Icons.RxCheck aria-hidden className='size-4' />
+        <Rx.RxCheck aria-hidden className='size-4' />
       </Radix.DropdownMenuItemIndicator>
     </span>
     {children}
@@ -149,9 +149,10 @@ export const DropdownMenuRadioItem = ({
   >
     <span className='absolute left-2 flex size-3.5 items-center justify-center'>
       <Radix.DropdownMenuItemIndicator>
-        <Icons.RxDotFilled aria-hidden className='size-2 fill-current' />
+        <Rx.RxDotFilled aria-hidden className='size-2 fill-current' />
       </Radix.DropdownMenuItemIndicator>
     </span>
+
     {children}
   </Radix.DropdownMenuRadioItem>
 );

@@ -1,4 +1,4 @@
-import { cn } from '@/lib';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';

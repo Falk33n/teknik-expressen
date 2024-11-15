@@ -1,5 +1,5 @@
-import { Icons } from '@/components';
-import { cn } from '@/lib';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
@@ -76,7 +76,7 @@ export const ToastClose = ({ className, ...props }: ToastCloseProps) => (
     aria-label='Stäng'
     {...props}
   >
-    <Icons.RxCross2 aria-hidden className='size-4' />
+    <Rx.RxCross2 aria-hidden className='size-4' />
   </Radix.ToastClose>
 );
 ToastClose.displayName = Radix.ToastClose.displayName;
