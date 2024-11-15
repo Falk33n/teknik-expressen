@@ -1,6 +1,6 @@
 # Teknik Expressen - E-commerce Platform
 
-**Final Thesis Project for Web Development Graduation**
+**Final Thesis Project for Web Development Graduation 2025**
 
 ## Overview
 
