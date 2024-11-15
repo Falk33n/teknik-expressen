@@ -1,13 +1,7 @@
-import {
-  CookieBanner,
-  Footer,
-  Navbar,
-  ThemeProvider,
-  Toaster,
-  Topbar,
-} from '@/app/components';
+import { LayoutWrapper } from '@/app/components/LayoutWrapper';
+import { ThemeProvider } from '@/app/components/providers';
 import '@/styles/globals.css';
-import { TRPCReactProvider } from '@/trpc';
+import { TRPCProvider } from '@/trpc/Client';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
@@ -25,30 +19,21 @@ export const metadata: Metadata = {
   description: 'TeknikExpressen är en e-handel inom teknik',
 };
 
+export type HasActiveSession = { hasActiveSession?: boolean };
+
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang='sv' suppressHydrationWarning>
     <body className={`${inter.className} w-full`}>
-      <TRPCReactProvider>
+      <TRPCProvider>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange
         >
-          <Topbar />
-          <Navbar />
-
-          <CookieBanner />
-
-          <main className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'>
-            {children}
-          </main>
-
-          <Toaster />
-
-          <Footer />
+          <LayoutWrapper>{children}</LayoutWrapper>
         </ThemeProvider>
-      </TRPCReactProvider>
+      </TRPCProvider>
     </body>
   </html>
 );
