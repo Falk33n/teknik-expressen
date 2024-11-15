@@ -1,7 +1,8 @@
 'use client';
 
-import { Dialog, DialogContent, Icons } from '@/components';
-import { cn } from '@/lib';
+import { Rx } from '@/components/icons';
+import { Dialog, DialogContent } from '@/components/modals';
+import { cn } from '@/lib/utils';
 import type { DialogProps } from '@radix-ui/react-dialog';
 import * as CMDK from 'cmdk';
 import type { ComponentProps } from 'react';
@@ -24,7 +25,7 @@ type CommandDialogProps = DialogProps;
 export const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
   <Dialog {...props}>
     <DialogContent className='p-0'>
-      <Command className='[&>[cmdk-input]]:h-12 [&[cmdk-group-heading]]:px-2 [&[cmdk-group-heading]]:font-medium [&[cmdk-group-heading]]:text-muted-foreground [&[cmdk-group]:not([hidden])~[cmdk-group]]:pt-0 [&[cmdk-group]]:px-2 [&[cmdk-input-wrapper]&svg]:size-5 [&[cmdk-item]&svg]:size-5 [&[cmdk-item]]:px-2 [&[cmdk-item]]:py-3'>
+      <Command className='[&>[cmdk-input]]:h-12 [&[cmdk-group-heading]]:px-2 [&[cmdk-group-heading]]:font-bold [&[cmdk-group-heading]]:text-muted-foreground [&[cmdk-group]:not([hidden])~[cmdk-group]]:pt-0 [&[cmdk-group]]:px-2 [&[cmdk-input-wrapper]&svg]:size-5 [&[cmdk-item]&svg]:size-5 [&[cmdk-item]]:px-2 [&[cmdk-item]]:py-3'>
         {children}
       </Command>
     </DialogContent>
@@ -36,13 +37,13 @@ type CommandInputProps = ComponentProps<typeof CMDK.CommandInput>;
 
 export const CommandInput = ({ className, ...props }: CommandInputProps) => (
   <div className='flex items-center justify-end px-4' cmdk-input-wrapper=''>
-    <Icons.RxMagnifyingGlass
+    <Rx.RxMagnifyingGlass
       aria-hidden
       className='mr-2 size-4 shrink-0 opacity-50 sm:size-5'
     />
     <CMDK.CommandInput
       className={cn(
-        'flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-10 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-md',
         className,
       )}
       {...props}
@@ -68,7 +69,7 @@ type CommandEmptyProps = ComponentProps<typeof CMDK.CommandEmpty>;
 
 export const CommandEmpty = ({ className, ...props }: CommandEmptyProps) => (
   <CMDK.CommandEmpty
-    className={cn('py-8 text-center text-sm', className)}
+    className={cn('py-6 text-center text-sm', className)}
     {...props}
   />
 );
@@ -79,7 +80,7 @@ type CommandGroupProps = ComponentProps<typeof CMDK.CommandGroup>;
 export const CommandGroup = ({ className, ...props }: CommandGroupProps) => (
   <CMDK.CommandGroup
     className={cn(
-      'text-foreground [&[cmdk-group-heading]]:text-sm [&[cmdk-group-heading]]:font-medium [&[cmdk-group-heading]]:text-accent-foreground [&[cmdk-item]]:mt-3 [&[cmdk-item]]:text-sm [&[cmdk-item]]:sm:mt-5',
+      'text-foreground [&[cmdk-group-heading]]:text-sm [&[cmdk-group-heading]]:font-bold [&[cmdk-group-heading]]:text-accent-foreground [&[cmdk-item]]:mt-3 [&[cmdk-item]]:text-sm [&[cmdk-item]]:sm:mt-5',
       className,
     )}
     {...props}
@@ -105,7 +106,7 @@ type CommandItemProps = ComponentProps<typeof CMDK.CommandItem>;
 export const CommandItem = ({ className, ...props }: CommandItemProps) => (
   <CMDK.CommandItem
     className={cn(
-      'relative flex cursor-default select-none items-center gap-2 truncate rounded-sm bg-background/30 px-4 py-2 text-sm text-foreground outline-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&svg]:pointer-events-none [&svg]:size-4 [&svg]:shrink-0',
+      'relative -ml-4 flex select-none items-center gap-2 truncate rounded-sm px-4 py-2 text-sm text-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&svg]:pointer-events-none [&svg]:size-4 [&svg]:shrink-0',
       className,
     )}
     {...props}
