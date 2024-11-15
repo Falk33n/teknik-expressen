@@ -1,32 +1,27 @@
-'use client';
-
 import {
-  RadixDialog,
-  RadixDialogClose,
-  RadixDialogContent,
-  RadixDialogDescription,
-  RadixDialogOverlay,
-  RadixDialogPortal,
-  RadixDialogTitle,
-  RadixDialogTrigger,
-  RxCross2,
-} from '@/components';
-import { cn } from '@/lib';
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/feedback';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
+import * as Radix from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
 
-export const Sheet = RadixDialog;
+export const Sheet = Radix.Dialog;
 
-export const SheetTrigger = RadixDialogTrigger;
+export const SheetTrigger = Radix.DialogTrigger;
 
-export const SheetClose = RadixDialogClose;
+export const SheetClose = Radix.DialogClose;
 
-export const SheetPortal = RadixDialogPortal;
+export const SheetPortal = Radix.DialogPortal;
 
-type SheetOverlayProps = ComponentProps<typeof RadixDialogOverlay>;
+type SheetOverlayProps = ComponentProps<typeof Radix.DialogOverlay>;
 
 export const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
-  <RadixDialogOverlay
+  <Radix.DialogOverlay
     className={cn(
       'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
       className,
@@ -34,7 +29,7 @@ export const SheetOverlay = ({ className, ...props }: SheetOverlayProps) => (
     {...props}
   />
 );
-SheetOverlay.displayName = RadixDialogOverlay.displayName;
+SheetOverlay.displayName = Radix.DialogOverlay.displayName;
 
 const sheetVariants = cva(
   'z-50 fixed flex flex-col bg-background shadow-lg transition data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:duration-300 data-[state=open]:duration-500 ease-in-out',
@@ -55,7 +50,7 @@ const sheetVariants = cva(
   },
 );
 
-type SheetContentProps = ComponentProps<typeof RadixDialogContent> &
+type SheetContentProps = ComponentProps<typeof Radix.DialogContent> &
   VariantProps<typeof sheetVariants>;
 
 export const SheetContent = ({
@@ -67,7 +62,7 @@ export const SheetContent = ({
   <SheetPortal>
     <SheetOverlay />
 
-    <RadixDialogContent
+    <Radix.DialogContent
       className={cn(
         sheetVariants({ side }),
         '[&>div:nth-child(even)>div>h3]:bg-accent',
@@ -76,19 +71,32 @@ export const SheetContent = ({
       {...props}
     >
       <div className='sticky top-0 flex w-full items-center justify-end bg-accent px-4 py-3'>
-        <RadixDialogClose
-          aria-label='Stäng'
-          className='rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:p-2'
-        >
-          <RxCross2 aria-hidden className='size-4 scale-125 sm:scale-150' />
-        </RadixDialogClose>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Radix.DialogClose
+                aria-label='Stäng menyn'
+                className='rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:p-2'
+              >
+                <Rx.RxCross2
+                  aria-hidden
+                  className='size-4 scale-125 sm:scale-150'
+                />
+              </Radix.DialogClose>
+            </TooltipTrigger>
+
+            <TooltipContent aria-hidden side='bottom' sideOffset={10}>
+              <p>Stäng menyn</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
 
       {children}
-    </RadixDialogContent>
+    </Radix.DialogContent>
   </SheetPortal>
 );
-SheetContent.displayName = RadixDialogContent.displayName;
+SheetContent.displayName = Radix.DialogContent.displayName;
 
 type SheetHeaderProps = ComponentProps<'div'>;
 
@@ -110,25 +118,25 @@ export const SheetFooter = ({ className, ...props }: SheetFooterProps) => (
 );
 SheetFooter.displayName = 'SheetFooter';
 
-type SheetTitleProps = ComponentProps<typeof RadixDialogTitle>;
+type SheetTitleProps = ComponentProps<typeof Radix.DialogTitle>;
 
 export const SheetTitle = ({ className, ...props }: SheetTitleProps) => (
-  <RadixDialogTitle
+  <Radix.DialogTitle
     className={cn('text-lg font-semibold text-foreground', className)}
     {...props}
   />
 );
-SheetTitle.displayName = RadixDialogTitle.displayName;
+SheetTitle.displayName = Radix.DialogTitle.displayName;
 
-type SheetDescriptionProps = ComponentProps<typeof RadixDialogDescription>;
+type SheetDescriptionProps = ComponentProps<typeof Radix.DialogDescription>;
 
 export const SheetDescription = ({
   className,
   ...props
 }: SheetDescriptionProps) => (
-  <RadixDialogDescription
+  <Radix.DialogDescription
     className={cn('text-sm text-muted-foreground', className)}
     {...props}
   />
 );
-SheetDescription.displayName = RadixDialogDescription.displayName;
+SheetDescription.displayName = Radix.DialogDescription.displayName;

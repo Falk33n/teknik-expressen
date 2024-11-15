@@ -1,10 +1,11 @@
 import {
+  getCookieConsent,
   getSecretJwtKey,
   getSession,
   InternalServerError,
   UnauthorizedError,
   verifyPassword,
-} from '@/lib';
+} from '@/lib/utils';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
@@ -57,12 +58,15 @@ export const sessionRouter = createTRPCRouter({
           throw new UnauthorizedError('Felaktig e-postadress eller lösenord');
         }
 
-        const tokenExpiration = input.rememberMe ? '30d' : '2h';
-        const cookieExpiration = input.rememberMe
+        const cookieConsent = await getCookieConsent();
+        const allowRememberMe = cookieConsent.hasConsented && input.rememberMe;
+
+        const tokenExpiration = allowRememberMe ? '30d' : '2h';
+        const cookieExpiration = allowRememberMe
           ? 30 * 24 * 60 * 60
           : 2 * 60 * 60;
 
-        const { jwtKey } = getSecretJwtKey();
+        const { jwtKey } = await getSecretJwtKey();
         const jwtToken = await new SignJWT({
           userId: user.id,
         })
@@ -99,7 +103,5 @@ export const sessionRouter = createTRPCRouter({
       }
     }),
 
-  getSession: publicProcedure.query(
-    async ({ ctx }) => await getSession(ctx.req),
-  ),
+  getSession: publicProcedure.query(async () => await getSession()),
 });

@@ -1,5 +1,6 @@
-import { Link, type IconType, type LinkProps } from '@/components';
-import { cn, omitKeys, pickKeys } from '@/lib';
+import type { IconType } from '@/components/icons';
+import { Link, type LinkProps } from '@/components/ui';
+import { cn, omitKeys, pickKeys } from '@/lib/utils';
 import type { ReactNode } from 'react';
 
 export type IconWithTextProps = {

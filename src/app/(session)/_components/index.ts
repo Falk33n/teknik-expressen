@@ -1,3 +1,3 @@
-export { LoginForm } from './LoginForm';
-export { RegisterForm } from './RegisterForm';
-export { SessionContainer } from './SessionContainer';
+export * from './LoginForm';
+export * from './RegisterForm';
+export * from './SessionContainer';

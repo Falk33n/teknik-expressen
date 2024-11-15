@@ -1,4 +1,4 @@
-import { SmallMenuContent } from '@/app/components';
+import { SmallMenuContent } from '@/app/components/menu';
 import {
   Accordion,
   AccordionContent,
@@ -7,8 +7,8 @@ import {
   IconWithText,
   type IconWithTextProps,
   type LinkIconWithTextProps,
-} from '@/components';
-import { cn } from '@/lib';
+} from '@/components/ui';
+import { cn } from '@/lib/utils';
 
 export type SmallMenuListProps = {
   trigger: IconWithTextProps;

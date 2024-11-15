@@ -1,35 +1,59 @@
 import {
-  IconWithText,
-  IoReloadSharp,
-  LiaAwardSolid,
-  LiaShippingFastSolid,
-  type IconWithTextProps,
-} from '@/components';
-
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/feedback';
+import { Io5, Lia } from '@/components/icons';
+import { IconWithText, type IconWithTextProps } from '@/components/ui';
 const ICONS_WITH_TEXTS: IconWithTextProps[] = [
   {
-    Icon: LiaAwardSolid,
+    Icon: Lia.LiaAwardSolid,
     text: 'Prismatch',
   },
   {
-    Icon: IoReloadSharp,
+    Icon: Io5.IoReloadSharp,
     iconClassName: 'scale-x-[-1]',
     text: (
       <>
-        <span aria-label='Fri retur inom 30 dagar' className='sm:hidden'>
-          Fri retur*
-        </span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              aria-label='Fri retur inom 30 dagar'
+              className='rounded-md uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-secondary sm:hidden'
+            >
+              Fri retur*
+            </TooltipTrigger>
+
+            <TooltipContent sideOffset={10} side='bottom' aria-hidden>
+              <p>*Inom 30 dagar</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
         <span className='hidden sm:inline'>Fri retur inom 30 dagar</span>
       </>
     ),
   },
   {
-    Icon: LiaShippingFastSolid,
+    Icon: Lia.LiaShippingFastSolid,
     text: (
       <>
-        <span aria-label='Fri frakt över 500kr' className='sm:hidden'>
-          Fri frakt*
-        </span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              aria-label='Fri frakt över 500kr'
+              className='rounded-md uppercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-secondary sm:hidden'
+            >
+              Fri frakt*
+            </TooltipTrigger>
+
+            <TooltipContent sideOffset={10} side='bottom' aria-hidden>
+              <p>*Över 500 kr</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
         <span className='hidden sm:inline'>Fri frakt över 500kr</span>
       </>
     ),

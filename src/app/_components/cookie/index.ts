@@ -1,2 +1,2 @@
-export { CookieBanner } from './CookieBanner';
-export { CookieConsentForm, type OnConsentSubmit } from './CookieConsentForm';
+export * from './CookieBanner';
+export * from './CookieConsentForm';

@@ -1,27 +1,26 @@
 'use client';
 
-import { Button, CheckboxWithText } from '@/components';
+import { Button, CheckboxWithText } from '@/components/form';
 import { useToast } from '@/hooks';
-import { api } from '@/trpc';
+import { clientApi } from '@/trpc/Client';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export type OnConsentSubmit = {
-  onConsentSubmit: (isSubmitted: boolean) => void;
-};
-
-export const CookieConsentForm = ({ onConsentSubmit }: OnConsentSubmit) => {
+export const CookieConsentForm = () => {
   const [isChecked, setIsChecked] = useState(true);
 
+  const router = useRouter();
   const { toast } = useToast();
 
-  const createConsent = api.cookie.createConsent.useMutation({
+  const createConsent = clientApi.cookie.createConsent.useMutation({
     onSuccess: (data) => {
-      onConsentSubmit(true);
       toast({
         variant: data.status,
         title: data.title,
         description: data.message,
       });
+
+      router.refresh();
     },
   });
 
@@ -51,7 +50,7 @@ export const CookieConsentForm = ({ onConsentSubmit }: OnConsentSubmit) => {
       />
 
       <Button
-        aria-label='Acceptera valt samtycke'
+        aria-label='Acceptera samtycke'
         type='submit'
         disabled={!isChecked || createConsent.isPending}
       >

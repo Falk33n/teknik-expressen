@@ -1,12 +1,9 @@
-import { LargeMenuProducts } from '@/app/components';
-import { Link } from '@/components';
+import { LargeMenuProducts } from '@/app/components/menu';
+import type { HasActiveSession } from '@/app/layout';
+import { Link } from '@/components/ui';
 
-export const LargeMenu = ({
-  isAuthenticated,
-}: {
-  isAuthenticated?: boolean;
-}) => (
-  <ul className='flex items-center gap-6 whitespace-nowrap xl:gap-10'>
+export const LargeMenu = ({ hasActiveSession }: HasActiveSession) => (
+  <ul className='flex items-center gap-6 whitespace-nowrap max-lg:hidden xl:gap-10'>
     <li>
       <LargeMenuProducts />
     </li>
@@ -19,10 +16,10 @@ export const LargeMenu = ({
       <Link
         className='rounded-sm px-4 py-2'
         aria-live='polite'
-        aria-label={`Gå till sidan ${isAuthenticated ? 'Mitt konto' : 'Logga in'}`}
-        href={isAuthenticated ? '/account' : '/login'}
+        aria-label={`Gå till sidan ${hasActiveSession ? 'Mitt konto' : 'Logga in'}`}
+        href={hasActiveSession ? '/account' : '/login'}
       >
-        {isAuthenticated ? 'Mitt konto' : 'Logga in'}
+        {hasActiveSession ? 'Mitt konto' : 'Logga in'}
       </Link>
     </li>
     <li>

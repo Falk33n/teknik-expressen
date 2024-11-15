@@ -1,39 +1,34 @@
-'use client';
-
 import {
   SmallMenuContent,
-  ThemeToggle,
   type SmallMenuContentProps,
-} from '@/app/components';
-import { FaRegUser, MdOutlineShoppingCart, MdSupportAgent } from '@/components';
+} from '@/app/components/menu';
+import { ThemeToggle } from '@/app/components/theme';
+import type { HasActiveSession } from '@/app/layout';
+import { Fa6, Md } from '@/components/icons';
 import { Fragment } from 'react';
 
 const SMALL_MENU_CONTENTS: SmallMenuContentProps[] = [
   {
     href: '/cart',
-    Icon: MdOutlineShoppingCart,
+    Icon: Md.MdOutlineShoppingCart,
     text: 'Kundkorg',
     className: 'border-y',
   },
   {
     href: '/login',
-    Icon: FaRegUser,
+    Icon: Fa6.FaRegUser,
     text: 'Logga in',
     className: 'border-b',
   },
   {
     href: '/support',
-    Icon: MdSupportAgent,
+    Icon: Md.MdSupportAgent,
     text: 'Kundtjänst',
     className: 'border-b',
   },
 ];
 
-export const SmallMenuFooter = ({
-  isAuthenticated,
-}: {
-  isAuthenticated?: boolean;
-}) => (
+export const SmallMenuFooter = ({ hasActiveSession }: HasActiveSession) => (
   <div className='flex flex-col items-center justify-end gap-12 py-12 text-sm'>
     <ul className='flex w-full flex-col'>
       {SMALL_MENU_CONTENTS.map((content, i) => (
@@ -41,9 +36,9 @@ export const SmallMenuFooter = ({
           {content.text === 'Logga in' ? (
             <SmallMenuContent
               className={content.className}
-              href={isAuthenticated ? '/account' : content.href}
+              href={hasActiveSession ? '/account' : content.href}
               Icon={content.Icon}
-              text={isAuthenticated ? 'Mitt konto' : content.text}
+              text={hasActiveSession ? 'Mitt konto' : content.text}
             />
           ) : (
             <SmallMenuContent {...content} />

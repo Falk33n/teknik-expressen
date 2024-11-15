@@ -1,0 +1,10 @@
+export type { IconType } from 'react-icons';
+export * as Bs from 'react-icons/bs';
+export * as Fa6 from 'react-icons/fa6';
+export * as Hi from 'react-icons/hi';
+export * as Io5 from 'react-icons/io5';
+export * as Lia from 'react-icons/lia';
+export * as Lu from 'react-icons/lu';
+export * as Md from 'react-icons/md';
+export * as Rx from 'react-icons/rx';
+export * as Tb from 'react-icons/tb';

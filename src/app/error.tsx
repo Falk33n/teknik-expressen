@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/components';
+import { ErrorButton, ErrorContainer } from '@/app/components/error';
 
 type ErrorProps = {
   error: Error & { digest?: string };

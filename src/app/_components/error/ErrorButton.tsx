@@ -1,5 +1,6 @@
-import { Button, Link, type ButtonProps } from '@/components';
-import { cn } from '@/lib';
+import { Button, type ButtonProps } from '@/components/form';
+import { Link } from '@/components/ui';
+import { cn } from '@/lib/utils';
 
 type ErrorButtonProps = ButtonProps & {
   href?: string;

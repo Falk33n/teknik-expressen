@@ -1,16 +1,44 @@
-import { InternalServerError } from '@/lib';
+import { TRPCError } from '@trpc/server';
 import type { TRPC_ERROR_CODE_KEY } from '@trpc/server/unstable-core-do-not-import';
-import { genSalt, hash } from 'bcryptjs';
 
-export const generateSaltHash = async (password: string) => {
-  try {
-    const salt = await genSalt(10);
-    const hashedPassword = await hash(password, salt);
-    return { salt, hashedPassword };
-  } catch {
-    throw new InternalServerError();
+export class ConflictError extends TRPCError {
+  public digest: string;
+
+  constructor(message: string) {
+    super({
+      code: 'CONFLICT',
+      message,
+    });
+    this.name = 'ConflictError';
+    this.digest = '409';
   }
-};
+}
+
+export class UnauthorizedError extends TRPCError {
+  public digest: string;
+
+  constructor(message: string) {
+    super({
+      code: 'UNAUTHORIZED',
+      message,
+    });
+    this.name = 'UnauthorizedError';
+    this.digest = '401';
+  }
+}
+
+export class InternalServerError extends TRPCError {
+  public digest: string;
+
+  constructor(message: string = 'Något gick fel') {
+    super({
+      code: 'INTERNAL_SERVER_ERROR',
+      message,
+    });
+    this.name = 'InternalServerError';
+    this.digest = '500';
+  }
+}
 
 export const parseTRPCErrorCode = (code: TRPC_ERROR_CODE_KEY) => {
   switch (code) {

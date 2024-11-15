@@ -1,20 +1,23 @@
-import { InternalServerError } from '@/lib';
-import type { NextRequest } from 'next/server';
+'use server';
+
+import { InternalServerError } from '@/lib/utils';
+import { cookies } from 'next/headers';
 
 type GetCookieConsentReturn =
-  | {
+  | Promise<{
       status: 'success' | 'no-content';
       message:
         | 'Hittade ingen samtyckes cookie'
         | 'Hittade en samtyckes cookie med värdet sant'
         | 'Hittade en samtyckes cookie med värdet falskt';
-      isConsentGiven?: boolean;
-    }
+      hasConsented?: boolean;
+    }>
   | never;
 
-export const getCookieConsent = (req: NextRequest): GetCookieConsentReturn => {
+export const getCookieConsent = async (): GetCookieConsentReturn => {
   try {
-    const consetCookie = req.cookies.get('cc');
+    const cookieStore = await cookies();
+    const consetCookie = cookieStore.get('cc');
 
     if (!consetCookie || !consetCookie.value) {
       return {
@@ -25,14 +28,14 @@ export const getCookieConsent = (req: NextRequest): GetCookieConsentReturn => {
       return {
         status: 'success',
         message: 'Hittade en samtyckes cookie med värdet falskt',
-        isConsentGiven: false,
+        hasConsented: false,
       };
     }
 
     return {
       status: 'success',
       message: 'Hittade en samtyckes cookie med värdet sant',
-      isConsentGiven: true,
+      hasConsented: true,
     };
   } catch {
     throw new InternalServerError();

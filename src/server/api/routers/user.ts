@@ -3,7 +3,7 @@ import {
   generateSaltHash,
   getCookieConsent,
   InternalServerError,
-} from '@/lib';
+} from '@/lib/utils';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { z } from 'zod';
 
@@ -63,7 +63,7 @@ export const userRouter = createTRPCRouter({
 
         const { salt, hashedPassword } = await generateSaltHash(input.password);
 
-        const consent = getCookieConsent(ctx.req);
+        const consent = await getCookieConsent();
         const isConsentGiven = consent.status === 'success' ? true : false;
 
         await Promise.all([

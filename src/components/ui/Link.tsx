@@ -1,4 +1,4 @@
-import { cn } from '@/lib';
+import { cn } from '@/lib/utils';
 import NextLink from 'next/link';
 import type { ComponentProps } from 'react';
 

@@ -1,13 +1,13 @@
 import {
   LargeMenuProductsList,
   type LargeMenuProductsListProps,
-} from '@/app/components';
+} from '@/app/components/menu';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components';
+} from '@/components/modals';
 
 const MENU_PRODUCTS_LISTS: LargeMenuProductsListProps[] = [
   {
@@ -64,7 +64,7 @@ export const LargeMenuProducts = () => (
     </DropdownMenuTrigger>
 
     <DropdownMenuContent
-      sideOffset={23}
+      sideOffset={21}
       className='flex w-[75vw] max-w-[700px] flex-wrap gap-x-10 gap-y-9 rounded-t-none p-4'
     >
       <DropdownMenuLabel className='sr-only'>

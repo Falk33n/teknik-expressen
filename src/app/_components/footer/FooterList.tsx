@@ -1,22 +1,20 @@
-import { FooterCertificate, FooterLink } from '@/app/components';
-import { Separator, Skeleton } from '@/components';
-import { cn } from '@/lib';
+import { FooterCertificate, FooterLink } from '@/app/components/footer';
+import type { HasActiveSession } from '@/app/layout';
+import { Separator } from '@/components/ui';
+import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 
-export type FooterListProps = {
+export type FooterListProps = HasActiveSession & {
   className: string;
   heading: { title: string; className?: string };
   content: { children: ReactNode; isAccountListItem?: boolean }[];
-  isAuthenticated?: boolean;
-  isLoading?: boolean;
 };
 
 export const FooterList = ({
   className,
   heading,
   content,
-  isAuthenticated,
-  isLoading,
+  hasActiveSession,
 }: FooterListProps) => (
   <>
     <ul
@@ -34,16 +32,10 @@ export const FooterList = ({
       {content.map((listItem, i) => (
         <li role='menuitem' key={i}>
           {listItem.isAccountListItem ? (
-            <>
-              {isLoading ? (
-                <Skeleton className='h-6 w-20 bg-primary/20' />
-              ) : (
-                <FooterLink
-                  href={isAuthenticated ? '/account' : '/login'}
-                  text={isAuthenticated ? 'Mitt konto' : 'Logga in'}
-                />
-              )}
-            </>
+            <FooterLink
+              href={hasActiveSession ? '/account' : '/login'}
+              text={hasActiveSession ? 'Mitt konto' : 'Logga in'}
+            />
           ) : (
             listItem.children
           )}
@@ -52,6 +44,7 @@ export const FooterList = ({
 
       {heading.title === 'Sociala medier' && <FooterCertificate />}
     </ul>
+
     <Separator />
   </>
 );

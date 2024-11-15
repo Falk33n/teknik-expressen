@@ -1,2 +1,2 @@
-export { ErrorButton } from './ErrorButton';
-export { ErrorContainer } from './ErrorContainer';
+export * from './ErrorButton';
+export * from './ErrorContainer';

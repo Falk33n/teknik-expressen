@@ -1,4 +1,5 @@
-import { DropdownMenuItem, Link } from '@/components';
+import { DropdownMenuItem } from '@/components/modals';
+import { Link } from '@/components/ui';
 
 export type LargeMenuProductsListProps = {
   category: string;

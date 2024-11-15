@@ -1,10 +1,8 @@
-'use client';
-
-import { RadixSeparator } from '@/components';
-import { cn } from '@/lib';
+import { cn } from '@/lib/utils';
+import * as Radix from '@radix-ui/react-separator';
 import type { ComponentProps } from 'react';
 
-type SeparatorProps = ComponentProps<typeof RadixSeparator>;
+type SeparatorProps = ComponentProps<typeof Radix.Separator>;
 
 export const Separator = ({
   className,
@@ -12,7 +10,7 @@ export const Separator = ({
   decorative = true,
   ...props
 }: SeparatorProps) => (
-  <RadixSeparator
+  <Radix.Separator
     decorative={decorative}
     orientation={orientation}
     className={cn(
@@ -23,4 +21,4 @@ export const Separator = ({
     {...props}
   />
 );
-Separator.displayName = RadixSeparator.displayName;
+Separator.displayName = Radix.Separator.displayName;

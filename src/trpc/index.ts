@@ -1,8 +1,8 @@
-export { createQueryClient } from './query-client';
-export { TRPCReactProvider, api, getBaseUrl } from './react';
+export * from './query-client';
 
-// can't import from server.ts
-/* ERROR MESSAGE: You're importing a component that needs "next/headers".
- * That only works in a Server Component which is not supported in the pages/ directory.
- * Read more: https://nextjs.org/docs/getting-started/react-essentials#server-components
- */
+// you CAN import from Client.tsx but I choose not to.
+// since it will make the imports easier to understand directly.
+
+// **IMPORTANT**
+// DO NOT blend exports from server.ts with the other exports.
+// since its strict server only and will cause a error to be thrown.

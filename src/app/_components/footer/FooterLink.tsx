@@ -1,4 +1,4 @@
-import { Link } from '@/components';
+import { Link } from '@/components/ui';
 
 type FooterLinkProps = {
   text: string;
