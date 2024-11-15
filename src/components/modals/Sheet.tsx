@@ -1,7 +1,11 @@
-'use client';
-
-import { Icons } from '@/components';
-import { cn } from '@/lib';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/feedback';
+import { Rx } from '@/components/icons';
+import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';
 import type { ComponentProps } from 'react';
@@ -67,15 +71,25 @@ export const SheetContent = ({
       {...props}
     >
       <div className='sticky top-0 flex w-full items-center justify-end bg-accent px-4 py-3'>
-        <Radix.DialogClose
-          aria-label='Stäng'
-          className='rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:p-2'
-        >
-          <Icons.RxCross2
-            aria-hidden
-            className='size-4 scale-125 sm:scale-150'
-          />
-        </Radix.DialogClose>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Radix.DialogClose
+                aria-label='Stäng menyn'
+                className='rounded-sm p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary sm:p-2'
+              >
+                <Rx.RxCross2
+                  aria-hidden
+                  className='size-4 scale-125 sm:scale-150'
+                />
+              </Radix.DialogClose>
+            </TooltipTrigger>
+
+            <TooltipContent aria-hidden side='bottom' sideOffset={10}>
+              <p>Stäng menyn</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
 
       {children}

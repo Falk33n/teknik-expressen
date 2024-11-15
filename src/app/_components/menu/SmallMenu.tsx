@@ -4,10 +4,17 @@ import {
   SmallMenuFooter,
   SmallMenuList,
   type SmallMenuListProps,
-} from '@/app/components';
+} from '@/app/components/menu';
+import type { HasActiveSession } from '@/app/layout';
 import {
-  Button,
-  Icons,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/feedback';
+import { Button } from '@/components/form';
+import { Bs, Fa6, Hi, Io5, Lu, Md, Tb } from '@/components/icons';
+import {
   Sheet,
   SheetContent,
   SheetDescription,
@@ -15,123 +22,119 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components';
+} from '@/components/modals';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const SMALL_MENU_LISTS: SmallMenuListProps[] = [
   {
-    trigger: { Icon: Icons.BsMouse2, text: 'Datorutrustning' },
+    trigger: { Icon: Bs.BsMouse2, text: 'Datorutrustning' },
     content: [
       {
         href: '',
-        Icon: Icons.FaRegKeyboard,
+        Icon: Fa6.FaRegKeyboard,
         text: 'Tangentbord',
       },
       {
         href: '',
-        Icon: Icons.BsMouse2,
+        Icon: Bs.BsMouse2,
         text: 'Datormöss',
       },
       {
         href: '',
-        Icon: Icons.BsHeadset,
+        Icon: Bs.BsHeadset,
         text: 'Hörlurar',
       },
     ],
   },
   {
-    trigger: { Icon: Icons.HiOutlineDesktopComputer, text: 'Datorer' },
+    trigger: { Icon: Hi.HiOutlineDesktopComputer, text: 'Datorer' },
     content: [
       {
         href: '',
-        Icon: Icons.IoLaptopOutline,
+        Icon: Io5.IoLaptopOutline,
         text: 'Bärbara datorer',
       },
       {
         href: '',
-        Icon: Icons.HiOutlineDesktopComputer,
+        Icon: Hi.HiOutlineDesktopComputer,
         text: 'Stationära datorer',
       },
     ],
   },
   {
-    trigger: { Icon: Icons.TbDeviceIpad, text: 'Surfplattor' },
+    trigger: { Icon: Tb.TbDeviceIpad, text: 'Surfplattor' },
     content: [
       {
         href: '',
-        Icon: Icons.TbDeviceIpad,
+        Icon: Tb.TbDeviceIpad,
         text: 'Samsungs surfplattor',
       },
       {
         href: '',
-        Icon: Icons.TbDeviceIpad,
+        Icon: Tb.TbDeviceIpad,
         text: 'Apples surfplattor',
       },
     ],
   },
   {
-    trigger: { Icon: Icons.IoPhonePortraitOutline, text: 'Mobiltelefoner' },
+    trigger: { Icon: Io5.IoPhonePortraitOutline, text: 'Mobiltelefoner' },
     content: [
       {
         href: '',
-        Icon: Icons.IoPhonePortraitSharp,
+        Icon: Io5.IoPhonePortraitSharp,
         text: 'Samsungs mobiltelefoner',
       },
       {
         href: '',
-        Icon: Icons.IoPhonePortraitOutline,
+        Icon: Io5.IoPhonePortraitOutline,
         text: 'Apples mobiltelefoner',
       },
     ],
   },
   {
-    trigger: { Icon: Icons.IoTvOutline, text: 'TV' },
+    trigger: { Icon: Io5.IoTvOutline, text: 'TV' },
     content: [
       {
         href: '',
-        Icon: Icons.IoTv,
+        Icon: Io5.IoTv,
         text: '48-60 Tums TV',
       },
       {
         href: '',
-        Icon: Icons.IoTv,
+        Icon: Io5.IoTv,
         text: '65-70 Tums TV',
       },
       {
         href: '',
-        Icon: Icons.IoTv,
+        Icon: Io5.IoTv,
         text: '75-85 Tums TV',
       },
     ],
   },
   {
-    trigger: { Icon: Icons.LuCable, text: 'Tillbehör' },
+    trigger: { Icon: Lu.LuCable, text: 'Tillbehör' },
     content: [
       {
         href: '',
-        Icon: Icons.BsLightningCharge,
+        Icon: Bs.BsLightningCharge,
         text: 'Laddare',
       },
       {
         href: '',
-        Icon: Icons.LuCable,
+        Icon: Lu.LuCable,
         text: 'Datorkablar',
       },
       {
         href: '',
-        Icon: Icons.MdOutlineDevicesOther,
+        Icon: Md.MdOutlineDevicesOther,
         text: 'Övriga tillbehör',
       },
     ],
   },
 ];
 
-export const SmallMenu = ({
-  isAuthenticated,
-}: {
-  isAuthenticated?: boolean;
-}) => {
+export const SmallMenu = ({ hasActiveSession }: HasActiveSession) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
@@ -141,37 +144,54 @@ export const SmallMenu = ({
   }, [pathname]);
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetTrigger asChild>
-        <Button
-          aria-label='Öppna eller dölj menyn'
-          variant='outline'
-          size='icon'
-          className='p-2 sm:size-10'
-          onClick={() => setIsOpen(true)}
-        >
-          <Icons.FaBars aria-hidden className='sm:scale-110' />
-        </Button>
-      </SheetTrigger>
+    <div className='lg:hidden'>
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <TooltipProvider>
+          <Tooltip>
+            <SheetTrigger asChild>
+              <TooltipTrigger asChild>
+                <Button
+                  aria-label='Öppna menyn'
+                  variant='outline'
+                  size='icon'
+                  className='p-2 sm:size-10'
+                  onClick={() => setIsOpen(true)}
+                >
+                  <Fa6.FaBars aria-hidden className='sm:scale-110' />
+                </Button>
+              </TooltipTrigger>
+            </SheetTrigger>
 
-      <SheetContent className='overflow-y-auto'>
-        <SheetHeader>
-          <SheetTitle className='sr-only'>Meny</SheetTitle>
+            <TooltipContent
+              className='focus-visible:outline-none'
+              side='bottom'
+              sideOffset={10}
+              aria-hidden
+            >
+              <p>Öppna menyn</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
-          <SheetDescription className='sr-only'>
-            Navigera till olika sidor inom denna webbplats
-          </SheetDescription>
-        </SheetHeader>
+        <SheetContent className='max-h-screen overflow-y-auto'>
+          <SheetHeader>
+            <SheetTitle className='sr-only'>Meny</SheetTitle>
 
-        {SMALL_MENU_LISTS.map((props, i) => (
-          <SmallMenuList key={i} {...props} />
-        ))}
+            <SheetDescription className='sr-only'>
+              Navigera till olika sidor inom denna webbplats
+            </SheetDescription>
+          </SheetHeader>
 
-        <SheetFooter className='flex-1'>
-          <SmallMenuFooter isAuthenticated={isAuthenticated} />
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+          {SMALL_MENU_LISTS.map((props, i) => (
+            <SmallMenuList key={i} {...props} />
+          ))}
+
+          <SheetFooter className='flex-1'>
+            <SmallMenuFooter hasActiveSession={hasActiveSession} />
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 };
 SmallMenu.displayName = 'SmallMenu';
