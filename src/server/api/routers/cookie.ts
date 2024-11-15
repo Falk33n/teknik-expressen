@@ -1,4 +1,4 @@
-import { getCookieConsent, InternalServerError } from '@/lib';
+import { getCookieConsent, InternalServerError } from '@/lib/utils';
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { serialize } from 'cookie';
 import { z } from 'zod';
@@ -35,5 +35,5 @@ export const cookieRouter = createTRPCRouter({
       }
     }),
 
-  getConsent: publicProcedure.query(({ ctx }) => getCookieConsent(ctx.req)),
+  getConsent: publicProcedure.query(async () => await getCookieConsent()),
 });
