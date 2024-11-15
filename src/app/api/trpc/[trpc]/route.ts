@@ -1,20 +1,10 @@
 import { env } from '@/env';
-import { appRouter } from '@/server';
+import { appRouter } from '@/server/api';
 import { createTRPCContext } from '@/server/api/trpc';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 import type { NextRequest } from 'next/server';
 
-/**
- * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
- * handling a HTTP request (e.g. when you make requests from Client Components).
- */
-const createContext = async (
-  req: NextRequest,
-  /**
-   * `resHeaders` allows response headers to be sent, which allows for creating and setting cookies in the browser.
-   */
-  resHeaders: Headers,
-) =>
+const createContext = async (req: NextRequest, resHeaders: Headers) =>
   await createTRPCContext({
     req,
     resHeaders,
