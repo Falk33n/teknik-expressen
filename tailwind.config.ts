@@ -1,4 +1,4 @@
-import { type Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 import tailwindCssAnimate from 'tailwindcss-animate';
 
 export default {
