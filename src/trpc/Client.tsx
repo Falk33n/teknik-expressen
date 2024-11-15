@@ -1,6 +1,6 @@
 'use client';
 
-import { type AppRouter } from '@/server';
+import type { AppRouter } from '@/server/api';
 import { createQueryClient } from '@/trpc';
 import { QueryClientProvider, type QueryClient } from '@tanstack/react-query';
 import { httpBatchLink, loggerLink } from '@trpc/client';
@@ -12,22 +12,19 @@ let clientQueryClientSingleton: QueryClient | undefined = undefined;
 
 const getQueryClient = () => {
   if (typeof window === 'undefined') {
-    // Server: always make a new query client
     return createQueryClient();
   } else {
-    // Browser: use singleton pattern to keep the same query client
     return (clientQueryClientSingleton ??= createQueryClient());
   }
 };
 
-export const api = createTRPCReact<AppRouter>();
-const Api = api;
+export const clientApi = createTRPCReact<AppRouter>();
 
-export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
+export const TRPCProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = getQueryClient();
 
   const [trpcClient] = useState(() =>
-    api.createClient({
+    clientApi.createClient({
       links: [
         loggerLink({
           enabled: (op) =>
@@ -49,15 +46,15 @@ export const TRPCReactProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Api.Provider client={trpcClient} queryClient={queryClient}>
+      <clientApi.Provider client={trpcClient} queryClient={queryClient}>
         {children}
-      </Api.Provider>
+      </clientApi.Provider>
     </QueryClientProvider>
   );
 };
-TRPCReactProvider.displayName = 'TRPCReactProvider';
+TRPCProvider.displayName = 'TRPCProvider';
 
-export const getBaseUrl = () => {
+const getBaseUrl = () => {
   if (typeof window !== 'undefined') {
     return window.location.origin;
   } else if (process.env.VERCEL_URL) {
