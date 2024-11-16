@@ -20,8 +20,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/app/layout/*": ["./src/app/_layout/*"],
-      "@/app/error/components": ["./src/app/_error/components/index.ts"],
+      "@/app/root/*": ["./src/app/_root/*"],
       "@/app/session/components": ["./src/app/(session)/_components/index.ts"],
       "@/app/session/login/components": [
         "./src/app/(session)/login/_components/index.ts"
