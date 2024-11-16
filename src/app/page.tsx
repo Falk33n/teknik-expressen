@@ -1,4 +1,4 @@
-const Root = () => <div className='mt-[150vh]'></div>;
+const Root = () => <div></div>;
 Root.displayName = 'Root';
 
 export default Root;

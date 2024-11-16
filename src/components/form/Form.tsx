@@ -1,6 +1,6 @@
 'use client';
 
-import { Label } from '@/components/form';
+import { Label } from '@/components';
 import { cn } from '@/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { type ComponentProps, createContext, useContext, useId } from 'react';

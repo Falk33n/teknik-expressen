@@ -1,4 +1,4 @@
-import { Rx } from '@/components/icons';
+import { Rx } from '@/components';
 import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-toast';
 import { cva, type VariantProps } from 'class-variance-authority';

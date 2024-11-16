@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/components/error';
+import { ErrorButton, ErrorContainer } from '@/app/_root/error/components';
 import '@/styles/globals.css';
 import { Inter } from 'next/font/google';
 

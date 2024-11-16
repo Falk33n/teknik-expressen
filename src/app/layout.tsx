@@ -1,5 +1,4 @@
-import { LayoutWrapper } from '@/app/components/LayoutWrapper';
-import { ThemeProvider } from '@/app/components/providers';
+import { LayoutWrapper, ThemeProvider } from '@/app/_root/layout/components';
 import '@/styles/globals.css';
 import { TRPCProvider } from '@/trpc/Client';
 import type { Metadata } from 'next';
@@ -18,8 +17,6 @@ export const metadata: Metadata = {
   title: 'TeknikExpressen | Sveriges största teknik e-handel',
   description: 'TeknikExpressen är en e-handel inom teknik',
 };
-
-export type HasActiveSession = { hasActiveSession?: boolean };
 
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang='sv' suppressHydrationWarning>

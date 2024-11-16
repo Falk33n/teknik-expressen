@@ -1,5 +1,4 @@
-import { Label } from '@/components/form';
-import { Rx } from '@/components/icons';
+import { Label, Rx } from '@/components';
 import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-checkbox';
 import type { ComponentProps, ReactNode } from 'react';

@@ -19,10 +19,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/layout": ["./src/app/layout.tsx"],
-      "@/app/components/*": ["./src/app/_components/*"],
-      "@/app/session/components": ["./src/app/(session)/_components/index.ts"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
