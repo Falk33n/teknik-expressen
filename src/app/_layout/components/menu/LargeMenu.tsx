@@ -1,5 +1,5 @@
-import { LargeMenuProducts } from '@/app/components/menu';
-import type { HasActiveSession } from '@/app/layout';
+import { LargeMenuProducts } from '@/app/layout/components/menu';
+import type { HasActiveSession } from '@/app/layout/lib';
 import { Link } from '@/components/ui';
 
 export const LargeMenu = ({ hasActiveSession }: HasActiveSession) => (

@@ -1,4 +1,4 @@
-import { CookieConsentForm } from '@/app/components/cookie';
+import { CookieConsentForm } from '@/app/layout/components/cookie-consent';
 import { LogoReadonly } from '@/components/ui';
 
 export const CookieBanner = () => (

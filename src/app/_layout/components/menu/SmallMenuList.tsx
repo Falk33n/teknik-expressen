@@ -1,4 +1,4 @@
-import { SmallMenuContent } from '@/app/components/menu';
+import { SmallMenuContent } from '@/app/layout/components/menu';
 import {
   Accordion,
   AccordionContent,

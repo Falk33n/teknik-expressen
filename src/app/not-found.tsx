@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/components/error';
+import { ErrorButton, ErrorContainer } from '@/app/error/components';
 import { usePathname } from 'next/navigation';
 
 const NotFound = () => {

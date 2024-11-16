@@ -1,6 +1,6 @@
-import { MenuWrapper } from '@/app/components/menu';
-import { Searchbar } from '@/app/components/navbar';
-import type { HasActiveSession } from '@/app/layout';
+import { MenuWrapper } from '@/app/layout/components/menu';
+import { Searchbar } from '@/app/layout/components/navbar';
+import type { HasActiveSession } from '@/app/layout/lib';
 import { Logo } from '@/components/ui';
 
 export const Navbar = ({ hasActiveSession }: HasActiveSession) => (
