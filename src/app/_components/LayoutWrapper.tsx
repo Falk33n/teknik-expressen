@@ -22,7 +22,7 @@ export const LayoutWrapper = async ({ children }: { children: ReactNode }) => {
 
       <main
         id='main-content'
-        className='mx-auto flex w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'
+        className='mx-auto flex min-h-[86vh] w-full flex-col bg-background lg:w-[90vw] xl:w-[75vw]'
       >
         {children}
       </main>

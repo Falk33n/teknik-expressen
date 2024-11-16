@@ -14,7 +14,7 @@ export const ErrorContainer = ({
   errorMessage,
   children,
 }: ErrorContainerProps) => (
-  <section className='flex h-[85vh] flex-col items-center justify-center gap-6 px-4'>
+  <section className='flex h-[86vh] flex-col items-center justify-center gap-6 px-4'>
     <figure aria-hidden>
       <Image
         width={200}
