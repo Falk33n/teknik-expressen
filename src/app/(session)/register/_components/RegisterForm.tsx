@@ -2,6 +2,7 @@
 
 import {
   Button,
+  Fa6,
   Form,
   FormControl,
   FormDescription,
@@ -10,8 +11,7 @@ import {
   FormLabel,
   FormMessage,
   Input,
-} from '@/components/form';
-import { Fa6 } from '@/components/icons';
+} from '@/components';
 import { useToast } from '@/hooks';
 import { omitKeys } from '@/lib/utils';
 import { clientApi } from '@/trpc/Client';

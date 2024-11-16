@@ -1,11 +1,11 @@
 import {
+  Button,
+  Link,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/feedback';
-import { Button } from '@/components/form';
-import { Link } from '@/components/ui';
+} from '@/components';
 import Image from 'next/image';
 
 export const FooterCertificate = () => (

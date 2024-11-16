@@ -1,9 +1,6 @@
 'use client';
 
-import type {
-  ToastAction,
-  Toast as ToastComponent,
-} from '@/components/feedback';
+import type { ToastAction, Toast as ToastComponent } from '@/components';
 import {
   useEffect,
   useState,

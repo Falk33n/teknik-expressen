@@ -1,13 +1,13 @@
 import {
   LargeMenuProductsList,
   type LargeMenuProductsListProps,
-} from '@/app/root/layout/components/menu';
+} from '@/app/_root/layout/components';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from '@/components/modals';
+} from '@/components';
 
 const MENU_PRODUCTS_LISTS: LargeMenuProductsListProps[] = [
   {

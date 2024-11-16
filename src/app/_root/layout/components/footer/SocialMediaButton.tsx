@@ -1,12 +1,12 @@
 import {
+  Button,
+  Fa6,
+  Link,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/feedback';
-import { Button } from '@/components/form';
-import { Fa6 } from '@/components/icons';
-import { Link } from '@/components/ui';
+} from '@/components';
 import { cn } from '@/lib/utils';
 
 type SocialMediaButtonProps = {

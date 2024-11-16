@@ -1,9 +1,6 @@
-import {
-  FooterCertificate,
-  FooterLink,
-} from '@/app/root/layout/components/footer';
-import type { HasActiveSession } from '@/app/root/layout/lib/types';
-import { Separator } from '@/components/ui';
+import { FooterCertificate, FooterLink } from '@/app/_root/layout/components';
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
+import { Separator } from '@/components';
 import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';
 

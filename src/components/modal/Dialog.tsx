@@ -1,4 +1,4 @@
-import { Rx } from '@/components/icons';
+import { Rx } from '@/components';
 import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-dialog';
 import type { ComponentProps } from 'react';

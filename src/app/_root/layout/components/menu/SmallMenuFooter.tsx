@@ -1,10 +1,10 @@
 import {
   SmallMenuContent,
+  ThemeToggle,
   type SmallMenuContentProps,
-} from '@/app/root/layout/components/menu';
-import { ThemeToggle } from '@/app/root/layout/components/theme';
-import type { HasActiveSession } from '@/app/root/layout/lib/types';
-import { Fa6, Md } from '@/components/icons';
+} from '@/app/_root/layout/components';
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
+import { Fa6, Md } from '@/components';
 import { Fragment } from 'react';
 
 const SMALL_MENU_CONTENTS: SmallMenuContentProps[] = [

@@ -1,4 +1,4 @@
-import { SmallMenuContent } from '@/app/root/layout/components/menu';
+import { SmallMenuContent } from '@/app/_root/layout/components';
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +7,7 @@ import {
   IconWithText,
   type IconWithTextProps,
   type LinkIconWithTextProps,
-} from '@/components/ui';
+} from '@/components';
 import { cn } from '@/lib/utils';
 
 export type SmallMenuListProps = {

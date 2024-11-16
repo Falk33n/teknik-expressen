@@ -1,9 +1,12 @@
 'use server';
 
-import { CookieBanner } from '@/app/root/layout/components/cookie-consent';
-import { Toaster } from '@/app/root/layout/components/feedback';
-import { Footer } from '@/app/root/layout/components/footer';
-import { Navbar, Topbar } from '@/app/root/layout/components/navbar';
+import {
+  CookieBanner,
+  Footer,
+  Navbar,
+  Toaster,
+  Topbar,
+} from '@/app/_root/layout/components';
 import { serverApi } from '@/trpc/server';
 import type { ReactNode } from 'react';
 

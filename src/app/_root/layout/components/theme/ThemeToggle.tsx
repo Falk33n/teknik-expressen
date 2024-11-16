@@ -1,14 +1,14 @@
 'use client';
 
 import {
+  Button,
+  Rx,
+  Skeleton,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/feedback';
-import { Button } from '@/components/form';
-import { Rx } from '@/components/icons';
-import { Skeleton } from '@/components/ui';
+} from '@/components';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';

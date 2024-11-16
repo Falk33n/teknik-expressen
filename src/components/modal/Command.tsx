@@ -1,7 +1,6 @@
 'use client';
 
-import { Rx } from '@/components/icons';
-import { Dialog, DialogContent } from '@/components/modals';
+import { Dialog, DialogContent, Rx } from '@/components';
 import { cn } from '@/lib/utils';
 import type { DialogProps } from '@radix-ui/react-dialog';
 import * as CMDK from 'cmdk';

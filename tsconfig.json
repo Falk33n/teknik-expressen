@@ -19,16 +19,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/root/*": ["./src/app/_root/*"],
-      "@/app/session/components": ["./src/app/(session)/_components/index.ts"],
-      "@/app/session/login/components": [
-        "./src/app/(session)/login/_components/index.ts"
-      ],
-      "@/app/session/register/components": [
-        "./src/app/(session)/register/_components/index.ts"
-      ],
-      "@/app/policies/*": ["./src/app/(policies)/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [

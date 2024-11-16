@@ -1,10 +1,10 @@
 import {
+  Link,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/feedback';
-import { Link } from '@/components/ui';
+} from '@/components';
 import { cn } from '@/lib/utils';
 import { Moul } from 'next/font/google';
 

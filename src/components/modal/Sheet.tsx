@@ -1,10 +1,10 @@
 import {
+  Rx,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/feedback';
-import { Rx } from '@/components/icons';
+} from '@/components';
 import { cn } from '@/lib/utils';
 import * as Radix from '@radix-ui/react-dialog';
 import { cva, type VariantProps } from 'class-variance-authority';

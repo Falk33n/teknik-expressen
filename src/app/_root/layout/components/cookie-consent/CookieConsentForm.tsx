@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, CheckboxWithText } from '@/components/form';
+import { Button, CheckboxWithText } from '@/components';
 import { useToast } from '@/hooks';
 import { clientApi } from '@/trpc/Client';
 import { useRouter } from 'next/navigation';

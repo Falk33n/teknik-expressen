@@ -7,8 +7,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/modals';
-import { Link } from '@/components/ui';
+  Link,
+} from '@/components';
 import { cn } from '@/lib/utils';
 import { type FocusEvent, useState } from 'react';
 

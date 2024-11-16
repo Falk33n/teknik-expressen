@@ -4,17 +4,16 @@ import {
   SmallMenuFooter,
   SmallMenuList,
   type SmallMenuListProps,
-} from '@/app/root/layout/components/menu';
-import type { HasActiveSession } from '@/app/root/layout/lib/types';
+} from '@/app/_root/layout/components';
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/feedback';
-import { Button } from '@/components/form';
-import { Bs, Fa6, Hi, Io5, Lu, Md, Tb } from '@/components/icons';
-import {
+  Bs,
+  Button,
+  Fa6,
+  Hi,
+  Io5,
+  Lu,
+  Md,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -22,7 +21,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/modals';
+  Tb,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 

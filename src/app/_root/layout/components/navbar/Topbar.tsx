@@ -1,11 +1,14 @@
 import {
+  IconWithText,
+  Io5,
+  Lia,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/feedback';
-import { Io5, Lia } from '@/components/icons';
-import { IconWithText, type IconWithTextProps } from '@/components/ui';
+  type IconWithTextProps,
+} from '@/components';
+
 const ICONS_WITH_TEXTS: IconWithTextProps[] = [
   {
     Icon: Lia.LiaAwardSolid,
