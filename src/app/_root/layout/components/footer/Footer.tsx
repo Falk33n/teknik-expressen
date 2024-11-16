@@ -5,7 +5,7 @@ import {
   type FooterListProps,
 } from '@/app/root/layout/components/footer';
 import { ThemeToggle } from '@/app/root/layout/components/theme';
-import type { HasActiveSession } from '@/app/root/layout/lib';
+import type { HasActiveSession } from '@/app/root/layout/lib/types';
 import { Fragment } from 'react';
 
 const FOOTER_LISTS: FooterListProps[] = [

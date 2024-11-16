@@ -5,7 +5,7 @@ import {
   SmallMenuList,
   type SmallMenuListProps,
 } from '@/app/root/layout/components/menu';
-import type { HasActiveSession } from '@/app/root/layout/lib';
+import type { HasActiveSession } from '@/app/root/layout/lib/types';
 import {
   Tooltip,
   TooltipContent,

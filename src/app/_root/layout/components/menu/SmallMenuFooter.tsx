@@ -3,7 +3,7 @@ import {
   type SmallMenuContentProps,
 } from '@/app/root/layout/components/menu';
 import { ThemeToggle } from '@/app/root/layout/components/theme';
-import type { HasActiveSession } from '@/app/root/layout/lib';
+import type { HasActiveSession } from '@/app/root/layout/lib/types';
 import { Fa6, Md } from '@/components/icons';
 import { Fragment } from 'react';
 

@@ -2,7 +2,7 @@ import {
   FooterCertificate,
   FooterLink,
 } from '@/app/root/layout/components/footer';
-import type { HasActiveSession } from '@/app/root/layout/lib';
+import type { HasActiveSession } from '@/app/root/layout/lib/types';
 import { Separator } from '@/components/ui';
 import { cn } from '@/lib/utils';
 import type { ReactNode } from 'react';

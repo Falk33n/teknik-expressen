@@ -27,7 +27,8 @@
       ],
       "@/app/session/register/components": [
         "./src/app/(session)/register/_components/index.ts"
-      ]
+      ],
+      "@/app/policies/*": ["./src/app/(policies)/*"]
     }
   },
   "include": [
