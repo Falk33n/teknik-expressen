@@ -59,13 +59,13 @@ const MENU_PRODUCTS_LISTS: LargeMenuProductsListProps[] = [
 
 export const LargeMenuProducts = () => (
   <DropdownMenu>
-    <DropdownMenuTrigger className='rounded-sm px-4 py-2 underline-offset-2 transition-colors hover:text-primary hover:underline hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary'>
+    <DropdownMenuTrigger className='rounded-sm px-4 py-2 underline-offset-2 transition-colors hover:text-primary hover:underline hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary max-lg:hidden'>
       Produkter
     </DropdownMenuTrigger>
 
     <DropdownMenuContent
       sideOffset={21}
-      className='flex w-[75vw] max-w-[700px] flex-wrap gap-x-10 gap-y-9 rounded-t-none p-4'
+      className='flex w-[75vw] max-w-[700px] flex-wrap gap-x-10 gap-y-9 rounded-t-none p-4 max-lg:hidden'
     >
       <DropdownMenuLabel className='sr-only'>
         Lista med alla produkter

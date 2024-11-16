@@ -80,7 +80,7 @@ type CommandGroupProps = ComponentProps<typeof CMDK.CommandGroup>;
 export const CommandGroup = ({ className, ...props }: CommandGroupProps) => (
   <CMDK.CommandGroup
     className={cn(
-      'text-foreground [&[cmdk-group-heading]]:text-sm [&[cmdk-group-heading]]:font-bold [&[cmdk-group-heading]]:text-accent-foreground [&[cmdk-item]]:mt-3 [&[cmdk-item]]:text-sm [&[cmdk-item]]:sm:mt-5',
+      'flex flex-col text-foreground [&[cmdk-group-heading]]:text-sm [&[cmdk-group-heading]]:font-bold [&[cmdk-group-heading]]:text-accent-foreground [&[cmdk-item]]:mt-3 [&[cmdk-item]]:text-sm [&[cmdk-item]]:sm:mt-5',
       className,
     )}
     {...props}

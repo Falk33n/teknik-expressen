@@ -74,7 +74,10 @@ export const Searchbar = ({ className }: SearchbarProps) => {
 
             <CommandItem value='test'>
               {/* REPLACE WITH A CARD THAT INCLUDES BOTH A IMAGE AND THE NAME AND THE CATEGORY WRAPPED BY A LINK */}
-              <Link href='/' className='-ml-2 rounded-md px-2 py-1.5'>
+              <Link
+                href='/'
+                className='-ml-2 w-full rounded-md px-2 py-1.5 focus-visible:bg-accent focus-visible:text-primary'
+              >
                 Test
               </Link>
             </CommandItem>
