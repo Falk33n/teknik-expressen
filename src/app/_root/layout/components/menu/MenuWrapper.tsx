@@ -1,5 +1,5 @@
-import { LargeMenu, SmallMenu } from '@/app/layout/components/menu';
-import type { HasActiveSession } from '@/app/layout/lib';
+import { LargeMenu, SmallMenu } from '@/app/root/layout/components/menu';
+import type { HasActiveSession } from '@/app/root/layout/lib';
 
 export const MenuWrapper = ({ hasActiveSession }: HasActiveSession) => (
   <>

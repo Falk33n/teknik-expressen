@@ -1,9 +1,9 @@
 import {
   SmallMenuContent,
   type SmallMenuContentProps,
-} from '@/app/layout/components/menu';
-import { ThemeToggle } from '@/app/layout/components/theme';
-import type { HasActiveSession } from '@/app/layout/lib';
+} from '@/app/root/layout/components/menu';
+import { ThemeToggle } from '@/app/root/layout/components/theme';
+import type { HasActiveSession } from '@/app/root/layout/lib';
 import { Fa6, Md } from '@/components/icons';
 import { Fragment } from 'react';
 

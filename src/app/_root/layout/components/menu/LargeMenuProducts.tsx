@@ -1,7 +1,7 @@
 import {
   LargeMenuProductsList,
   type LargeMenuProductsListProps,
-} from '@/app/layout/components/menu';
+} from '@/app/root/layout/components/menu';
 import {
   DropdownMenu,
   DropdownMenuContent,

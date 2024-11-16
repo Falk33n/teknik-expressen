@@ -1,5 +1,5 @@
-import { ThemeProvider } from '@/app/layout/components/theme';
-import { LayoutWrapper } from '@/app/layout/components/wrappers';
+import { ThemeProvider } from '@/app/root/layout/components/theme';
+import { LayoutWrapper } from '@/app/root/layout/components/wrappers';
 import '@/styles/globals.css';
 import { TRPCProvider } from '@/trpc/Client';
 import type { Metadata } from 'next';

@@ -3,9 +3,9 @@ import {
   FooterList,
   SocialMediaButton,
   type FooterListProps,
-} from '@/app/layout/components/footer';
-import { ThemeToggle } from '@/app/layout/components/theme';
-import type { HasActiveSession } from '@/app/layout/lib';
+} from '@/app/root/layout/components/footer';
+import { ThemeToggle } from '@/app/root/layout/components/theme';
+import type { HasActiveSession } from '@/app/root/layout/lib';
 import { Fragment } from 'react';
 
 const FOOTER_LISTS: FooterListProps[] = [
