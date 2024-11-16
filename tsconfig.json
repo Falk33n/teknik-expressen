@@ -20,9 +20,15 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/app/layout": ["./src/app/layout.tsx"],
-      "@/app/components/*": ["./src/app/_components/*"],
-      "@/app/session/components": ["./src/app/(session)/_components/index.ts"]
+      "@/app/layout/*": ["./src/app/_layout/*"],
+      "@/app/error/components": ["./src/app/_error/components/index.ts"],
+      "@/app/session/components": ["./src/app/(session)/_components/index.ts"],
+      "@/app/session/login/components": [
+        "./src/app/(session)/login/_components/index.ts"
+      ],
+      "@/app/session/register/components": [
+        "./src/app/(session)/register/_components/index.ts"
+      ]
     }
   },
   "include": [
