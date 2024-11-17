@@ -30,8 +30,9 @@
     "next-env.d.ts",
     "postcss.config.mjs",
     ".next/types/**/*.ts",
-    ".eslintrc.json",
-    "components.json"
+    ".prettierrc.json",
+    "components.json",
+    ".eslintrc.json"
   ],
   "exclude": ["node_modules"]
 }
