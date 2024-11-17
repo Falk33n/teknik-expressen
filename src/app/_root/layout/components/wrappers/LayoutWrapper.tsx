@@ -7,7 +7,9 @@ import {
   Toaster,
   Topbar,
 } from '@/app/_root/layout/components';
+
 import { serverApi } from '@/trpc/server';
+
 import type { ReactNode } from 'react';
 
 export const LayoutWrapper = async ({ children }: { children: ReactNode }) => {

@@ -1,6 +1,7 @@
-import { MenuWrapper, Searchbar } from '@/app/_root/layout/components';
-import type { HasActiveSession } from '@/app/_root/layout/lib/types';
+import { LargeMenu, Searchbar, SmallMenu } from '@/app/_root/layout/components';
 import { Logo } from '@/components';
+
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
 
 export const Navbar = ({ hasActiveSession }: HasActiveSession) => (
   <nav
@@ -14,7 +15,9 @@ export const Navbar = ({ hasActiveSession }: HasActiveSession) => (
         <Searchbar className='max-sm:hidden' />
       </div>
 
-      <MenuWrapper hasActiveSession={hasActiveSession} />
+      <SmallMenu hasActiveSession={hasActiveSession} />
+
+      <LargeMenu hasActiveSession={hasActiveSession} />
     </div>
 
     <Searchbar className='sm:hidden' />

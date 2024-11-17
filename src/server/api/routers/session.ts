@@ -6,10 +6,12 @@ import {
   UnauthorizedError,
   verifyPassword,
 } from '@/lib/utils';
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+
 import { serialize } from 'cookie';
 import { SignJWT } from 'jose';
 import { z } from 'zod';
+
+import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 
 type CreateSessionReturn =
   | Promise<{

@@ -5,11 +5,15 @@ import {
   parseTRPCErrorCode,
   UnauthorizedError,
 } from '@/lib/utils';
-import { db } from '@/server';
-import { initTRPC, TRPCError } from '@trpc/server';
-import type { NextRequest } from 'next/server';
+
 import superjson from 'superjson';
 import { ZodError } from 'zod';
+
+import { db } from '@/server';
+
+import { initTRPC, TRPCError } from '@trpc/server';
+
+import type { NextRequest } from 'next/server';
 
 export const createTRPCContext = async (opts: {
   req: NextRequest;

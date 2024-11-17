@@ -1,9 +1,11 @@
 'use server';
 
-import { InternalServerError, UnauthorizedError } from '@/lib/utils';
 import { genSalt, hash } from 'bcryptjs';
 import { jwtVerify } from 'jose';
+
 import { cookies } from 'next/headers';
+
+import { InternalServerError, UnauthorizedError } from '@/lib/utils';
 
 export const getSecretJwtKey = async () => {
   const secretKey = process.env.SECRET_JWT_KEY;

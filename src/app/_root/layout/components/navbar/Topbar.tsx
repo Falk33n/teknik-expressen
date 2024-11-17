@@ -1,7 +1,8 @@
 import {
   IconWithText,
-  Io5,
-  Lia,
+  IoReloadSharp,
+  LiaAwardSolid,
+  LiaShippingFastSolid,
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -11,11 +12,11 @@ import {
 
 const ICONS_WITH_TEXTS: IconWithTextProps[] = [
   {
-    Icon: Lia.LiaAwardSolid,
+    Icon: LiaAwardSolid,
     text: 'Prismatch',
   },
   {
-    Icon: Io5.IoReloadSharp,
+    Icon: IoReloadSharp,
     iconClassName: 'scale-x-[-1]',
     text: (
       <>
@@ -39,7 +40,7 @@ const ICONS_WITH_TEXTS: IconWithTextProps[] = [
     ),
   },
   {
-    Icon: Lia.LiaShippingFastSolid,
+    Icon: LiaShippingFastSolid,
     text: (
       <>
         <TooltipProvider>

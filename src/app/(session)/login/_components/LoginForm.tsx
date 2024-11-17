@@ -4,7 +4,8 @@ import {
   Button,
   Checkbox,
   CheckboxWithText,
-  Fa6,
+  FaEye,
+  FaEyeSlash,
   Form,
   FormControl,
   FormDescription,
@@ -14,13 +15,16 @@ import {
   FormMessage,
   Input,
 } from '@/components';
+
 import { useToast } from '@/hooks';
-import { clientApi } from '@/trpc/Client';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+
+import { clientApi } from '@/trpc/Client';
 
 const LOGIN_SCHEMA = z.object({
   email: z
@@ -126,7 +130,7 @@ export const LoginForm = () => {
               render={({ field: formField }) => {
                 const isPasswordField = field.id === 'password';
                 const isCheckbox = field.Component === Checkbox;
-                const Icon = isPasswordVisible ? Fa6.FaEyeSlash : Fa6.FaEye;
+                const Icon = isPasswordVisible ? FaEyeSlash : FaEye;
 
                 return (
                   <FormItem className='relative sm:max-w-[90%] md:max-w-[600px]'>

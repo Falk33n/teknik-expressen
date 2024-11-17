@@ -1,4 +1,4 @@
-export * from './root';
+export { appRouter, createCaller, type AppRouter } from './root';
 
 // **IMPORTANT**
 // DO NOT blend exports from trpc.ts with the other exports.

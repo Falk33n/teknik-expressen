@@ -1,2 +1,3 @@
-export * from './CookieBanner';
-export * from './CookieConsentForm';
+export { CookieBanner } from './CookieBanner';
+
+export { CookieConsentForm } from './CookieConsentForm';

@@ -5,15 +5,21 @@ import {
   SmallMenuList,
   type SmallMenuListProps,
 } from '@/app/_root/layout/components';
-import type { HasActiveSession } from '@/app/_root/layout/lib/types';
 import {
-  Bs,
+  BsHeadset,
+  BsLightningCharge,
+  BsMouse2,
   Button,
-  Fa6,
-  Hi,
-  Io5,
-  Lu,
-  Md,
+  FaBars,
+  FaRegKeyboard,
+  HiOutlineDesktopComputer,
+  IoLaptopOutline,
+  IoPhonePortraitOutline,
+  IoPhonePortraitSharp,
+  IoTv,
+  IoTvOutline,
+  LuCable,
+  MdOutlineDevicesOther,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -21,117 +27,120 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  Tb,
+  TbDeviceIpad,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components';
+
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
+
 const SMALL_MENU_LISTS: SmallMenuListProps[] = [
   {
-    trigger: { Icon: Bs.BsMouse2, text: 'Datorutrustning' },
+    trigger: { Icon: BsMouse2, text: 'Datorutrustning' },
     content: [
       {
         href: '',
-        Icon: Fa6.FaRegKeyboard,
+        Icon: FaRegKeyboard,
         text: 'Tangentbord',
       },
       {
         href: '',
-        Icon: Bs.BsMouse2,
+        Icon: BsMouse2,
         text: 'Datormöss',
       },
       {
         href: '',
-        Icon: Bs.BsHeadset,
+        Icon: BsHeadset,
         text: 'Hörlurar',
       },
     ],
   },
   {
-    trigger: { Icon: Hi.HiOutlineDesktopComputer, text: 'Datorer' },
+    trigger: { Icon: HiOutlineDesktopComputer, text: 'Datorer' },
     content: [
       {
         href: '',
-        Icon: Io5.IoLaptopOutline,
+        Icon: IoLaptopOutline,
         text: 'Bärbara datorer',
       },
       {
         href: '',
-        Icon: Hi.HiOutlineDesktopComputer,
+        Icon: HiOutlineDesktopComputer,
         text: 'Stationära datorer',
       },
     ],
   },
   {
-    trigger: { Icon: Tb.TbDeviceIpad, text: 'Surfplattor' },
+    trigger: { Icon: TbDeviceIpad, text: 'Surfplattor' },
     content: [
       {
         href: '',
-        Icon: Tb.TbDeviceIpad,
+        Icon: TbDeviceIpad,
         text: 'Samsungs surfplattor',
       },
       {
         href: '',
-        Icon: Tb.TbDeviceIpad,
+        Icon: TbDeviceIpad,
         text: 'Apples surfplattor',
       },
     ],
   },
   {
-    trigger: { Icon: Io5.IoPhonePortraitOutline, text: 'Mobiltelefoner' },
+    trigger: { Icon: IoPhonePortraitOutline, text: 'Mobiltelefoner' },
     content: [
       {
         href: '',
-        Icon: Io5.IoPhonePortraitSharp,
+        Icon: IoPhonePortraitSharp,
         text: 'Samsungs mobiltelefoner',
       },
       {
         href: '',
-        Icon: Io5.IoPhonePortraitOutline,
+        Icon: IoPhonePortraitOutline,
         text: 'Apples mobiltelefoner',
       },
     ],
   },
   {
-    trigger: { Icon: Io5.IoTvOutline, text: 'TV' },
+    trigger: { Icon: IoTvOutline, text: 'TV' },
     content: [
       {
         href: '',
-        Icon: Io5.IoTv,
+        Icon: IoTv,
         text: '48-60 Tums TV',
       },
       {
         href: '',
-        Icon: Io5.IoTv,
+        Icon: IoTv,
         text: '65-70 Tums TV',
       },
       {
         href: '',
-        Icon: Io5.IoTv,
+        Icon: IoTv,
         text: '75-85 Tums TV',
       },
     ],
   },
   {
-    trigger: { Icon: Lu.LuCable, text: 'Tillbehör' },
+    trigger: { Icon: LuCable, text: 'Tillbehör' },
     content: [
       {
         href: '',
-        Icon: Bs.BsLightningCharge,
+        Icon: BsLightningCharge,
         text: 'Laddare',
       },
       {
         href: '',
-        Icon: Lu.LuCable,
+        Icon: LuCable,
         text: 'Datorkablar',
       },
       {
         href: '',
-        Icon: Md.MdOutlineDevicesOther,
+        Icon: MdOutlineDevicesOther,
         text: 'Övriga tillbehör',
       },
     ],
@@ -161,7 +170,7 @@ export const SmallMenu = ({ hasActiveSession }: HasActiveSession) => {
                   className='p-2 sm:size-10'
                   onClick={() => setIsOpen(true)}
                 >
-                  <Fa6.FaBars aria-hidden className='sm:scale-110' />
+                  <FaBars aria-hidden className='sm:scale-110' />
                 </Button>
               </TooltipTrigger>
             </SheetTrigger>

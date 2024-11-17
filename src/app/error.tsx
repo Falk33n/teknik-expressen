@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/_root/error/components';
+import { ErrorButton, ErrorContainer } from '@/app/_root/errors/components';
 
 type ErrorProps = {
   error: Error & { digest?: string };
@@ -27,5 +27,4 @@ const Error = ({ error, retry }: ErrorProps) => (
   </ErrorContainer>
 );
 Error.displayName = 'Error';
-
 export default Error;

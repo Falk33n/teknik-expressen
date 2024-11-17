@@ -1,6 +1,7 @@
 'use server';
 
 import { InternalServerError } from '@/lib/utils';
+
 import { cookies } from 'next/headers';
 
 type GetCookieConsentReturn =

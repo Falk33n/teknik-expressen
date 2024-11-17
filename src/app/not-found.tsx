@@ -1,6 +1,7 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/_root/error/components';
+import { ErrorButton, ErrorContainer } from '@/app/_root/errors/components';
+
 import { usePathname } from 'next/navigation';
 
 const NotFound = () => {
@@ -22,5 +23,4 @@ const NotFound = () => {
   );
 };
 NotFound.displayName = 'NotFound';
-
 export default NotFound;

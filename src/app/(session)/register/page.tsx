@@ -7,5 +7,4 @@ const Register = () => (
   </SessionContainer>
 );
 Register.displayName = 'Register';
-
 export default Register;

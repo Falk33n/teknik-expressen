@@ -1,26 +1,34 @@
-import { Rx } from '@/components';
+import {
+  RadixAccordion,
+  RadixAccordionContent,
+  RadixAccordionHeader,
+  RadixAccordionItem,
+  RadixAccordionTrigger,
+  RxChevronDown,
+} from '@/components';
+
 import { cn } from '@/lib/utils';
-import * as Radix from '@radix-ui/react-accordion';
+
 import type { ComponentProps } from 'react';
 
-export const Accordion = Radix.Accordion;
+export const Accordion = RadixAccordion;
 
-type AccordionItemProps = ComponentProps<typeof Radix.AccordionItem>;
+type AccordionItemProps = ComponentProps<typeof RadixAccordionItem>;
 
 export const AccordionItem = ({ className, ...props }: AccordionItemProps) => (
-  <Radix.AccordionItem className={cn(className)} {...props} />
+  <RadixAccordionItem className={cn(className)} {...props} />
 );
 AccordionItem.displayName = 'AccordionItem';
 
-type AccordionTriggerProps = ComponentProps<typeof Radix.AccordionTrigger>;
+type AccordionTriggerProps = ComponentProps<typeof RadixAccordionTrigger>;
 
 export const AccordionTrigger = ({
   className,
   children,
   ...props
 }: AccordionTriggerProps) => (
-  <Radix.AccordionHeader className='flex'>
-    <Radix.AccordionTrigger
+  <RadixAccordionHeader className='flex'>
+    <RadixAccordionTrigger
       className={cn(
         'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary [&[data-state=open]>svg]:rotate-180',
         className,
@@ -28,23 +36,23 @@ export const AccordionTrigger = ({
       {...props}
     >
       {children}
-      <Rx.RxChevronDown
+      <RxChevronDown
         aria-hidden
         className='size-4 shrink-0 text-muted-foreground transition-transform duration-200 sm:size-5'
       />
-    </Radix.AccordionTrigger>
-  </Radix.AccordionHeader>
+    </RadixAccordionTrigger>
+  </RadixAccordionHeader>
 );
-AccordionTrigger.displayName = Radix.AccordionTrigger.displayName;
+AccordionTrigger.displayName = RadixAccordionTrigger.displayName;
 
-type AccordionContentProps = ComponentProps<typeof Radix.AccordionContent>;
+type AccordionContentProps = ComponentProps<typeof RadixAccordionContent>;
 
 export const AccordionContent = ({
   className,
   children,
   ...props
 }: AccordionContentProps) => (
-  <Radix.AccordionContent
+  <RadixAccordionContent
     className={cn(
       'overflow-hidden border-y py-4 text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down',
       className,
@@ -52,6 +60,6 @@ export const AccordionContent = ({
     {...props}
   >
     {children}
-  </Radix.AccordionContent>
+  </RadixAccordionContent>
 );
-AccordionContent.displayName = Radix.AccordionContent.displayName;
+AccordionContent.displayName = RadixAccordionContent.displayName;

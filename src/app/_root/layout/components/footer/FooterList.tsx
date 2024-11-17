@@ -1,7 +1,10 @@
 import { FooterCertificate, FooterLink } from '@/app/_root/layout/components';
-import type { HasActiveSession } from '@/app/_root/layout/lib/types';
 import { Separator } from '@/components';
+
 import { cn } from '@/lib/utils';
+
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
+
 import type { ReactNode } from 'react';
 
 export type FooterListProps = HasActiveSession & {

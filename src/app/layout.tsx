@@ -1,9 +1,13 @@
-import { LayoutWrapper, ThemeProvider } from '@/app/_root/layout/components';
-import '@/styles/globals.css';
-import { TRPCProvider } from '@/trpc/Client';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+
+import { LayoutWrapper, ThemeProvider } from '@/app/_root/layout/components';
+
+import { TRPCProvider } from '@/trpc/Client';
+
 import type { ReactNode } from 'react';
+
+import '@/styles/globals.css';
 
 const inter = Inter({
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
@@ -35,5 +39,4 @@ const RootLayout = ({ children }: { children: ReactNode }) => (
   </html>
 );
 RootLayout.displayName = 'RootLayout';
-
 export default RootLayout;

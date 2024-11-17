@@ -1,10 +1,12 @@
 'use client';
 
-import { Button, CheckboxWithText } from '@/components';
 import { useToast } from '@/hooks';
-import { clientApi } from '@/trpc/Client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
+import { Button, CheckboxWithText } from '@/components';
+
+import { clientApi } from '@/trpc/Client';
 
 export const CookieConsentForm = () => {
   const [isChecked, setIsChecked] = useState(true);
