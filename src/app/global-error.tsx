@@ -1,8 +1,10 @@
 'use client';
 
-import { ErrorButton, ErrorContainer } from '@/app/_root/error/components';
-import '@/styles/globals.css';
+import { ErrorButton, ErrorContainer } from '@/app/_root/errors/components';
+
 import { Inter } from 'next/font/google';
+
+import '@/styles/globals.css';
 
 const inter = Inter({
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
@@ -43,5 +45,4 @@ const GlobalError = ({ error, retry }: ErrorProps) => (
   </html>
 );
 GlobalError.displayName = 'GlobalError';
-
 export default GlobalError;

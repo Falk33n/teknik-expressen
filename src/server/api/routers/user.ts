@@ -4,7 +4,9 @@ import {
   getCookieConsent,
   InternalServerError,
 } from '@/lib/utils';
+
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+
 import { z } from 'zod';
 
 type CreateUserReturn =

@@ -2,16 +2,19 @@
 
 import {
   Button,
-  Rx,
+  RxMoon,
+  RxSun,
   Skeleton,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components';
-import { cn } from '@/lib/utils';
+
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+
+import { cn } from '@/lib/utils';
 
 type ThemeToggleProps = {
   className?: string;
@@ -25,7 +28,7 @@ export const ThemeToggle = ({ className }: ThemeToggleProps) => {
   const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
   const currentThemeTranslated = currentTheme === 'light' ? 'ljust' : 'mörkt';
 
-  const Icon = currentTheme === 'light' ? Rx.RxSun : Rx.RxMoon;
+  const Icon = currentTheme === 'light' ? RxSun : RxMoon;
 
   useEffect(() => setMounted(true), []);
 

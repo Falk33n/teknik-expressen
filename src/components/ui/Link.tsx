@@ -1,5 +1,7 @@
-import { cn } from '@/lib/utils';
 import NextLink from 'next/link';
+
+import { cn } from '@/lib/utils';
+
 import type { ComponentProps } from 'react';
 
 export type LinkProps = Omit<ComponentProps<typeof NextLink>, 'href'> & {

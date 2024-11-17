@@ -1,6 +1,7 @@
-import { cn } from '@/lib/utils';
-import { Slot } from '@radix-ui/react-slot';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { RadixSlot } from '@/components';
+
+import { cn, cva, type VariantProps } from '@/lib/utils';
+
 import type { ComponentProps } from 'react';
 
 const buttonVariants = cva(
@@ -45,7 +46,7 @@ export const Button = ({
   asChild = false,
   ...props
 }: ButtonProps) => {
-  const Comp = asChild ? Slot : 'button';
+  const Comp = asChild ? RadixSlot : 'button';
 
   return (
     <Comp

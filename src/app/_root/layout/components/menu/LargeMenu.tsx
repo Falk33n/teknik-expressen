@@ -1,6 +1,7 @@
 import { LargeMenuProducts } from '@/app/_root/layout/components';
-import type { HasActiveSession } from '@/app/_root/layout/lib/types';
 import { Link } from '@/components';
+
+import type { HasActiveSession } from '@/app/_root/layout/lib/types';
 
 export const LargeMenu = ({ hasActiveSession }: HasActiveSession) => (
   <ul className='flex items-center gap-6 whitespace-nowrap max-lg:hidden xl:gap-10'>

@@ -1,4 +1,5 @@
 import { getSession, handleProtectedRouteMiddleware } from '@/lib/utils';
+
 import type { NextRequest } from 'next/server';
 
 export const middleware = async (req: NextRequest) => {

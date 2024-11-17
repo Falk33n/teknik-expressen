@@ -3,26 +3,28 @@ import {
   ThemeToggle,
   type SmallMenuContentProps,
 } from '@/app/_root/layout/components';
+import { FaRegUser, MdOutlineShoppingCart, MdSupportAgent } from '@/components';
+
 import type { HasActiveSession } from '@/app/_root/layout/lib/types';
-import { Fa6, Md } from '@/components';
+
 import { Fragment } from 'react';
 
 const SMALL_MENU_CONTENTS: SmallMenuContentProps[] = [
   {
     href: '/cart',
-    Icon: Md.MdOutlineShoppingCart,
+    Icon: MdOutlineShoppingCart,
     text: 'Kundkorg',
     className: 'border-y',
   },
   {
     href: '/login',
-    Icon: Fa6.FaRegUser,
+    Icon: FaRegUser,
     text: 'Logga in',
     className: 'border-b',
   },
   {
     href: '/support',
-    Icon: Md.MdSupportAgent,
+    Icon: MdSupportAgent,
     text: 'Kundtjänst',
     className: 'border-b',
   },

@@ -1,12 +1,15 @@
 import {
   Button,
-  Fa6,
+  FaFacebook,
+  FaInstagram,
+  FaYoutube,
   Link,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components';
+
 import { cn } from '@/lib/utils';
 
 type SocialMediaButtonProps = {
@@ -16,10 +19,10 @@ type SocialMediaButtonProps = {
 export const SocialMediaButton = ({ socialMedia }: SocialMediaButtonProps) => {
   const Icon =
     socialMedia === 'Facebook'
-      ? Fa6.FaFacebook
+      ? FaFacebook
       : socialMedia === 'YouTube'
-        ? Fa6.FaYoutube
-        : Fa6.FaInstagram;
+        ? FaYoutube
+        : FaInstagram;
 
   return (
     <TooltipProvider>

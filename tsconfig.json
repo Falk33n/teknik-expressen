@@ -23,17 +23,16 @@
     }
   },
   "include": [
-    "eslint.config.mjs",
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
+    "next-env.d.ts",
     "postcss.config.mjs",
     ".next/types/**/*.ts",
     ".prettierrc.json",
     "components.json",
-    "postcss.config.mjs"
+    ".eslintrc.json"
   ],
   "exclude": ["node_modules"]
 }

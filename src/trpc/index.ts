@@ -1,4 +1,4 @@
-export * from './query-client';
+export { createQueryClient } from './query-client';
 
 // you CAN import from Client.tsx but I choose not to.
 // since it will make the imports easier to understand directly.

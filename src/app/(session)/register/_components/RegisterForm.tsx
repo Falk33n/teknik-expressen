@@ -2,7 +2,8 @@
 
 import {
   Button,
-  Fa6,
+  FaEye,
+  FaEyeSlash,
   Form,
   FormControl,
   FormDescription,
@@ -12,14 +13,18 @@ import {
   FormMessage,
   Input,
 } from '@/components';
+
 import { useToast } from '@/hooks';
-import { omitKeys } from '@/lib/utils';
-import { clientApi } from '@/trpc/Client';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+
+import { omitKeys } from '@/lib/utils';
+
+import { clientApi } from '@/trpc/Client';
 
 const REGISTER_SCHEMA = z
   .object({
@@ -292,7 +297,7 @@ export const RegisterForm = () => {
             name={field.id}
             render={({ field: formField }) => {
               const isVisible = visibility[field.id];
-              const Icon = isVisible ? Fa6.FaEyeSlash : Fa6.FaEye;
+              const Icon = isVisible ? FaEyeSlash : FaEye;
 
               return (
                 <FormItem className='relative'>

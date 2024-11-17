@@ -1,7 +1,9 @@
-import { getCookieConsent, InternalServerError } from '@/lib/utils';
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 import { serialize } from 'cookie';
 import { z } from 'zod';
+
+import { getCookieConsent, InternalServerError } from '@/lib/utils';
+
+import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
 
 type CreateConsentReturn =
   | {

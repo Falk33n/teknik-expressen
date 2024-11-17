@@ -9,7 +9,9 @@ import {
   CommandList,
   Link,
 } from '@/components';
+
 import { cn } from '@/lib/utils';
+
 import { type FocusEvent, useState } from 'react';
 
 const searchbarStates = {

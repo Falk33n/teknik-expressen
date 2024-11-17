@@ -7,5 +7,4 @@ const Login = () => (
   </SessionContainer>
 );
 Login.displayName = 'Login';
-
 export default Login;

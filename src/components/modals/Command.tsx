@@ -1,15 +1,25 @@
-'use client';
+import {
+  CMDKCommand,
+  CMDKCommandEmpty,
+  CMDKCommandGroup,
+  CMDKCommandInput,
+  CMDKCommandItem,
+  CMDKCommandList,
+  CMDKCommandSeparator,
+  Dialog,
+  DialogContent,
+  RxMagnifyingGlass,
+  type RadixDialogProps,
+} from '@/components';
 
-import { Dialog, DialogContent, Rx } from '@/components';
 import { cn } from '@/lib/utils';
-import type { DialogProps } from '@radix-ui/react-dialog';
-import * as CMDK from 'cmdk';
+
 import type { ComponentProps } from 'react';
 
-type CommandProps = ComponentProps<typeof CMDK.Command>;
+type CommandProps = ComponentProps<typeof CMDKCommand>;
 
 export const Command = ({ className, ...props }: CommandProps) => (
-  <CMDK.Command
+  <CMDKCommand
     className={cn(
       'flex h-full flex-col rounded-sm bg-popover text-popover-foreground',
       className,
@@ -17,9 +27,9 @@ export const Command = ({ className, ...props }: CommandProps) => (
     {...props}
   />
 );
-Command.displayName = CMDK.Command.displayName;
+Command.displayName = CMDKCommand.displayName;
 
-type CommandDialogProps = DialogProps;
+type CommandDialogProps = RadixDialogProps;
 
 export const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
   <Dialog {...props}>
@@ -32,15 +42,15 @@ export const CommandDialog = ({ children, ...props }: CommandDialogProps) => (
 );
 CommandDialog.displayName = 'CommandDialog';
 
-type CommandInputProps = ComponentProps<typeof CMDK.CommandInput>;
+type CommandInputProps = ComponentProps<typeof CMDKCommandInput>;
 
 export const CommandInput = ({ className, ...props }: CommandInputProps) => (
   <div className='flex items-center justify-end px-4' cmdk-input-wrapper=''>
-    <Rx.RxMagnifyingGlass
+    <RxMagnifyingGlass
       aria-hidden
       className='mr-2 size-4 shrink-0 opacity-50 sm:size-5'
     />
-    <CMDK.CommandInput
+    <CMDKCommandInput
       className={cn(
         'flex h-10 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 sm:rounded-md',
         className,
@@ -49,12 +59,12 @@ export const CommandInput = ({ className, ...props }: CommandInputProps) => (
     />
   </div>
 );
-CommandInput.displayName = CMDK.CommandInput.displayName;
+CommandInput.displayName = CMDKCommandInput.displayName;
 
-type CommandListProps = ComponentProps<typeof CMDK.CommandList>;
+type CommandListProps = ComponentProps<typeof CMDKCommandList>;
 
 export const CommandList = ({ className, ...props }: CommandListProps) => (
-  <CMDK.CommandList
+  <CMDKCommandList
     className={cn(
       'max-h-[300px] overflow-y-auto overflow-x-hidden rounded-b-sm p-4',
       className,
@@ -62,22 +72,22 @@ export const CommandList = ({ className, ...props }: CommandListProps) => (
     {...props}
   />
 );
-CommandList.displayName = CMDK.CommandList.displayName;
+CommandList.displayName = CMDKCommandList.displayName;
 
-type CommandEmptyProps = ComponentProps<typeof CMDK.CommandEmpty>;
+type CommandEmptyProps = ComponentProps<typeof CMDKCommandEmpty>;
 
 export const CommandEmpty = ({ className, ...props }: CommandEmptyProps) => (
-  <CMDK.CommandEmpty
+  <CMDKCommandEmpty
     className={cn('py-6 text-center text-sm', className)}
     {...props}
   />
 );
-CommandEmpty.displayName = CMDK.CommandEmpty.displayName;
+CommandEmpty.displayName = CMDKCommandEmpty.displayName;
 
-type CommandGroupProps = ComponentProps<typeof CMDK.CommandGroup>;
+type CommandGroupProps = ComponentProps<typeof CMDKCommandGroup>;
 
 export const CommandGroup = ({ className, ...props }: CommandGroupProps) => (
-  <CMDK.CommandGroup
+  <CMDKCommandGroup
     className={cn(
       'flex flex-col text-foreground [&[cmdk-group-heading]]:text-sm [&[cmdk-group-heading]]:font-bold [&[cmdk-group-heading]]:text-accent-foreground [&[cmdk-item]]:mt-3 [&[cmdk-item]]:text-sm [&[cmdk-item]]:sm:mt-5',
       className,
@@ -85,25 +95,25 @@ export const CommandGroup = ({ className, ...props }: CommandGroupProps) => (
     {...props}
   />
 );
-CommandGroup.displayName = CMDK.CommandGroup.displayName;
+CommandGroup.displayName = CMDKCommandGroup.displayName;
 
-type CommandSeparatorProps = ComponentProps<typeof CMDK.CommandSeparator>;
+type CommandSeparatorProps = ComponentProps<typeof CMDKCommandSeparator>;
 
 export const CommandSeparator = ({
   className,
   ...props
 }: CommandSeparatorProps) => (
-  <CMDK.CommandSeparator
+  <CMDKCommandSeparator
     className={cn('-mx-1 h-px bg-border', className)}
     {...props}
   />
 );
-CommandSeparator.displayName = CMDK.CommandSeparator.displayName;
+CommandSeparator.displayName = CMDKCommandSeparator.displayName;
 
-type CommandItemProps = ComponentProps<typeof CMDK.CommandItem>;
+type CommandItemProps = ComponentProps<typeof CMDKCommandItem>;
 
 export const CommandItem = ({ className, ...props }: CommandItemProps) => (
-  <CMDK.CommandItem
+  <CMDKCommandItem
     className={cn(
       'relative -ml-4 flex select-none items-center gap-2 truncate rounded-sm px-4 py-2 text-sm text-foreground data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&svg]:pointer-events-none [&svg]:size-4 [&svg]:shrink-0',
       className,
@@ -111,7 +121,7 @@ export const CommandItem = ({ className, ...props }: CommandItemProps) => (
     {...props}
   />
 );
-CommandItem.displayName = CMDK.CommandItem.displayName;
+CommandItem.displayName = CMDKCommandItem.displayName;
 
 type CommandShortcutProps = ComponentProps<'span'>;
 

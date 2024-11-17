@@ -1,8 +1,5 @@
 'use client';
 
-import { Label } from '@/components';
-import { cn } from '@/lib/utils';
-import { Slot } from '@radix-ui/react-slot';
 import { type ComponentProps, createContext, useContext, useId } from 'react';
 import {
   Controller,
@@ -12,6 +9,10 @@ import {
   FormProvider,
   useFormContext,
 } from 'react-hook-form';
+
+import { Label, RadixSlot } from '@/components';
+
+import { cn } from '@/lib/utils';
 
 export const Form = FormProvider;
 
@@ -97,14 +98,14 @@ export const FormLabel = ({ className, ...props }: FormLabelProps) => {
 };
 FormLabel.displayName = 'FormLabel';
 
-type FormControlProps = ComponentProps<typeof Slot>;
+type FormControlProps = ComponentProps<typeof RadixSlot>;
 
 export const FormControl = ({ ...props }: FormControlProps) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
   return (
-    <Slot
+    <RadixSlot
       id={formItemId}
       aria-describedby={
         !error
